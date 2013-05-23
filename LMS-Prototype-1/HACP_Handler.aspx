@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HACP_Handler.aspx.cs" Inherits="LMS_Prototype_1.Courses.HACP_Handler" %>
