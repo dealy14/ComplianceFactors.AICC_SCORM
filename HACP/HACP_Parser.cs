@@ -36,7 +36,7 @@ namespace LMS_Prototype_1
 
                 if (sBlockElements.Contains(block.Key)) // is a block of data (contiguous string)
                 {
-                    dKeyValuePairs.Add(block.Key.ToLower().Trim(), block.Value.Trim(new char[] { '\r', '\n', '\t', ' ' }));
+                    dKeyValuePairs.Add(dMapping[block.Key.ToLower().Trim()], block.Value.Trim(new char[] { '\r', '\n', '\t', ' ' }));
                 }
                 else // is a key-value pair section
                 {
@@ -77,10 +77,10 @@ namespace LMS_Prototype_1
                         else if ("lesson_status" == kvPair[0])
                         {
                             string[] lesson_statuses = kvPair[1].Split(',');
-                            dMapping.Add("cmi.core.lesson_status", lesson_statuses[0].Trim());
+                            dKeyValuePairs.Add("cmi.core.lesson_status", lesson_statuses[0].Trim());
                             if (lesson_statuses.Length > 1)
                             {
-                                dMapping.Add("cmi.core.exit/entry", lesson_statuses[1].Trim());
+                                dKeyValuePairs.Add("cmi.core.exit/entry", lesson_statuses[1].Trim());
                                 // TODO: Fix exit/entry delineation 
                             }
                         }

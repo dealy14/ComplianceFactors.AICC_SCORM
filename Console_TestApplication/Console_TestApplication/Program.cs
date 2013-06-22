@@ -87,7 +87,25 @@ my lesson state data – 1111111111111111111000000000000000001110000
             parsed_dictionary = hacpParser.parsePutParam("asdfasdf", value);
 
             Debug.Assert(parsed_dictionary["cmi.core.session_time"] == "1002:34:05", "cmi.core.time is not correct");
-            //Debug.Assert(); //...
+            Debug.Assert(parsed_dictionary["cmi.core.lesson_location"] == "end");
+            Debug.Assert(parsed_dictionary["cmi.core.score.raw"] == "8");
+            Debug.Assert(parsed_dictionary["cmi.core.score.max"] == "10");
+            Debug.Assert(parsed_dictionary["cmi.core.score.min"] == "0");
+            Debug.Assert(parsed_dictionary["cmi.core.lesson_status"] == "f");
+            Debug.Assert(parsed_dictionary["cmi.suspend_data"] == "9 00 001010101100110\r\n000 001010101100110\r\n000001010101100110\r\ngl’;sdfgl’;sdfhgl’;sdfhgls’;df");
+            Debug.Assert(parsed_dictionary["cmi.comments"] == "<1>The background color is too blue!<1.e><2>The CDU\r\npanel has the incorrect ‘way points’ displayed for\r\nthis route. <2.e><3>The CDU panel has the incorrect\r\n‘way points’ displayed for this route. <3.e><4>The\r\nCDU panel has the incorrect ‘way points’ displayed\r\nfor this route. <e.4>");
+
+            value = "[core]\r\nScore = 8, 10\r\n";
+            parsed_dictionary = hacpParser.parsePutParam("asdfasdf", value);
+
+            Debug.Assert(parsed_dictionary.ContainsKey("cmi.core.session_time") == false);
+            Debug.Assert(parsed_dictionary.ContainsKey("cmi.core.lesson_location") == false);
+            Debug.Assert(parsed_dictionary["cmi.core.score.raw"] == "8");
+            Debug.Assert(parsed_dictionary["cmi.core.score.max"] == "10");
+            Debug.Assert(parsed_dictionary.ContainsKey("cmi.core.score.min") == false);
+            Debug.Assert(parsed_dictionary.ContainsKey("cmi.core.lesson_status") == false);
+            Debug.Assert(parsed_dictionary.ContainsKey("cmi.suspend_data") == false);
+            Debug.Assert(parsed_dictionary.ContainsKey("cmi.comments") == false);
 
             Console.Write("press any key to continue...");
             Console.ReadKey(false);
