@@ -5,11 +5,9 @@
 
 <style type="text/css"> 
 html {overflow: visible;} 
-html, body, div, iframe #content {margin: 0px; padding: 0px; border: none;} 
+html, body, div, iframe #content {margin: 0px; padding: 0px; height: 100%; border: none;} 
 iframe #content {display: block; width: 100%; min-height: 600px ; border: none; overflow-y: visible; overflow-x: visible;} 
 </style> 
-
-<script src="Scripts/iframe.js" type="text/javascript"></script>
 
 <script type="text/javascript" >
     //
@@ -169,8 +167,6 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
             if (param == "") {
                 if (!Initialized) {
                     Initialized = true;
-                    this.initialized = true;
-                    //alert("initialized");
                     errorCode = "0";
                     return "true";
                 } else {
@@ -187,7 +183,6 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
             if (param == "") {
                 if (Initialized) {
                     Initialized = false;
-                    this.initialized = false;
                     cmi.terminate = "true";
                     result = StoreData(cmi, true);
                     return "true";
@@ -483,9 +478,6 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
                             cmi.core.lesson_status = 'failed';
                         }
                     }
-                    if (cmi.core.lesson_status == 'not attempted') {
-                        cmi.core.lesson_status = 'incomplete';
-                    }
                 }
             }
             if (cmi.core.lesson_mode == 'browse') {
@@ -551,7 +543,7 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
     var API = new AICC_SCORM_API();
 
     // Handle browser close/window unload --> trigger saving of data to server
-    window.onbeforeunload = function () {
+    $(window).unload(function () {
 
         if (API.initialized) { //check to see if API is initialized (implies it was used, rather than HACP)
 
@@ -563,7 +555,7 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
             var dto = JSON.stringify(API.cmi);
             API.PostData(JSON.stringify(dto), false);
         }
-    }
+    });
 </script>
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">

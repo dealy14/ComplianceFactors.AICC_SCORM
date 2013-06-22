@@ -8,6 +8,8 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Objects.DataClasses;
 using System.Data.EntityClient;
+using System.Collections;
+using System.Dynamic;
 
 namespace LMS_Prototype_1.Courses
 {
@@ -132,11 +134,23 @@ namespace LMS_Prototype_1.Courses
 
                 case "putparam":
                     //save passed parameters
-
+                    
                     //parse putparam
+                    HACP_Parser hacpParser = new HACP_Parser();
+                    
+                    hacpParser.parsePutParam(sessionid, HttpUtility.UrlDecode(aiccdata));
 
                     //persist values...
 
+                    break;
+
+                case "putcomments":
+                    // parse CSV
+                    break;
+
+                
+                case "putinteractions":
+                    // parse CSV
                     break;
 
                 case "exitau":
@@ -161,5 +175,8 @@ namespace LMS_Prototype_1.Courses
             Response.Write(output);
             Response.End();
         }
+    
+    
+ 
     }
 }

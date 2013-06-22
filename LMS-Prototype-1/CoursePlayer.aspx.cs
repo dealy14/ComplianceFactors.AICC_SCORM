@@ -30,12 +30,6 @@ namespace LMS_Prototype_1
             aicc_url = this.Request["aicc_url"];
             aicc_sid = this.Request["aicc_sid"];
 
-            if (string.IsNullOrEmpty(enrollment_id))
-            {
-                Response.Write("Invalid Enrollment");
-                Response.End();
-            }
-
             using (ComplianceFactorsEntities context = new ComplianceFactorsEntities())
             {
                 var enroll = (from en in context.e_tb_enrollments

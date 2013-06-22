@@ -58,8 +58,7 @@ namespace LMS_Prototype_1
                 }
 
                 var score_raw = cmi.core.score.raw ?? "";
-                if (score_raw != "")
-                    enroll.e_enroll_score = Convert.ToDecimal(score_raw);
+                enroll.e_enroll_score = Convert.ToDecimal(score_raw);
 
                 enroll.e_enroll_lesson_location = cmi.core.lesson_location;
                 enroll.e_enroll_lesson_status = cmi.core.lesson_status ?? "";
@@ -73,10 +72,12 @@ namespace LMS_Prototype_1
                 if (null == enroll.e_enroll_time_spent)
                     enroll.e_enroll_time_spent = TimeSpan.Parse(cmi.core.total_time).Seconds;
                 else
-                    enroll.e_enroll_time_spent = TimeSpan.Parse(cmi.core.total_time).Seconds + TimeSpan.Parse(cmi.core.session_time).Seconds;
+                    enroll.e_enroll_time_spent = TimeSpan.Parse(cmi.core.total_time).Seconds 
+                                                    + TimeSpan.Parse(cmi.core.session_time).Seconds;
 
                 enroll.e_enroll_suspend_data = cmi.suspend_data;
-                //enroll.e_enroll_student_comments = cmi.comments; // TODO: review logic for this element (double meaning, depending on direction of call)
+                //enroll.e_enroll_student_comments = cmi.comments; 
+                    // TODO: review logic for this element (double meaning, depending on direction of call)
                 
                 context.SaveChanges();
             
@@ -89,29 +90,34 @@ namespace LMS_Prototype_1
                     enroll.e_enroll_completion_date = DateTime.Now;
                     enroll.e_enroll_active_flag = false;
 
-                    t_tb_transcripts tx = new t_tb_transcripts() { 
-                                                    t_transcript_active_flag = true, 
-                                                    t_transcript_actual_date = DateTime.Now, 
-                                                    t_transcript_passing_status_id_fk = enroll.e_enroll_lesson_status,
-                                                    t_transcript_enroll_id_fk = enroll.e_enroll_system_id_pk,
-                                                    t_transcript_delivery_id_fk = enroll.e_enroll_delivery_id_fk,
-                                                    t_transcript_user_id_fk = enroll.e_enroll_user_id_fk,
-                                                    t_transcript_attendance_id_fk = "cd8a0438-0631-4996-8bc0-5b9609e70cb6",
-                                                    t_transcript_completion_date_time = DateTime.Now,
-                                                    t_transcript_completion_type_id_fk = "cd8a0438-0631-4996-8bc0-5b9609e70cb6",
-                                                    t_transcript_target_due_date = enroll.e_enroll_target_due_date,
-                                                    t_transcript_status_id_fk = new Guid("4f180939-ca63-4f5d-89d3-486ab96e76cb"), // 'completed' (must change)
-                                                    t_transcript_score = enroll.e_enroll_score,
-                                                    t_transcript_credits = enroll.c_tb_deliveries_master.c_delivery_credit_units,
-                                                    t_transcript_hours = enroll.c_tb_deliveries_master.c_delivery_credit_hours,
-                                                    t_transcript_time_spent = enroll.e_enroll_time_spent,
-                                                    t_transcript_course_id_fk = enroll.e_enroll_course_id_fk,
-                                                    t_transcript_marked_by_user_id_fk = enroll.e_enroll_user_id_fk, // temp
-
-                                                 };
-                    context.t_tb_transcripts.AddObject(tx);
+                    t_tb_transcripts tx = t_tb_transcripts.Createt_tb_transcripts(Guid.NewGuid(),
+                        enroll.e_enroll_user_id_fk,
+                        enroll.e_enroll_course_id_fk,
+                        enroll.e_enroll_delivery_id_fk,
+                        "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
+                        enroll.e_enroll_lesson_status,
+                        DateTime.Now,
+                        "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
+                        new Guid(),// all zeroes
+                        DateTime.Now
+                        );
+                    tx.t_transcript_target_due_date = enroll.e_enroll_target_due_date;
+                    tx.t_transcript_status_id_fk = enroll.e_enroll_status_id_fk;
+                    tx.t_transcript_score = enroll.e_enroll_score;
+                    
+                    //TODO: score min/max must be added to transcripts table
+                    
+                    tx.t_transcript_credits = enroll.c_tb_deliveries_master.c_delivery_credit_units;
+                    
+                    tx.t_transcript_hours = enroll.c_tb_deliveries_master.c_delivery_credit_hours;
+                    tx.t_transcript_time_spent = enroll.e_enroll_time_spent;
+                    //tx.t_transcript_completion_score = enroll.e_enroll_score;
+                    
+                    tx.t_transcript_active_flag = true;
+                    
                     context.SaveChanges();
                 }
+            
             }
 
             return "";
