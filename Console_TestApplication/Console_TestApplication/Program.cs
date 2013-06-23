@@ -107,6 +107,103 @@ my lesson state data – 1111111111111111111000000000000000001110000
             Debug.Assert(parsed_dictionary.ContainsKey("cmi.suspend_data") == false);
             Debug.Assert(parsed_dictionary.ContainsKey("cmi.comments") == false);
 
+            value = "[core]\r\nlesson_location = 1,,,,,2\r\n";
+            parsed_dictionary = hacpParser.parsePutParam("asdfasdf", value);
+            
+            Debug.Assert(parsed_dictionary["cmi.core.lesson_location"] == "1,,,,,2");
+
+            value = "[core]\r\nlesson_location =Page 1\r\n";
+            parsed_dictionary = hacpParser.parsePutParam("asdfasdf", value);
+            
+            Debug.Assert(parsed_dictionary["cmi.core.lesson_location"] == "Page 1");
+
+            value = "[core]\r\nlesson_location = #$#&^%&^*$Q#)*%afgfg\r\n";
+            parsed_dictionary = hacpParser.parsePutParam("asdfasdf", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.lesson_location"] == "#$#&^%&^*$Q#)*%afgfg");
+
+            value = "[core]\r\nlesson_status = Passed, Logout";
+            parsed_dictionary = hacpParser.parsePutParam("asdfasdf", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.lesson_status"] == "passed");
+            //Debug.Assert(parsed_dictionary["cmi.core.exit"] == "Logout");
+
+            value = "[core]\r\nCredit = c";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.credit"] == "c");
+
+            value = "[core]\r\nCredit = Credit";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.credit"] == "credit");
+
+            value = "[core]\r\nCredit =N ";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.credit"] == "n");
+
+            value = "[core]\r\nSCORE= 0.654";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.score.raw"] == "0.654");
+
+            value = "[core]\r\nSCORE=1.3, 2";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.score.raw"] == "1.3");
+            Debug.Assert(parsed_dictionary["cmi.core.score.max"] == "2");
+
+            value = "[core]\r\nSCORE= ";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.score.raw"] == "");
+
+            value = "[core]\r\nTime = 00:12:23.3";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.session_time"] == "00:12:23.3");
+            
+            value = "[core]\r\nTime = 02:34:05";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.session_time"] == "02:34:05");
+
+            value = "[core]\r\nTime = 019:12:23.3";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.session_time"] == "019:12:23.3");
+
+            value = "[core]\r\nLesson_mode = Normal";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.lesson_mode"] == "normal");
+
+            value = "[core]\r\nLesson_MODE = r";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.lesson_mode"] == "r");
+
+            value = "[core]\r\nLESSON_MODE = browse";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.lesson_mode"] == "browse");
+
+            value =
+                "[core_lesson]\r\n1BookMark = Some book mark data\r\n2BookMark = Some more book mark data\r\n1StateData = Some state data\r\n2StateData = Some more state data.";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.suspend_data"] ==
+                         "1BookMark = Some book mark data\r\n2BookMark = Some more book mark data\r\n1StateData = Some state data\r\n2StateData = Some more state data."
+            );
+
+            value =
+                "[CORE_Vendor]\r\nLaunchParam1 = Some launch stuff\r\nLaunchParam2 = Some more launch stuff\r\nLaunchParam3 = Some launch stuff";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.launch_data"] ==
+                         "LaunchParam1 = Some launch stuff\r\nLaunchParam2 = Some more launch stuff\r\nLaunchParam3 = Some launch stuff");
+
             Console.Write("press any key to continue...");
             Console.ReadKey(false);
         }

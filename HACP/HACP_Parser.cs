@@ -52,7 +52,7 @@ namespace LMS_Prototype_1
                     {
                         kvPair = keyValuePair.Split('='); //parse key and value
                         kvPair[0] = kvPair[0].ToLower().Trim();
-                        kvPair[1] = kvPair[1].ToLower().Trim();
+                        // Not using ToLower on kvPair[1] because some elements must maintain original case
 
                         //Console.WriteLine("[" + block.Key.ToUpper() + "]" +
                         //                "\tKEY: " + kvPair[0]
@@ -60,7 +60,7 @@ namespace LMS_Prototype_1
 
                         if ("score" == kvPair[0])
                         {
-                            string[] scoreParts = kvPair[1].Split(',');
+                            string[] scoreParts = kvPair[1].ToLower().Split(',');
                             int i = 0;
                             foreach (var scorePart in scoreParts)
                             {
@@ -76,7 +76,7 @@ namespace LMS_Prototype_1
                         }
                         else if ("lesson_status" == kvPair[0])
                         {
-                            string[] lesson_statuses = kvPair[1].Split(',');
+                            string[] lesson_statuses = kvPair[1].ToLower().Split(',');
                             dKeyValuePairs.Add("cmi.core.lesson_status", lesson_statuses[0].Trim());
                             if (lesson_statuses.Length > 1)
                             {
@@ -84,9 +84,13 @@ namespace LMS_Prototype_1
                                 // TODO: Fix exit/entry delineation 
                             }
                         }
-
+                        else if ("lesson_location" == kvPair[0])
+                        {
+                            dKeyValuePairs.Add(dMapping[kvPair[0]], kvPair[1].Trim());
+                        }
                         else
                         {
+                            kvPair[1] = kvPair[1].ToLower().Trim();
                             dKeyValuePairs.Add(dMapping[kvPair[0]], kvPair[1]); //insert key and value into dictionary
                         }
                     }
