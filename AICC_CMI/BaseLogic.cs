@@ -7,155 +7,150 @@ namespace AICC_CMI
 {
     public class BaseLogic
     {
-        private dynamic m_json = null;
-        private Dictionary<string, object> m_dValues;
+        private delegate void FieldDelegate(string key, Dictionary<string, string> json_values);
 
-        //private string m_lessonstatus = "";
-        //private double m_scoreraw, m_score_max, m_score_min, m_mastery_score;
+        private Dictionary<string, string> m_json_values = null;
+        private Dictionary<string, object> m_values = new Dictionary<string, object>();
+        private Dictionary<string, FieldDelegate> m_delegates = new Dictionary<string, FieldDelegate>();
 
         public BaseLogic()
         {
+            InitDelegates();
         }
 
-        public BaseLogic(object json)
+        public BaseLogic(Dictionary<string, string> json_values)
         {
-            m_json = json;
+            InitDelegates();
+            m_json_values = json_values;
         }
 
-        //public string LessonStatus
-        //{
-        //    get { return m_lessonstatus; }
-        //    set
-        //    {
-        //        if (m_json.cmi.core.lesson_mode == "normal")
-        //        {
-        //            if (m_json.cmi.core.credit == "credit")
-        //            {
-        //                if (m_json.cmi.student_data.mastery_score != "" && m_json.cmi.core.score.raw != "")
-        //                {
-        //                    this.SetScoreRaw(m_json.cmi.core.score.raw);
-        //                    this.SetMasteryScore(m_json.cmi.student_data.mastery_score);
+        private void InitDelegates()
+        {
+            m_delegates["cmi.core.lesson_status"] = LessonStatusDelegate;
+        }
 
-        //                    if (this.ScoreRaw >= this.MasteryScore)
-        //                        m_lessonstatus = "passed";
-        //                    else
-        //                        m_lessonstatus = "failed";
-        //                }
-        //            }
-        //        }
-        //        if (m_json.cmi.core.lesson_mode == "browse")
-        //        {
-        //            if (m_json.cmi.core.lesson_status == "not attempted")
-        //                m_lessonstatus = "browsed";
-        //        }
-        //    }
-        //}
+        public void ConsumeJSObj(Dictionary<string, string> m_json_values)
+        {
+            Dictionary<string, string>.KeyCollection keys = m_json_values.Keys;
+            foreach (string key in keys)
+            {
+                if (m_delegates.ContainsKey(key))
+                {
+                    FieldDelegate del = m_delegates[key];
+                    del(key, m_json_values);
+                }
+            }
+        }
 
-        //public double ScoreRaw
-        //{
-        //    get { return m_scoreraw; }
-        //    set { m_scoreraw = value; }
-        //}
+        #region Delegates
+        private void LessonStatusDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetLessonStatus(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+        #endregion
 
-        //public double ScoreMax
-        //{
-        //    get { return m_score_max; }
-        //    set { }
-        //}
+        #region Getters
 
-        //public double ScoreMin
-        //{
-        //    get { return m_score_min; }
-        //    set { }
-        //}
+        private string GetCredit(Dictionary<string, string> m_json_values)
+        {
+            string credit;
+            m_json_values.TryGetValue("cmi.core.credit", out credit);
 
-        //public double MasteryScore
-        //{
-        //    get { return m_mastery_score; }
-        //    set { }
-        //}
+            return credit;
+        }
 
-        //private void SetScoreRaw(string value)
-        //{
-        //    this.ScoreRaw = Convert.ToDouble(value);
-        //}
+        /// <summary>
+        /// For testing.
+        /// </summary>
+        /// <param name="key">key into m_values</param>
+        /// <returns>the value from m_values</returns>
+        public object GetValue(string key)
+        {
+            return m_values[key];
+        }
 
-        //private void SetMasteryScore(string value)
-        //{
-        //    this.MasteryScore = Convert.ToDouble(value);
-        //}
+        private double? GetDouble(string key, Dictionary<string, string> m_json_values)
+        {
+            double? ret = null;
+            string tmp = null;
+            m_json_values.TryGetValue(key, out tmp);
+            if (tmp != null)
+            {
+                double d;
+                bool res = Double.TryParse(tmp, out d);
+                if (res)
+                    ret = d;
+            }
 
+            return ret;
+        }
 
-        //private bool isPopulated = false;
+        private string GetLessonMode(Dictionary<string, string> m_json_values)
+        {
+            string lesson_mode;
+            m_json_values.TryGetValue("cmi.core.lesson_mode", out lesson_mode);
 
-        // public BaseLogic(guid) // overloaded ctor
-                // { 
-                //      assign all properties from EF;
-                //      isPopulated = true;
-                // }
+            return lesson_mode;
+        }
 
-        //public Persist(ComplianceFactorsEntities context)
-        //{
-        //    foreach (key, value in m_dValues)
-        //    {
-        //        context[dMap[key]] = value;
-        //    }
+        private string GetLessonStatus(Dictionary<string, string> m_json_values)
+        {
+            string ret = null;
+            string lesson_status = null;
+            m_json_values.TryGetValue("cmi.core.lesson_status", out lesson_status);
+            string lesson_mode = GetLessonMode(m_json_values);
+            string credit = GetCredit(m_json_values);
+            double? mastery_score = GetMasteryScore(m_json_values);
+            double? score_raw = GetScoreRaw(m_json_values);
 
-        //    //if (foo has changed)
-        //    //  context.foo = this.foo
-        //}
+            if (lesson_status != null)
+            {
+                if (lesson_mode == "normal")
+                {
+                    if (credit == "credit")
+                    {
+                        if (mastery_score != null && score_raw != null)
+                        {
+                            if (score_raw >= mastery_score)
+                                ret = "passed";
+                            else
+                                ret = "failed";
+                        }
+                    }
+                }
+                if (lesson_mode == "browse")
+                {
+                    if (lesson_status == "not attempted")
+                        ret = "browsed";
+                }
+            }
 
-        //public void ConsumeJSObj(dynamic m_json)
-        //{
-        //    keys = m_json.Keys;
-        //    foreach (key in keys)
-        //    {
-        //        mthd = delegates[key];
-        //        mthd(key, m_json);
-        //    }
-        //}
+            return ret;
+        }
 
-        //private void LessonStatusDelegate(string key, dynamic m_json)
-        //{
-        //    string tmp = CalcLessonStatus(key, m_json);
-        //    if (tmp.Length > 0)
-        //        this.m_dValues[key] = tmp;
-        //}
+        private double? GetMasteryScore(Dictionary<string, string> m_json_values)
+        {
+            return GetDouble("cmi.student_data.mastery_score", m_json_values);
+        }
 
-        //private string CalcLessonStatus(string key, dynamic m_json)
-        //{
-        //    string ret = "";
-        //    string lesson_status;
-        //    m_json.TryGetValue("cmi.core.lesson_status", out lesson_status);
+        private double? GetScoreRaw(Dictionary<string, string> m_json_values)
+        {
+            return GetDouble("cmi.core.score.raw", m_json_values);
+        }
 
-        //    if (lesson_status != "")
-        //    {
-        //        if (m_json.cmi.core.lesson_mode == "normal")
-        //        {
-        //            if (m_json.cmi.core.credit == "credit")
-        //            {
-        //                if (m_json.cmi.student_data.mastery_score != "" && m_json.cmi.core.score.raw != "")
-        //                {
-        //                    this.SetScoreRaw(m_json.cmi.core.score.raw);
-        //                    this.SetMasteryScore(m_json.cmi.student_data.mastery_score);
+        private double? GetScoreMax(Dictionary<string, string> m_json_values)
+        {
+            return GetDouble("cmi.core.score.max", m_json_values);
+        }
 
-        //                    if (this.ScoreRaw >= this.MasteryScore)
-        //                        ret = "passed";
-        //                    else
-        //                        ret = "failed";
-        //                }
-        //            }
-        //        }
-        //        if (m_json.cmi.core.lesson_mode == "browse")
-        //        {
-            //        if (m_json.cmi.core.lesson_status == "not attempted")
-            //            ret = "browsed";
-            //    }
-            //}
+        private double? GetScoreMin(Dictionary<string, string> m_json_values)
+        {
+            return GetDouble("cmi.core.score.min", m_json_values);
+        }
 
-            //return ret;
-
-        //}
+        #endregion
     }
 
 }

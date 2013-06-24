@@ -13,6 +13,32 @@ namespace Console_TestApplication
     {
         static void Main(string[] args)
         {
+            HACPParserTest();
+            BaseLogicTest();
+        }
+
+        static void BaseLogicTest()
+        {
+            Dictionary<string, string> json = new Dictionary<string,string>();
+            json.Add("cmi.core.lesson_location", "end");
+            json.Add("cmi.core.credit", "credit");
+            json.Add("cmi.core.lesson_status", "attempted");
+            json.Add("cmi.core.score.raw", "8.5");
+            json.Add("cmi.core.score.min", "0");
+            json.Add("cmi.core.score.max", "10");
+            json.Add("cmi.core.session_time", "47:00");
+            json.Add("cmi.core.total_time", "1:23:00");
+            json.Add("cmi.core.lesson_mode", "normal");
+            json.Add("cmi.student_data.mastery_score", "8");
+
+            AICC_CMI.BaseLogic baselogic = new AICC_CMI.BaseLogic();
+            baselogic.ConsumeJSObj(json);
+
+            Debug.Assert(((string) baselogic.GetValue("cmi.core.lesson_status") == "passed"));
+        }
+
+        static void HACPParserTest()
+        {
 
             /*
              [Core]

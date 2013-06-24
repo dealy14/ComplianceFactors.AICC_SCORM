@@ -50,6 +50,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AICC_CMI\AICC_CMI.csproj">
+      <Project>{8D72B1D9-531E-4EB2-986E-CFF2EF8EF8F9}</Project>
+      <Name>AICC_CMI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\HACP\HACP.csproj">
       <Project>{2D7D4BAD-F453-4413-ABF0-1571A9941F3F}</Project>
       <Name>HACP</Name>
