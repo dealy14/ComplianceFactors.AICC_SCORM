@@ -34,7 +34,16 @@ namespace Console_TestApplication
             AICC_CMI.BaseLogic baselogic = new AICC_CMI.BaseLogic();
             baselogic.ConsumeJSObj(json);
 
-            Debug.Assert(((string) baselogic.GetValue("cmi.core.lesson_status") == "passed"));
+            Debug.Assert(((string)baselogic.GetValue("cmi.core.lesson_location") == "end"));
+            Debug.Assert(((string)baselogic.GetValue("cmi.core.credit") == "credit"));
+            Debug.Assert(((string)baselogic.GetValue("cmi.core.lesson_status") == "passed"));
+            Debug.Assert(((double)baselogic.GetValue("cmi.core.score.raw") == 8.5d));
+            Debug.Assert(((double)baselogic.GetValue("cmi.core.score.min") == 0d));
+            Debug.Assert(((double)baselogic.GetValue("cmi.core.score.max") == 10d));
+            //Debug.Assert(((TimeSpan)baselogic.GetValue("cmi.core.session_time") == new TimeSpan(0, 47, 00)));
+            //Debug.Assert(((string)baselogic.GetValue("cmi.core.total_time", "1:23:00");
+            Debug.Assert(((string)baselogic.GetValue("cmi.core.lesson_mode") == "normal"));
+            Debug.Assert(((double)baselogic.GetValue("cmi.student_data.mastery_score") == 8d));
         }
 
         static void HACPParserTest()
