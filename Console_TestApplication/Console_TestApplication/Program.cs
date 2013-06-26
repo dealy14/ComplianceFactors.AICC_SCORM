@@ -33,6 +33,8 @@ namespace Console_TestApplication
             json.Add("cmi.core.total_time", "1:23:00");
             json.Add("cmi.core.lesson_mode", "normal");
             json.Add("cmi.student_data.mastery_score", "8");
+            json.Add("cmi.suspend_data", "9 00 001010101100110\r\n000 001010101100110\r\n000001010101100110\r\ngl’;sdfgl’;sdfhgl’;sdfhgls’;df");
+            json.Add("cmi.comments", "<1>The background color is too blue!<1.e><2>The CDU\r\npanel has the incorrect ‘way points’ displayed for\r\nthis route. <2.e><3>The CDU panel has the incorrect\r\n‘way points’ displayed for this route. <3.e><4>The\r\nCDU panel has the incorrect ‘way points’ displayed\r\nfor this route. <e.4>");
 
             AICC_CMI.BaseLogic baselogic = new AICC_CMI.BaseLogic();
             baselogic.ConsumeJSObj(json);
@@ -47,6 +49,8 @@ namespace Console_TestApplication
             //Debug.Assert(((string)baselogic.GetValue("cmi.core.total_time", "1:23:00");
             Debug.Assert(((string)baselogic.GetValue("cmi.core.lesson_mode") == "normal"));
             Debug.Assert(((double)baselogic.GetValue("cmi.student_data.mastery_score") == 8d));
+            Debug.Assert(((string)baselogic.GetValue("cmi.suspend_data") == "9 00 001010101100110\r\n000 001010101100110\r\n000001010101100110\r\ngl’;sdfgl’;sdfhgl’;sdfhgls’;df"));
+            Debug.Assert(((string)baselogic.GetValue("cmi.comments") == "<1>The background color is too blue!<1.e><2>The CDU\r\npanel has the incorrect ‘way points’ displayed for\r\nthis route. <2.e><3>The CDU panel has the incorrect\r\n‘way points’ displayed for this route. <3.e><4>The\r\nCDU panel has the incorrect ‘way points’ displayed\r\nfor this route. <e.4>"));
 
             json.Remove("cmi.core.lesson_location");
             json.Remove("cmi.core.lesson_status");

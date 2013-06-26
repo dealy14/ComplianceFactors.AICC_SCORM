@@ -35,6 +35,8 @@ namespace AICC_CMI
             m_delegates["cmi.core.score.min"] = ScoreMinDelegate;
             m_delegates["cmi.core.score.max"] = ScoreMaxDelegate;
             m_delegates["cmi.core.session_time"] = SessionTimeDelegate;
+            m_delegates["cmi.suspend_data"] = SuspendDataDelegate;
+            m_delegates["cmi.comments"] = CommentsDelegate;
         }
 
         public void ConsumeJSObj(Dictionary<string, string> json_values)
@@ -51,6 +53,13 @@ namespace AICC_CMI
         }
 
         #region Delegates
+        private void CommentsDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetComments(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
         private void CreditDelegate(string key, Dictionary<string, string> json_values)
         {
             string tmp = GetCredit(json_values);
@@ -110,6 +119,13 @@ namespace AICC_CMI
         private void SessionTimeDelegate(string key, Dictionary<string, string> json_values)
         {
             TimeSpan? tmp = GetSessionTime(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void SuspendDataDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetSuspendData(json_values);
             if (tmp != null)
                 this.m_values[key] = tmp;
         }
