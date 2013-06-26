@@ -14,13 +14,13 @@ namespace Console_TestApplication
         static void Main(string[] args)
         {
             HACPParserTest();
-            BaseLogicTest();
+            JSAPILogicTest();
 
             Console.Write("press any key to continue...");
             Console.ReadKey(false);
         }
 
-        static void BaseLogicTest()
+        static void JSAPILogicTest()
         {
             Dictionary<string, string> json = new Dictionary<string,string>();
             json.Add("cmi.core.lesson_location", "end");
@@ -36,30 +36,30 @@ namespace Console_TestApplication
             json.Add("cmi.suspend_data", "9 00 001010101100110\r\n000 001010101100110\r\n000001010101100110\r\ngl’;sdfgl’;sdfhgl’;sdfhgls’;df");
             json.Add("cmi.comments", "<1>The background color is too blue!<1.e><2>The CDU\r\npanel has the incorrect ‘way points’ displayed for\r\nthis route. <2.e><3>The CDU panel has the incorrect\r\n‘way points’ displayed for this route. <3.e><4>The\r\nCDU panel has the incorrect ‘way points’ displayed\r\nfor this route. <e.4>");
 
-            AICC_CMI.BaseLogic baselogic = new AICC_CMI.BaseLogic();
-            baselogic.ConsumeJSObj(json);
+            AICC_CMI.JS_API_Logic jslogic = new AICC_CMI.JS_API_Logic();
+            jslogic.ConsumeJSObj(json);
 
-            Debug.Assert(((string)baselogic.GetValue("cmi.core.lesson_location") == "end"));
-            Debug.Assert(((string)baselogic.GetValue("cmi.core.credit") == "credit"));
-            Debug.Assert(((string)baselogic.GetValue("cmi.core.lesson_status") == "passed"));
-            Debug.Assert(((double)baselogic.GetValue("cmi.core.score.raw") == 8.5d));
-            Debug.Assert(((double)baselogic.GetValue("cmi.core.score.min") == 0d));
-            Debug.Assert(((double)baselogic.GetValue("cmi.core.score.max") == 10d));
-            Debug.Assert(((TimeSpan)baselogic.GetValue("cmi.core.session_time") == new TimeSpan(0, 47, 00)));
-            //Debug.Assert(((string)baselogic.GetValue("cmi.core.total_time", "1:23:00");
-            Debug.Assert(((string)baselogic.GetValue("cmi.core.lesson_mode") == "normal"));
-            Debug.Assert(((double)baselogic.GetValue("cmi.student_data.mastery_score") == 8d));
-            Debug.Assert(((string)baselogic.GetValue("cmi.suspend_data") == "9 00 001010101100110\r\n000 001010101100110\r\n000001010101100110\r\ngl’;sdfgl’;sdfhgl’;sdfhgls’;df"));
-            Debug.Assert(((string)baselogic.GetValue("cmi.comments") == "<1>The background color is too blue!<1.e><2>The CDU\r\npanel has the incorrect ‘way points’ displayed for\r\nthis route. <2.e><3>The CDU panel has the incorrect\r\n‘way points’ displayed for this route. <3.e><4>The\r\nCDU panel has the incorrect ‘way points’ displayed\r\nfor this route. <e.4>"));
+            Debug.Assert(((string)jslogic.GetValue("cmi.core.lesson_location") == "end"));
+            Debug.Assert(((string)jslogic.GetValue("cmi.core.credit") == "credit"));
+            Debug.Assert(((string)jslogic.GetValue("cmi.core.lesson_status") == "passed"));
+            Debug.Assert(((double)jslogic.GetValue("cmi.core.score.raw") == 8.5d));
+            Debug.Assert(((double)jslogic.GetValue("cmi.core.score.min") == 0d));
+            Debug.Assert(((double)jslogic.GetValue("cmi.core.score.max") == 10d));
+            Debug.Assert(((TimeSpan)jslogic.GetValue("cmi.core.session_time") == new TimeSpan(0, 47, 00)));
+            //Debug.Assert(((string)jslogic.GetValue("cmi.core.total_time", "1:23:00");
+            Debug.Assert(((string)jslogic.GetValue("cmi.core.lesson_mode") == "normal"));
+            Debug.Assert(((double)jslogic.GetValue("cmi.student_data.mastery_score") == 8d));
+            Debug.Assert(((string)jslogic.GetValue("cmi.suspend_data") == "9 00 001010101100110\r\n000 001010101100110\r\n000001010101100110\r\ngl’;sdfgl’;sdfhgl’;sdfhgls’;df"));
+            Debug.Assert(((string)jslogic.GetValue("cmi.comments") == "<1>The background color is too blue!<1.e><2>The CDU\r\npanel has the incorrect ‘way points’ displayed for\r\nthis route. <2.e><3>The CDU panel has the incorrect\r\n‘way points’ displayed for this route. <3.e><4>The\r\nCDU panel has the incorrect ‘way points’ displayed\r\nfor this route. <e.4>"));
 
             json.Remove("cmi.core.lesson_location");
             json.Remove("cmi.core.lesson_status");
             json.Add("cmi.core.lesson_location", "somewhere before the end");
             json.Add("cmi.core.lesson_status", "incomplete");
 
-            baselogic.ConsumeJSObj(json);
+            jslogic.ConsumeJSObj(json);
 
-            Debug.Assert(((string) baselogic.GetValue("cmi.core.lesson_status") == "incomplete"));
+            Debug.Assert(((string) jslogic.GetValue("cmi.core.lesson_status") == "incomplete"));
         }
 
         static void HACPParserTest()

@@ -5,22 +5,28 @@ using System.Text;
 
 namespace AICC_CMI
 {
-    public class BaseLogic
+    public abstract class BaseLogic
     {
         private delegate void FieldDelegate(string key, Dictionary<string, string> json_values);
 
         private Dictionary<string, string> m_json_values = null;
         private Dictionary<string, object> m_values = new Dictionary<string, object>();
         private Dictionary<string, FieldDelegate> m_delegates = new Dictionary<string, FieldDelegate>();
+        protected Dictionary<string, string> m_map_lesson_status = new Dictionary<string,string>();
+        protected List<string> m_lesson_statuses_completed = new List<string>();
 
         public BaseLogic()
         {
             InitDelegates();
+            InitLessonStatusMap();
+            InitLessonStatusesCompleted();
         }
 
         public BaseLogic(Dictionary<string, string> json_values)
         {
             InitDelegates();
+            InitLessonStatusMap();
+            InitLessonStatusesCompleted();
             m_json_values = json_values;
         }
 
@@ -38,6 +44,9 @@ namespace AICC_CMI
             m_delegates["cmi.suspend_data"] = SuspendDataDelegate;
             m_delegates["cmi.comments"] = CommentsDelegate;
         }
+
+        protected abstract void InitLessonStatusMap();
+        protected abstract void InitLessonStatusesCompleted();
 
         public void ConsumeJSObj(Dictionary<string, string> json_values)
         {
@@ -213,6 +222,8 @@ namespace AICC_CMI
             string ret = null;
             string lesson_status = null;
             json_values.TryGetValue("cmi.core.lesson_status", out lesson_status);
+            lesson_status = m_map_lesson_status[lesson_status];
+
             string lesson_mode = GetLessonMode(json_values);
             string credit = GetCredit(json_values);
             double? mastery_score = GetMasteryScore(json_values);
@@ -313,6 +324,15 @@ namespace AICC_CMI
             }
 
             return ret;
+        }
+
+        #endregion
+
+        #region Utility Methods
+
+        private bool LessonCompleted(string status)
+        {
+            return m_lesson_statuses_completed.Contains(status);
         }
 
         #endregion

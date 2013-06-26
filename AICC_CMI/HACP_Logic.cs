@@ -5,7 +5,16 @@ using System.Text;
 
 namespace AICC_CMI
 {
-    class HACP_Logic : BaseLogic
+    public class HACP_Logic : BaseLogic
     {
+        protected override void InitLessonStatusMap()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void InitLessonStatusesCompleted()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
