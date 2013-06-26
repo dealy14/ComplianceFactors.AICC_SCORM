@@ -29,7 +29,7 @@ namespace Console_TestApplication
             json.Add("cmi.core.score.raw", "8.5");
             json.Add("cmi.core.score.min", "0");
             json.Add("cmi.core.score.max", "10");
-            json.Add("cmi.core.session_time", "47:00");
+            json.Add("cmi.core.session_time", "00:47:00");
             json.Add("cmi.core.total_time", "1:23:00");
             json.Add("cmi.core.lesson_mode", "normal");
             json.Add("cmi.student_data.mastery_score", "8");
@@ -43,7 +43,7 @@ namespace Console_TestApplication
             Debug.Assert(((double)baselogic.GetValue("cmi.core.score.raw") == 8.5d));
             Debug.Assert(((double)baselogic.GetValue("cmi.core.score.min") == 0d));
             Debug.Assert(((double)baselogic.GetValue("cmi.core.score.max") == 10d));
-            //Debug.Assert(((TimeSpan)baselogic.GetValue("cmi.core.session_time") == new TimeSpan(0, 47, 00)));
+            Debug.Assert(((TimeSpan)baselogic.GetValue("cmi.core.session_time") == new TimeSpan(0, 47, 00)));
             //Debug.Assert(((string)baselogic.GetValue("cmi.core.total_time", "1:23:00");
             Debug.Assert(((string)baselogic.GetValue("cmi.core.lesson_mode") == "normal"));
             Debug.Assert(((double)baselogic.GetValue("cmi.student_data.mastery_score") == 8d));
