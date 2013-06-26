@@ -15,6 +15,9 @@ namespace Console_TestApplication
         {
             HACPParserTest();
             BaseLogicTest();
+
+            Console.Write("press any key to continue...");
+            Console.ReadKey(false);
         }
 
         static void BaseLogicTest()
@@ -35,6 +38,15 @@ namespace Console_TestApplication
             baselogic.ConsumeJSObj(json);
 
             Debug.Assert(((string) baselogic.GetValue("cmi.core.lesson_status") == "passed"));
+
+            json.Remove("cmi.core.lesson_location");
+            json.Remove("cmi.core.lesson_status");
+            json.Add("cmi.core.lesson_location", "somewhere before the end");
+            json.Add("cmi.core.lesson_status", "incomplete");
+
+            baselogic.ConsumeJSObj(json);
+
+            Debug.Assert(((string) baselogic.GetValue("cmi.core.lesson_status") == "incomplete"));
         }
 
         static void HACPParserTest()
@@ -230,8 +242,6 @@ my lesson state data – 1111111111111111111000000000000000001110000
             Debug.Assert(parsed_dictionary["cmi.launch_data"] ==
                          "LaunchParam1 = Some launch stuff\r\nLaunchParam2 = Some more launch stuff\r\nLaunchParam3 = Some launch stuff");
 
-            Console.Write("press any key to continue...");
-            Console.ReadKey(false);
         }
 
     }

@@ -109,14 +109,21 @@ namespace AICC_CMI
             {
                 if (lesson_mode == "normal")
                 {
-                    if (credit == "credit")
+                    if (lesson_status == "incomplete")
                     {
-                        if (mastery_score != null && score_raw != null)
+                        ret = "incomplete";
+                    }
+                    else
+                    {
+                        if (credit == "credit")
                         {
-                            if (score_raw >= mastery_score)
-                                ret = "passed";
-                            else
-                                ret = "failed";
+                            if (mastery_score != null && score_raw != null)
+                            {
+                                if (score_raw >= mastery_score)
+                                    ret = "passed";
+                                else
+                                    ret = "failed";
+                            }
                         }
                     }
                 }
