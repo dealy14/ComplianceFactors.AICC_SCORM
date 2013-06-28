@@ -80,8 +80,7 @@ namespace LMS_Prototype_1
                             dKeyValuePairs.Add("cmi.core.lesson_status", lesson_statuses[0].Trim());
                             if (lesson_statuses.Length > 1)
                             {
-                                dKeyValuePairs.Add("cmi.core.exit/entry", lesson_statuses[1].Trim());
-                                // TODO: Fix exit/entry delineation 
+                                dKeyValuePairs.Add("cmi.core.exit", lesson_statuses[1].Trim());
                             }
                         }
                         else if ("lesson_location" == kvPair[0])
@@ -109,6 +108,14 @@ namespace LMS_Prototype_1
             dMapping.Add("lesson_location", "cmi.core.lesson_location");
             dMapping.Add("credit", "cmi.core.credit");
             dMapping.Add("lesson_mode", "cmi.core.lesson_mode");
+            
+            // l, t, s, a, r OR ""
+            // l, t, s => core.exit {logout,timeout,suspend, ""} 
+            // a, r => core.entry  {ab-initio,resume,""}
+
+            // If received from the course (in HACP, PutParam), then second value is core.exit
+            // It is never received as core.entry---this is only an outgoing value to the course via GetParam
+            // In the JS API, the values have distinct keys.
             dMapping.Add("lesson_status", "cmi.core.lesson_status"); // lesson_status, [core.exit OR core.entry] (split by ',')
 
             //dMapping.Add("score", "-");

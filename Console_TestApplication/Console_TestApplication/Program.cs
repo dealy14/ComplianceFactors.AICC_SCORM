@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections;
 using LMS_Prototype_1;
 using System.Diagnostics;
-
+using AICC_CMI;
 
 namespace Console_TestApplication
 {
@@ -45,7 +45,7 @@ namespace Console_TestApplication
             Debug.Assert(((double)jslogic.GetValue("cmi.core.score.raw") == 8.5d));
             Debug.Assert(((double)jslogic.GetValue("cmi.core.score.min") == 0d));
             Debug.Assert(((double)jslogic.GetValue("cmi.core.score.max") == 10d));
-            Debug.Assert(((TimeSpan)jslogic.GetValue("cmi.core.session_time") == new TimeSpan(0, 47, 00)));
+            Debug.Assert(((int)jslogic.GetValue("cmi.core.session_time") == 2820));
             //Debug.Assert(((string)jslogic.GetValue("cmi.core.total_time", "1:23:00");
             Debug.Assert(((string)jslogic.GetValue("cmi.core.lesson_mode") == "normal"));
             Debug.Assert(((double)jslogic.GetValue("cmi.student_data.mastery_score") == 8d));
@@ -60,6 +60,52 @@ namespace Console_TestApplication
             jslogic.ConsumeJSObj(json);
 
             Debug.Assert(((string) jslogic.GetValue("cmi.core.lesson_status") == "incomplete"));
+
+            json.Remove("cmi.core.credit");
+            json.Add("cmi.core.credit", "asdf");
+
+            jslogic.ConsumeJSObj(json);
+
+            Debug.Assert(((string) jslogic.GetValue("cmi.core.credit") == "credit"));
+
+            json.Remove("cmi.core.credit");
+            json.Add("cmi.core.credit", null);
+
+            jslogic.ConsumeJSObj(json);
+
+            Debug.Assert(((string)jslogic.GetValue("cmi.core.credit") == "credit"));
+
+            json.Remove("cmi.core.credit");
+            json.Add("cmi.core.credit", "no-credit");
+
+            jslogic.ConsumeJSObj(json);
+
+            Debug.Assert(((string)jslogic.GetValue("cmi.core.credit") == "no-credit"));
+
+            json.Remove("cmi.core.credit");
+            json.Remove("cmi.core.lesson_mode");
+            json.Add("cmi.core.credit", "credit");
+            json.Add("cmi.core.lesson_mode", "browsed");
+
+            jslogic.ConsumeJSObj(json);
+
+            Debug.Assert(((string)jslogic.GetValue("cmi.core.credit") == "no-credit"));
+
+            json.Add("cmi.core.exit", "Logout");
+            jslogic.ConsumeJSObj(json);
+            Debug.Assert(((string) jslogic.GetValue("cmi.core.exit") == "logout"));
+
+            json["cmi.core.exit"] = "boguscrap";
+            jslogic.ConsumeJSObj(json);
+            Debug.Assert(((string)jslogic.GetValue("cmi.core.exit") == ""));
+
+            json.Add("cmi.terminate", "true");
+            jslogic.ConsumeJSObj(json);
+            Debug.Assert((bool) jslogic.GetValue("cmi.terminate") == true);
+
+            json["cmi.terminate"] = "asdfasdf";
+            jslogic.ConsumeJSObj(json);
+            Debug.Assert((bool)jslogic.GetValue("cmi.terminate") == false);
         }
 
         static void HACPParserTest()
@@ -255,6 +301,10 @@ my lesson state data – 1111111111111111111000000000000000001110000
             Debug.Assert(parsed_dictionary["cmi.launch_data"] ==
                          "LaunchParam1 = Some launch stuff\r\nLaunchParam2 = Some more launch stuff\r\nLaunchParam3 = Some launch stuff");
 
+            value = "[Core]\r\nLESSON_Status=l, S";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.exit"] == "s");
         }
 
     }

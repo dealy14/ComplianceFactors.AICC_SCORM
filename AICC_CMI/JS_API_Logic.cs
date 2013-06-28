@@ -9,17 +9,11 @@ namespace AICC_CMI
     {
         protected override void InitLessonStatusMap()
         {
-            m_map_lesson_status.Add("attempted", "attempted");
             m_map_lesson_status.Add("a", "attempted");
-            m_map_lesson_status.Add("browsed", "browsed");
             m_map_lesson_status.Add("b", "browsed");
-            m_map_lesson_status.Add("completed", "completed");
             m_map_lesson_status.Add("c", "completed");
-            m_map_lesson_status.Add("failed", "failed");
             m_map_lesson_status.Add("f", "failed");
-            m_map_lesson_status.Add("incomplete", "incomplete");
             m_map_lesson_status.Add("i", "incomplete");
-            m_map_lesson_status.Add("passed", "passed");
             m_map_lesson_status.Add("p", "passed");
         }
 
@@ -30,6 +24,5 @@ namespace AICC_CMI
             m_lesson_statuses_completed.Add("failed");
             m_lesson_statuses_completed.Add("browsed");
         }
-
     }
 }

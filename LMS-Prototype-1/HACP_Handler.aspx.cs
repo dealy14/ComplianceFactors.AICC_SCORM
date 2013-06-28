@@ -155,7 +155,9 @@ namespace LMS_Prototype_1.Courses
 
                 case "exitau":
                     // wrap up session
-
+                    
+                    // use cmi.terminate to trigger end of session
+                    
                     break;
 
                 default:

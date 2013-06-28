@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.Entity;
+using System.Data.Objects.DataClasses;
+using System.Data.EntityClient;
+using LMS_Prototype_1;
 
 namespace AICC_CMI
 {
@@ -33,6 +37,8 @@ namespace AICC_CMI
         private void InitDelegates()
         {
             m_delegates["cmi.core.credit"] = CreditDelegate;
+            m_delegates["cmi.core.exit"] = ExitDelegate;
+            m_delegates["cmi.core.entry"] = EntryDelegate;
             m_delegates["cmi.core.lesson_location"] = LessonLocationDelegate;
             m_delegates["cmi.core.lesson_mode"] = LessonModeDelegate;
             m_delegates["cmi.core.lesson_status"] = LessonStatusDelegate;
@@ -42,7 +48,9 @@ namespace AICC_CMI
             m_delegates["cmi.core.score.max"] = ScoreMaxDelegate;
             m_delegates["cmi.core.session_time"] = SessionTimeDelegate;
             m_delegates["cmi.suspend_data"] = SuspendDataDelegate;
+            m_delegates["cmi.terminate"] = TerminateDelegate;
             m_delegates["cmi.comments"] = CommentsDelegate;
+
         }
 
         protected abstract void InitLessonStatusMap();
@@ -61,6 +69,13 @@ namespace AICC_CMI
             }
         }
 
+        public void Persist(ComplianceFactorsEntities context)
+        {
+            // loop through m_values and write to context; then save to EF/DB
+
+            // total_time += session_time (session_time will be zero until 'terminate' event)
+        }
+
         #region Delegates
         private void CommentsDelegate(string key, Dictionary<string, string> json_values)
         {
@@ -73,6 +88,20 @@ namespace AICC_CMI
         {
             string tmp = GetCredit(json_values);
             if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void ExitDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetExit(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void EntryDelegate(string key, Dictionary<string, string> json_values)
+        {
+            bool tmp = GetEntry(json_values);
+            //if (tmp != null)
                 this.m_values[key] = tmp;
         }
 
@@ -127,7 +156,7 @@ namespace AICC_CMI
 
         private void SessionTimeDelegate(string key, Dictionary<string, string> json_values)
         {
-            TimeSpan? tmp = GetSessionTime(json_values);
+            int? tmp = GetSessionTime(json_values);
             if (tmp != null)
                 this.m_values[key] = tmp;
         }
@@ -137,6 +166,12 @@ namespace AICC_CMI
             string tmp = GetSuspendData(json_values);
             if (tmp != null)
                 this.m_values[key] = tmp;
+        }
+
+        private void TerminateDelegate(string key, Dictionary<string, string> json_values)
+        {
+            bool tmp = GetTerminate(json_values);
+            this.m_values[key] = tmp;
         }
 
         #endregion
@@ -152,9 +187,32 @@ namespace AICC_CMI
         }
 
         private string GetCredit(Dictionary<string, string> json_values)
-        {
+        {   // CMI determines whether taken for credit or no-credit.
             string credit;
             json_values.TryGetValue("cmi.core.credit", out credit);
+
+            string lesson_mode = GetLessonMode(json_values);
+
+            if (credit != null)
+            {
+                // only first char significant ('n','c')
+                credit = credit.Substring(0, 1);
+
+                if ("n" == credit)
+                    credit = "no-credit";
+                else
+                    credit = "credit";
+            }
+            else
+            {
+                // If unrecognized or no value received, 'credit' assumed.
+                credit = "credit";
+            }
+
+            if ("browsed" == lesson_mode)
+            {
+                credit = "no-credit";
+            }
 
             return credit;
         }
@@ -187,6 +245,13 @@ namespace AICC_CMI
 
         private bool GetEntry(Dictionary<string, string> json_values)
         {
+            
+            // a, r => core.entry  {ab-initio,resume,""}
+
+            // If received from the course (in HACP, PutParam), then second value is core.exit
+            // It is never received as core.entry---this is only an outgoing value to the course via GetParam
+            // In the JS API, the values have distinct keys.
+            
             string entry;
             json_values.TryGetValue("cmi.core.entry", out entry);
 
@@ -195,14 +260,33 @@ namespace AICC_CMI
 
         private string GetExit(Dictionary<string, string> json_values)
         {
-            string exit;
+            // l, t, s => core.exit {logout,time-out,suspend, ""} 
+            Dictionary<string, string> valid_exits = new Dictionary<string, string>
+                {
+                    {"l", "logout"},
+                    {"t", "time-out"},
+                    {"s", "suspend"}
+                };
+            
+            string exit = null;
             json_values.TryGetValue("cmi.core.exit", out exit);
+
+            if (null != exit)
+            {
+                exit = exit.Substring(0, 1).ToLower();
+                if (valid_exits.ContainsKey(exit))
+                    exit = valid_exits[exit];
+                else
+                    exit = "";
+            }
+            else
+                exit = "";
 
             return exit;
         }
 
         private string GetLessonLocation(Dictionary<string, string> json_values)
-        {
+        { // CMI must only get/set this value
             string lesson_location;
             json_values.TryGetValue("cmi.core.lesson_location", out lesson_location);
 
@@ -222,7 +306,7 @@ namespace AICC_CMI
             string ret = null;
             string lesson_status = null;
             json_values.TryGetValue("cmi.core.lesson_status", out lesson_status);
-            lesson_status = m_map_lesson_status[lesson_status];
+            lesson_status = m_map_lesson_status[lesson_status.Substring(0,1)];
 
             string lesson_mode = GetLessonMode(json_values);
             string credit = GetCredit(json_values);
@@ -281,9 +365,24 @@ namespace AICC_CMI
             return GetDouble("cmi.core.score.min", json_values);
         }
 
-        private TimeSpan? GetSessionTime(Dictionary<string, string> json_values)
+        /// <summary>
+        /// GetSessionTime returns the current session time in seconds, but
+        /// only when the session is terminated. Otherwise, it returns zero
+        /// seconds--allowing the value to be added to total_time without
+        /// affecting the sum unless and until terminate is called.
+        /// </summary>
+        /// <param name="json_values"></param>
+        /// <returns></returns>
+        private int? GetSessionTime(Dictionary<string, string> json_values)
         {
-            return GetTime("cmi.core.session_time", json_values);
+            int? ret;
+
+            if (GetTerminate(json_values))
+                ret = GetTime("cmi.core.session_time", json_values);
+            else
+                ret = 0;
+
+            return ret;
         }
 
         private string GetStudentId(Dictionary<string, string> json_values)
@@ -310,9 +409,21 @@ namespace AICC_CMI
             return suspend_data;
         }
 
-        private TimeSpan? GetTime(string key, Dictionary<string, string> json_values)
+        private bool GetTerminate(Dictionary<string, string> json_values)
         {
-            TimeSpan? ret = null;
+            bool ret = false;
+            string terminate;
+            json_values.TryGetValue("cmi.terminate", out terminate);
+
+            if (null != terminate && "true" == terminate)
+                ret = true;
+
+            return ret;
+        }
+
+        private int? GetTime(string key, Dictionary<string, string> json_values)
+        {
+            int? ret = null;
             string tmp = null;
             json_values.TryGetValue(key, out tmp);
             if (tmp != null)
@@ -320,7 +431,7 @@ namespace AICC_CMI
                 TimeSpan t;
                 bool res = TimeSpan.TryParse(tmp, out t);
                 if (res)
-                    ret = t;
+                    ret = (int)t.TotalSeconds;
             }
 
             return ret;
