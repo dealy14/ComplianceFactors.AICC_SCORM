@@ -13,6 +13,7 @@ using System.Web.Script.Services;
 using System.Data.Entity;
 using System.Data;
 
+
 namespace LMS_Prototype_1
 {
     /// <summary>
@@ -31,6 +32,8 @@ namespace LMS_Prototype_1
             JavaScriptSerializer jss = new JavaScriptSerializer();
             jss.RegisterConverters(new JavaScriptConverter[] { new DynamicJsonConverter() });
 
+            
+            
             dynamic cmi = jss.Deserialize(cmi_dto, typeof(object)) as dynamic;
 
             /*
@@ -45,21 +48,29 @@ namespace LMS_Prototype_1
            
             string enrollment_id = cmi.enrollment_id;
 
+
+
             using (ComplianceFactorsEntities context = new ComplianceFactorsEntities())
             {
                
                 var enroll = (from e in context.e_tb_enrollments
                                where e.e_enroll_system_id_pk == new Guid(enrollment_id)
-                                 select e).FirstOrDefault();
-                
+                              select e).FirstOrDefault();
+
+                //foreach (var prop in enroll.GetType().GetProperties())
+                //{
+                //    Console.WriteLine("{0} = {1}", prop.Name, prop.GetValue(enroll, null));
+                //}
+
                 if (enroll == null) //no record found, invalid eid
                 {
                     return "Invalid Enrollment";
                 }
+                
 
                 var score_raw = cmi.core.score.raw ?? "";
                 enroll.e_enroll_score = Convert.ToDecimal(score_raw);
-
+                
                 enroll.e_enroll_lesson_location = cmi.core.lesson_location;
                 enroll.e_enroll_lesson_status = cmi.core.lesson_status ?? "";
                 enroll.e_enroll_exit = cmi.core.exit;
@@ -150,6 +161,25 @@ namespace LMS_Prototype_1
             this.Dictionary = dictionary;
         }
 
+        public Dictionary<string, string> Flatten()
+        {
+            Dictionary<string, string> ret = new Dictionary<string, string>();
+            WalkDict("cmi", this.Dictionary, ret);
+
+            return ret;
+        }
+
+        private void WalkDict(string parent_key, IDictionary<string, object> input, Dictionary<string, string> output)
+        {
+            foreach (KeyValuePair<string,object> pair in input)
+            {
+                if (pair.Value is Dictionary<string, object>)
+                    WalkDict(parent_key + "." + pair.Key, (Dictionary<string, object>) pair.Value, output);
+                else
+                    output[parent_key + "." + pair.Key] = (string)pair.Value;
+            }
+        }
+        
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             result = this.Dictionary[binder.Name];

@@ -16,6 +16,7 @@ namespace AICC_CMI
         private Dictionary<string, string> m_json_values = null;
         private Dictionary<string, object> m_values = new Dictionary<string, object>();
         private Dictionary<string, FieldDelegate> m_delegates = new Dictionary<string, FieldDelegate>();
+        private Dictionary<string, string> m_dbmap = new Dictionary<string,string>();
         protected Dictionary<string, string> m_map_lesson_status = new Dictionary<string,string>();
         protected List<string> m_lesson_statuses_completed = new List<string>();
 
@@ -53,8 +54,40 @@ namespace AICC_CMI
 
         }
 
-        protected abstract void InitLessonStatusMap();
-        protected abstract void InitLessonStatusesCompleted();
+        private void InitDbMap()
+        {
+            m_dbmap["cmi.core.lesson_location"] = "e_tb_enrollments.e_enroll_lesson_location";
+            m_dbmap["cmi.core.credit"] = "e_tb_enrollments.e_enroll_credit";
+            m_dbmap["cmi.core.lesson_mode"] = "e_tb_enrollments.e_enroll_lesson_mode";
+            m_dbmap["cmi.core.lesson_status"] = "e_tb_enrollments.e_enroll_lesson_status";
+            m_dbmap["cmi.core.score.raw"] = "e_tb_enrollments.e_enroll_score";
+            m_dbmap["cmi.core.score.min"] = "e_tb_enrollments.e_enroll_score_min";
+            m_dbmap["cmi.core.score.max"] = "e_tb_enrollments.e_enroll_score_max";
+//            m_dbmap["cmi.core.session_time"] = "sent to API only.add value to e_enroll_time_spent";
+            m_dbmap["cmi.core.total_time"] = "e_tb_enrollments.e_enroll_time_spent";
+            m_dbmap["cmi.suspend_data "] = "e_tb_enrollments.e_enroll_suspend_data";
+            m_dbmap["cmi.launch_data"] = "e_tb_enrollments.e_enroll_launch_data";
+            m_dbmap["cmi.core.exit"] = "e_tb_enrollments.e_enroll_exit";
+            m_dbmap["cmi.core.entry"] = "e_tb_enrollments.e_enroll_entry";
+        }
+
+        protected void InitLessonStatusMap()
+        {
+            m_map_lesson_status.Add("a", "attempted");
+            m_map_lesson_status.Add("b", "browsed");
+            m_map_lesson_status.Add("c", "completed");
+            m_map_lesson_status.Add("f", "failed");
+            m_map_lesson_status.Add("i", "incomplete");
+            m_map_lesson_status.Add("p", "passed");
+        }
+
+        protected void InitLessonStatusesCompleted()
+        {
+            m_lesson_statuses_completed.Add("completed");
+            m_lesson_statuses_completed.Add("passed");
+            m_lesson_statuses_completed.Add("failed");
+            m_lesson_statuses_completed.Add("browsed");
+        }
 
         public void ConsumeJSObj(Dictionary<string, string> json_values)
         {
@@ -69,11 +102,74 @@ namespace AICC_CMI
             }
         }
 
-        public void Persist(ComplianceFactorsEntities context)
+        public void Persist(string enrollment_id)
         {
-            // loop through m_values and write to context; then save to EF/DB
+            // for now use a constant
+            //enrollment_id = "";
 
-            // total_time += session_time (session_time will be zero until 'terminate' event)
+            using (var context = new ComplianceFactorsEntities())
+            {
+
+                var enroll = (from e in context.e_tb_enrollments
+                              where e.e_enroll_system_id_pk == new Guid(enrollment_id)
+                              select e).FirstOrDefault();
+
+                if (null == enroll) //not found
+                {
+                    throw new ApplicationException("No valid enrollment ID supplied.");
+                }
+
+                // loop through m_values and write to context; then save to EF/DB
+                foreach (KeyValuePair<string, object> pair in m_values)
+                {
+                    switch (pair.Key)
+                    {
+                        case "cmi.core.lesson_status":
+                            enroll.e_enroll_lesson_status = (string)pair.Value;
+                            break;
+                        case "cmi.core.credit":
+                            enroll.e_enroll_credit = (bool)pair.Value;
+                            break;
+                        case "cmi.core.exit":
+                            enroll.e_enroll_exit = (string)pair.Value;
+                            break;
+                        case "cmi.core.entry":
+                            enroll.e_enroll_entry = (bool)pair.Value;
+                            break;
+                        case "cmi.core.lesson_location":
+                            enroll.e_enroll_lesson_location = (string)pair.Value;
+                            break;
+                        case "cmi.core.lesson_mode":
+                            enroll.e_enroll_lesson_mode = (string)pair.Value;
+                            break;
+                        case "cmi.student_data.mastery_score":
+                            //enroll.e_tb_users_lesson_data.e_mastery_score = Convert.ToDecimal(pair.Value);
+                            break;
+                        case "cmi.core.score.raw":
+                            enroll.e_enroll_score = Convert.ToDecimal(pair.Value);
+                            break;
+                        case "cmi.core.score.min":
+                            enroll.e_enroll_score_min = Convert.ToDecimal(pair.Value);
+                            break;
+                        case "cmi.core.score.max":
+                            enroll.e_enroll_score_max = Convert.ToDecimal(pair.Value);
+                            break;
+                        case "cmi.core.session_time":
+                            // total_time += session_time (session_time will be zero until 'terminate' event)
+                            enroll.e_enroll_time_spent += (int)pair.Value;
+                            break;
+                        case "cmi.suspend_data":
+                            enroll.e_enroll_suspend_data = (string)pair.Value;
+                            break;
+                        case "cmi.comments":
+                            enroll.e_enroll_student_comments = (string)pair.Value; //student comments come *from* the course to the LMS
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                context.SaveChanges();
+            }
         }
 
         #region Delegates
@@ -86,7 +182,7 @@ namespace AICC_CMI
 
         private void CreditDelegate(string key, Dictionary<string, string> json_values)
         {
-            string tmp = GetCredit(json_values);
+            bool? tmp = GetCredit(json_values);
             if (tmp != null)
                 this.m_values[key] = tmp;
         }
@@ -186,32 +282,33 @@ namespace AICC_CMI
             return comments;
         }
 
-        private string GetCredit(Dictionary<string, string> json_values)
+        private bool? GetCredit(Dictionary<string, string> json_values)
         {   // CMI determines whether taken for credit or no-credit.
-            string credit;
-            json_values.TryGetValue("cmi.core.credit", out credit);
+            string tmp;
+            bool? credit;
+            json_values.TryGetValue("cmi.core.credit", out tmp);
 
             string lesson_mode = GetLessonMode(json_values);
 
-            if (credit != null)
+            if (tmp != null)
             {
                 // only first char significant ('n','c')
-                credit = credit.Substring(0, 1);
+                tmp = tmp.Substring(0, 1);
 
-                if ("n" == credit)
-                    credit = "no-credit";
+                if ("n" == tmp)
+                    credit = false; //"no-credit";
                 else
-                    credit = "credit";
+                    credit = true; //"credit";
             }
             else
             {
                 // If unrecognized or no value received, 'credit' assumed.
-                credit = "credit";
+                credit = true; //"credit";
             }
 
             if ("browsed" == lesson_mode)
             {
-                credit = "no-credit";
+                credit = false; // "no-credit";
             }
 
             return credit;
@@ -252,6 +349,10 @@ namespace AICC_CMI
             // It is never received as core.entry---this is only an outgoing value to the course via GetParam
             // In the JS API, the values have distinct keys.
             
+            // Output only (LMS -> course)
+            // {"ab-initio", "resume", ""}
+            // Only first character significant
+
             string entry;
             json_values.TryGetValue("cmi.core.entry", out entry);
 
@@ -295,6 +396,9 @@ namespace AICC_CMI
 
         private string GetLessonMode(Dictionary<string, string> json_values)
         {
+            // {"browse","normal","review"}; only first character significant
+            // Output only (LMS -> course)
+            
             string lesson_mode;
             json_values.TryGetValue("cmi.core.lesson_mode", out lesson_mode);
 
@@ -309,7 +413,7 @@ namespace AICC_CMI
             lesson_status = m_map_lesson_status[lesson_status.Substring(0,1)];
 
             string lesson_mode = GetLessonMode(json_values);
-            string credit = GetCredit(json_values);
+            bool? credit = GetCredit(json_values);
             double? mastery_score = GetMasteryScore(json_values);
             double? score_raw = GetScoreRaw(json_values);
 
@@ -323,7 +427,7 @@ namespace AICC_CMI
                     }
                     else
                     {
-                        if (credit == "credit")
+                        if (credit ?? true)
                         {
                             if (mastery_score != null && score_raw != null)
                             {

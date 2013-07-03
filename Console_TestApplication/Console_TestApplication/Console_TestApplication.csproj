@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,9 +57,17 @@
       <Project>{8D72B1D9-531E-4EB2-986E-CFF2EF8EF8F9}</Project>
       <Name>AICC_CMI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\EntityFrameworkLayer\EntityFrameworkLayer.csproj">
+      <Project>{FCBC5267-026F-498B-AEBA-5AFF7BDEF25C}</Project>
+      <Name>EntityFrameworkLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\HACP\HACP.csproj">
       <Project>{2D7D4BAD-F453-4413-ABF0-1571A9941F3F}</Project>
       <Name>HACP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\LMS-Prototype-1\LMS-Prototype-1.csproj">
+      <Project>{C963DCDA-05AB-4541-B92A-E859D9AC352F}</Project>
+      <Name>LMS-Prototype-1</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
