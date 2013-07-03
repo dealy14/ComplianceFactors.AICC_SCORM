@@ -10,6 +10,8 @@ using System.Data.Objects.DataClasses;
 using System.Data.EntityClient;
 using System.Collections;
 using System.Dynamic;
+using EntityFrameworkLayer;
+using HACP;
 
 namespace LMS_Prototype_1.Courses
 {

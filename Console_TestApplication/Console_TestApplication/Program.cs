@@ -10,6 +10,7 @@ using System.Data.Entity;
 using System.Data;
 using EntityFrameworkLayer;
 using System.Web.Script.Serialization;
+using HACP;
 
 namespace Console_TestApplication
 {
@@ -19,8 +20,8 @@ namespace Console_TestApplication
         {
             TempTest();
 
-            //HACPParserTest();
-            //JSAPILogicTest();
+            HACPParserTest();
+            JSAPILogicTest();
 
             JSONTest();
 

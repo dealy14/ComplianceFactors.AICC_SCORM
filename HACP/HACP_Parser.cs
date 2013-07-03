@@ -5,7 +5,7 @@ using System.Web;
 using System.Collections;
 using Parsers;
 
-namespace LMS_Prototype_1
+namespace HACP
 {
     public class HACP_Parser
     {

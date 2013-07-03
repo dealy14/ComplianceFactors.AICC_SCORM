@@ -12,7 +12,8 @@ using System.Diagnostics;
 using System.Web.Script.Services;
 using System.Data.Entity;
 using System.Data;
-
+using AICC_CMI;
+using EntityFrameworkLayer;
 
 namespace LMS_Prototype_1
 {
@@ -31,10 +32,9 @@ namespace LMS_Prototype_1
         {
             JavaScriptSerializer jss = new JavaScriptSerializer();
             jss.RegisterConverters(new JavaScriptConverter[] { new DynamicJsonConverter() });
-
-            
-            
             dynamic cmi = jss.Deserialize(cmi_dto, typeof(object)) as dynamic;
+
+            Dictionary<string, string> cmi_dict = cmi.Flatten();           
 
             /*
                 cmi.comments
@@ -48,6 +48,11 @@ namespace LMS_Prototype_1
            
             string enrollment_id = cmi.enrollment_id;
 
+            JS_API_Logic js_api = new JS_API_Logic();
+
+            js_api.ConsumeJSObj(cmi_dict);
+
+            js_api.Persist(enrollment_id);
 
 
             using (ComplianceFactorsEntities context = new ComplianceFactorsEntities())
@@ -57,44 +62,9 @@ namespace LMS_Prototype_1
                                where e.e_enroll_system_id_pk == new Guid(enrollment_id)
                               select e).FirstOrDefault();
 
-                //foreach (var prop in enroll.GetType().GetProperties())
-                //{
-                //    Console.WriteLine("{0} = {1}", prop.Name, prop.GetValue(enroll, null));
-                //}
-
-                if (enroll == null) //no record found, invalid eid
-                {
-                    return "Invalid Enrollment";
-                }
-                
-
-                var score_raw = cmi.core.score.raw ?? "";
-                enroll.e_enroll_score = Convert.ToDecimal(score_raw);
-                
-                enroll.e_enroll_lesson_location = cmi.core.lesson_location;
-                enroll.e_enroll_lesson_status = cmi.core.lesson_status ?? "";
-                enroll.e_enroll_exit = cmi.core.exit;
-
-                var score_max = (cmi.core.score.max ?? "");
-                var score_min = (cmi.core.score.min ?? "");
-                //enroll.e_enroll_score_max = Convert.ToDecimal(score_max);
-                //enroll.e_enroll_score_min = Convert.ToDecimal(score_min);
-
-                if (null == enroll.e_enroll_time_spent)
-                    enroll.e_enroll_time_spent = TimeSpan.Parse(cmi.core.total_time).Seconds;
-                else
-                    enroll.e_enroll_time_spent = TimeSpan.Parse(cmi.core.total_time).Seconds 
-                                                    + TimeSpan.Parse(cmi.core.session_time).Seconds;
-
-                enroll.e_enroll_suspend_data = cmi.suspend_data;
-                //enroll.e_enroll_student_comments = cmi.comments; 
-                    // TODO: review logic for this element (double meaning, depending on direction of call)
-                
-                context.SaveChanges();
-            
                 
                 //Was LMSFinish / Terminate called?
-                if (cmi.terminate == "true" && lessonCompleted(cmi.core.lesson_status) )
+                if (cmi.terminate == "true" )//&& (cmi_dict["cmi.core.lesson_status"] )
                 {
                     // do completion process; create transcript record; disable enrollment so as not to show in 'my courses'
 
@@ -134,23 +104,6 @@ namespace LMS_Prototype_1
             return "";
         }
 
-        private bool lessonCompleted(string lesson_status){
-        
-            switch (lesson_status.ToLower()){
-                case "completed":
-                case "c":
-                case "passed":
-                case "p":
-                case "failed":
-                case "f":
-                case "browsed":
-                case "b":
-                    return true;
-                default:
-                    return false;
-            }
-
-        }
     }
     public class DynamicJsonObject : DynamicObject
     {

@@ -395,6 +395,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AICC_CMI\AICC_CMI.csproj">
+      <Project>{8D72B1D9-531E-4EB2-986E-CFF2EF8EF8F9}</Project>
+      <Name>AICC_CMI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EntityFrameworkLayer\EntityFrameworkLayer.csproj">
       <Project>{FCBC5267-026F-498B-AEBA-5AFF7BDEF25C}</Project>
       <Name>EntityFrameworkLayer</Name>

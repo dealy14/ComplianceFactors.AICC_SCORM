@@ -5,7 +5,7 @@ using System.Text;
 using System.Data.Entity;
 using System.Data.Objects.DataClasses;
 using System.Data.EntityClient;
-using LMS_Prototype_1;
+using EntityFrameworkLayer;
 
 namespace AICC_CMI
 {
@@ -109,6 +109,7 @@ namespace AICC_CMI
 
             using (var context = new ComplianceFactorsEntities())
             {
+                bool terminate = false;
 
                 var enroll = (from e in context.e_tb_enrollments
                               where e.e_enroll_system_id_pk == new Guid(enrollment_id)
@@ -164,11 +165,50 @@ namespace AICC_CMI
                         case "cmi.comments":
                             enroll.e_enroll_student_comments = (string)pair.Value; //student comments come *from* the course to the LMS
                             break;
+                        case "cmi.terminate":
+                            terminate = ("true" == (string) pair.Value);
+                            break;
                         default:
                             break;
                     }
                 }
                 context.SaveChanges();
+
+                //Was LMSFinish / Terminate called?
+                if (terminate && m_lesson_statuses_completed.Contains(enroll.e_enroll_lesson_status))
+                {
+                    // do completion process; create transcript record; disable enrollment so as not to show in 'my courses'
+
+                    enroll.e_enroll_completion_date = DateTime.Now;
+                    enroll.e_enroll_active_flag = false;
+
+                    t_tb_transcripts tx = t_tb_transcripts.Createt_tb_transcripts(Guid.NewGuid(),
+                        enroll.e_enroll_user_id_fk,
+                        enroll.e_enroll_course_id_fk,
+                        enroll.e_enroll_delivery_id_fk,
+                        "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
+                        enroll.e_enroll_lesson_status,
+                        DateTime.Now,
+                        "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
+                        new Guid(),// all zeroes
+                        DateTime.Now
+                        );
+                    tx.t_transcript_target_due_date = enroll.e_enroll_target_due_date;
+                    tx.t_transcript_status_id_fk = enroll.e_enroll_status_id_fk;
+                    tx.t_transcript_score = enroll.e_enroll_score;
+
+                    //TODO: score min/max must be added to transcripts table
+
+                    tx.t_transcript_credits = enroll.c_tb_deliveries_master.c_delivery_credit_units;
+
+                    tx.t_transcript_hours = enroll.c_tb_deliveries_master.c_delivery_credit_hours;
+                    tx.t_transcript_time_spent = enroll.e_enroll_time_spent;
+                    //tx.t_transcript_completion_score = enroll.e_enroll_score;
+
+                    tx.t_transcript_active_flag = true;
+
+                    context.SaveChanges();
+                }
             }
         }
 
