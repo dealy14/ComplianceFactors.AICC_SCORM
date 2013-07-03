@@ -44,62 +44,13 @@ namespace LMS_Prototype_1
             
             //var test = cmi["interactions_"+0].id;
 
-            var interactions_count = cmi.interactions._count;
+//            var interactions_count = cmi.interactions._count;
            
             string enrollment_id = cmi.enrollment_id;
 
             JS_API_Logic js_api = new JS_API_Logic();
-
             js_api.ConsumeJSObj(cmi_dict);
-
             js_api.Persist(enrollment_id);
-
-
-            using (ComplianceFactorsEntities context = new ComplianceFactorsEntities())
-            {
-               
-                var enroll = (from e in context.e_tb_enrollments
-                               where e.e_enroll_system_id_pk == new Guid(enrollment_id)
-                              select e).FirstOrDefault();
-
-                
-                //Was LMSFinish / Terminate called?
-                if (cmi.terminate == "true" )//&& (cmi_dict["cmi.core.lesson_status"] )
-                {
-                    // do completion process; create transcript record; disable enrollment so as not to show in 'my courses'
-
-                    enroll.e_enroll_completion_date = DateTime.Now;
-                    enroll.e_enroll_active_flag = false;
-
-                    t_tb_transcripts tx = t_tb_transcripts.Createt_tb_transcripts(Guid.NewGuid(),
-                        enroll.e_enroll_user_id_fk,
-                        enroll.e_enroll_course_id_fk,
-                        enroll.e_enroll_delivery_id_fk,
-                        "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
-                        enroll.e_enroll_lesson_status,
-                        DateTime.Now,
-                        "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
-                        new Guid(),// all zeroes
-                        DateTime.Now
-                        );
-                    tx.t_transcript_target_due_date = enroll.e_enroll_target_due_date;
-                    tx.t_transcript_status_id_fk = enroll.e_enroll_status_id_fk;
-                    tx.t_transcript_score = enroll.e_enroll_score;
-                    
-                    //TODO: score min/max must be added to transcripts table
-                    
-                    tx.t_transcript_credits = enroll.c_tb_deliveries_master.c_delivery_credit_units;
-                    
-                    tx.t_transcript_hours = enroll.c_tb_deliveries_master.c_delivery_credit_hours;
-                    tx.t_transcript_time_spent = enroll.e_enroll_time_spent;
-                    //tx.t_transcript_completion_score = enroll.e_enroll_score;
-                    
-                    tx.t_transcript_active_flag = true;
-                    
-                    context.SaveChanges();
-                }
-            
-            }
 
             return "";
         }

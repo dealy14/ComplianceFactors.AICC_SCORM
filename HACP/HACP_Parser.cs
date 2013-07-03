@@ -11,7 +11,10 @@ namespace HACP
     {
         private static readonly string cmi_core_score_raw = "cmi.core.score.raw";
         private static readonly string cmi_core_score_max = "cmi.core.score.max";
-        
+        private static readonly string cmi_core_score_min = "cmi.core.score.min";
+        private static readonly string cmi_core_lesson_status = "cmi.core.lesson_status";
+        private static readonly string cmi_core_exit = "cmi.core.exit";
+
         protected Dictionary<string, string> dMapping = new Dictionary<string, string>();
 
         public HACP_Parser()
@@ -69,7 +72,7 @@ namespace HACP
                                 else if (1 == i)
                                     dKeyValuePairs.Add(cmi_core_score_max, scorePart.Trim());
                                 else
-                                    dKeyValuePairs.Add("cmi.core.score.min", scorePart.Trim());
+                                    dKeyValuePairs.Add(cmi_core_score_min, scorePart.Trim());
 
                                 i++;
                             }
@@ -77,10 +80,10 @@ namespace HACP
                         else if ("lesson_status" == kvPair[0])
                         {
                             string[] lesson_statuses = kvPair[1].ToLower().Split(',');
-                            dKeyValuePairs.Add("cmi.core.lesson_status", lesson_statuses[0].Trim());
+                            dKeyValuePairs.Add(cmi_core_lesson_status, lesson_statuses[0].Trim());
                             if (lesson_statuses.Length > 1)
                             {
-                                dKeyValuePairs.Add("cmi.core.exit", lesson_statuses[1].Trim());
+                                dKeyValuePairs.Add(cmi_core_exit, lesson_statuses[1].Trim());
                             }
                         }
                         else if ("lesson_location" == kvPair[0])

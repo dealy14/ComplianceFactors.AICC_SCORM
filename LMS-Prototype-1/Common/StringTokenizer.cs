@@ -9,7 +9,6 @@ namespace LMS_Prototype_1
     {
         private string[] tokens;
         private int count=0,index=0;
-        private char delim;
         
 	    /**
 	     * Constructs a string tokenizer for the specified string

@@ -166,7 +166,7 @@ namespace AICC_CMI
                             enroll.e_enroll_student_comments = (string)pair.Value; //student comments come *from* the course to the LMS
                             break;
                         case "cmi.terminate":
-                            terminate = ("true" == (string) pair.Value);
+                            terminate = (bool)pair.Value;//("true" == (string) pair.Value);
                             break;
                         default:
                             break;
@@ -175,23 +175,24 @@ namespace AICC_CMI
                 context.SaveChanges();
 
                 //Was LMSFinish / Terminate called?
-                if (terminate && m_lesson_statuses_completed.Contains(enroll.e_enroll_lesson_status))
+                if (terminate && LessonCompleted(enroll.e_enroll_lesson_status))
                 {
                     // do completion process; create transcript record; disable enrollment so as not to show in 'my courses'
 
                     enroll.e_enroll_completion_date = DateTime.Now;
                     enroll.e_enroll_active_flag = false;
 
-                    t_tb_transcripts tx = t_tb_transcripts.Createt_tb_transcripts(Guid.NewGuid(),
-                        enroll.e_enroll_user_id_fk,
-                        enroll.e_enroll_course_id_fk,
-                        enroll.e_enroll_delivery_id_fk,
-                        "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
-                        enroll.e_enroll_lesson_status,
-                        DateTime.Now,
-                        "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
-                        new Guid(),// all zeroes
-                        DateTime.Now
+                    t_tb_transcripts tx = t_tb_transcripts.Createt_tb_transcripts(Guid.NewGuid(), 
+                                        t_transcript_user_id_fk: enroll.e_enroll_user_id_fk, 
+                                        t_transcript_course_id_fk: enroll.e_enroll_course_id_fk, 
+                                        t_transcript_delivery_id_fk: enroll.e_enroll_delivery_id_fk, 
+                                        t_transcript_attendance_id_fk: "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
+                                        t_transcript_passing_status_id_fk: enroll.e_enroll_lesson_status, 
+                                        t_transcript_completion_date_time: DateTime.Now, 
+                                        t_transcript_completion_type_id_fk: "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
+                                        t_transcript_marked_by_user_id_fk: new Guid(),// all zeroes
+                                        t_transcript_actual_date: DateTime.Now
+
                         );
                     tx.t_transcript_target_due_date = enroll.e_enroll_target_due_date;
                     tx.t_transcript_status_id_fk = enroll.e_enroll_status_id_fk;
@@ -203,13 +204,49 @@ namespace AICC_CMI
 
                     tx.t_transcript_hours = enroll.c_tb_deliveries_master.c_delivery_credit_hours;
                     tx.t_transcript_time_spent = enroll.e_enroll_time_spent;
-                    //tx.t_transcript_completion_score = enroll.e_enroll_score;
+                    tx.t_transcript_completion_score = CalcCompletionScore(enrollment_id);
 
                     tx.t_transcript_active_flag = true;
 
                     context.SaveChanges();
                 }
             }
+        }
+
+        private string CalcCompletionScore(string eid)
+        {
+            string score;
+
+            /*
+             * TODO: Implement!
+             * 
+             * Lookup the Grading Scheme equivalent value by ID [s_tb_grading_schemes_values] (s_grading_scheme_system_id_fk) 
+             *      WHERE {Score} IS GREATER OR EQUAL THAN (s_grading_scheme_value_min_score) 
+             *          AND LESS THAN OR EQUAL (s_grading_scheme_value_max_score) and take the value in (s_grading_scheme_value_grade) 
+             *          and (s_grading_scheme_value_pass_status_id_fk) to store in the Transcript table.
+             *        
+             *      [c_tb_deliveries_master].c_delivery_system_id_pk  ==    [e_tb_enrollments].e_enroll_delivery_id_fk
+                    [s_tb_grading_schemes].s_grading_scheme_system_id_pk == [c_tb_deliveries_master].c_delivery_grading_scheme_id_fk
+             * 
+             */
+        
+            using (ComplianceFactorsEntities ctx = new ComplianceFactorsEntities())
+            {
+                var enroll = (from e in ctx.e_tb_enrollments
+                              where e.e_enroll_system_id_pk == new Guid(eid)
+                              select e).FirstOrDefault();
+                
+                //default value
+                score = Convert.ToString(enroll.e_enroll_score);
+
+                if (null != enroll.c_tb_deliveries_master.s_tb_grading_schemes.s_grading_scheme_system_id_pk)
+                {
+                    // TODO: check for correct logic to determine whether grading scheme exists;
+                                //  if exits, follow logic above; else, return as a string the original enroll_score value
+                }
+            }
+
+            return score;
         }
 
         #region Delegates

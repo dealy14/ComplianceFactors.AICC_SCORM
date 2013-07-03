@@ -747,13 +747,13 @@
           <Property Name="e_enroll_time_spent" Type="bigint" />
           <Property Name="e_enroll_lesson_location" Type="varchar" MaxLength="255" />
           <Property Name="e_enroll_suspend_data" Type="nvarchar(max)" />
-          <Property Name="e_enroll_score" Type="decimal" />
+          <Property Name="e_enroll_score" Type="decimal" Scale="5" />
           <Property Name="e_enroll_active_flag" Type="bit" />
           <Property Name="e_enroll_lesson_status" Type="varchar" MaxLength="50" />
           <Property Name="e_enroll_completion_date" Type="date" />
           <Property Name="e_transcript_id_fk" Type="uniqueidentifier" />
-          <Property Name="e_enroll_score_min" Type="decimal" />
-          <Property Name="e_enroll_score_max" Type="decimal" />
+          <Property Name="e_enroll_score_min" Type="decimal" Scale="5" />
+          <Property Name="e_enroll_score_max" Type="decimal" Scale="5" />
           <Property Name="e_enroll_launch_data" Type="nvarchar(max)" />
           <Property Name="e_enroll_exit" Type="varchar" MaxLength="255" />
           <Property Name="e_enroll_entry" Type="bit" />
@@ -905,7 +905,7 @@
           <Property Name="t_transcript_attendance_id_fk" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="t_transcript_passing_status_id_fk" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="t_transcript_grade_id_fk" Type="uniqueidentifier" />
-          <Property Name="t_transcript_completion_score" Type="decimal" />
+          <Property Name="t_transcript_completion_score" Type="nvarchar" MaxLength="50" />
           <Property Name="t_transcript_completion_date_time" Type="datetime" Nullable="false" />
           <Property Name="t_transcript_completion_type_id_fk" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="t_transcript_marked_by_user_id_fk" Type="uniqueidentifier" Nullable="false" />
@@ -914,7 +914,7 @@
           <Property Name="t_transcript_actual_date" Type="date" Nullable="false" />
           <Property Name="t_transcript_status_id_fk" Type="uniqueidentifier" />
           <Property Name="t_transcript_time_spent" Type="bigint" />
-          <Property Name="t_transcript_score" Type="decimal" />
+          <Property Name="t_transcript_score" Type="decimal" Scale="5" />
           <Property Name="t_transcript_credits" Type="int" />
           <Property Name="t_transcript_hours" Type="int" />
           <Property Name="t_transcript_active_flag" Type="bit" />
@@ -3388,7 +3388,7 @@
           <Property Type="String" Name="t_transcript_attendance_id_fk" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="t_transcript_passing_status_id_fk" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="t_transcript_grade_id_fk" />
-          <Property Type="Int32" Name="t_transcript_completion_score" />
+          <Property Type="String" Name="t_transcript_completion_score" />
           <Property Type="DateTime" Name="t_transcript_completion_date_time" Nullable="false" />
           <Property Type="String" Name="t_transcript_completion_type_id_fk" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="t_transcript_marked_by_user_id_fk" Nullable="false" />
@@ -4623,7 +4623,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Model1" ZoomLevel="21">
+      <Diagram Name="Model1" ZoomLevel="93">
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_approval" Width="2" PointX="6.625" PointY="1" Height="1.59568359375" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_domain" Width="2" PointX="8.5" PointY="9.5" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_equivalencies" Width="2.125" PointX="8.5" PointY="12.125" Height="2.1725878906249996" IsExpanded="true" />

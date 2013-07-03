@@ -15998,7 +15998,7 @@ namespace EntityFrameworkLayer
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> t_transcript_completion_score
+        public global::System.String t_transcript_completion_score
         {
             get
             {
@@ -16008,13 +16008,13 @@ namespace EntityFrameworkLayer
             {
                 Ont_transcript_completion_scoreChanging(value);
                 ReportPropertyChanging("t_transcript_completion_score");
-                _t_transcript_completion_score = StructuralObject.SetValidValue(value);
+                _t_transcript_completion_score = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("t_transcript_completion_score");
                 Ont_transcript_completion_scoreChanged();
             }
         }
-        private Nullable<global::System.Int32> _t_transcript_completion_score;
-        partial void Ont_transcript_completion_scoreChanging(Nullable<global::System.Int32> value);
+        private global::System.String _t_transcript_completion_score;
+        partial void Ont_transcript_completion_scoreChanging(global::System.String value);
         partial void Ont_transcript_completion_scoreChanged();
     
         /// <summary>
