@@ -12,8 +12,9 @@ using System.Collections;
 using System.Dynamic;
 using EntityFrameworkLayer;
 using HACP;
+using AICC_CMI;
 
-namespace LMS_Prototype_1.Courses
+namespace LMS_Prototype_1
 {
     public partial class HACP_Handler : System.Web.UI.Page
     {
@@ -29,6 +30,10 @@ namespace LMS_Prototype_1.Courses
             string command = Request.Params["command"];
             string sessionid = Request.Params["session_id"];
             string aiccdata = Request.Params["aicc_data"];
+
+            Dictionary<string, string> parsed_dictionary = null;
+            HACP_Parser hacpParser = new HACP_Parser();
+            HACP_Logic hacp = new HACP_Logic();
 
             if (String.IsNullOrEmpty(command))
             {
@@ -138,11 +143,12 @@ namespace LMS_Prototype_1.Courses
                     //save passed parameters
                     
                     //parse putparam
-                    HACP_Parser hacpParser = new HACP_Parser();
+                    parsed_dictionary = hacpParser.parsePutParam(sessionid, HttpUtility.UrlDecode(aiccdata));
+                    parsed_dictionary.Add("cmi.terminate", "false");
                     
-                    hacpParser.parsePutParam(sessionid, HttpUtility.UrlDecode(aiccdata));
-
                     //persist values...
+                    hacp.ConsumeJSObj(parsed_dictionary);
+                    hacp.Persist(sessionid);
 
                     break;
 
@@ -156,10 +162,14 @@ namespace LMS_Prototype_1.Courses
                     break;
 
                 case "exitau":
-                    // wrap up session
+                    //parse putparam
+                    parsed_dictionary = hacpParser.parsePutParam(sessionid, HttpUtility.UrlDecode(aiccdata));
+                    parsed_dictionary.Add("cmi.terminate", "true");
                     
-                    // use cmi.terminate to trigger end of session
-                    
+                    //persist values...
+                    hacp.ConsumeJSObj(parsed_dictionary);
+                    hacp.Persist(sessionid);
+
                     break;
 
                 default:

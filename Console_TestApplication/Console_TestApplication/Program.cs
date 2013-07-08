@@ -22,6 +22,7 @@ namespace Console_TestApplication
 
             HACPParserTest();
             JSAPILogicTest();
+            HACP_API_Logic_Test();
 
             JSONTest();
 
@@ -432,6 +433,41 @@ my lesson state data – 1111111111111111111000000000000000001110000
             Debug.Assert(cmi_dict["cmi.comments"] == "");
             Debug.Assert(cmi_dict["cmi.comments_from_lms"] == "");
 
+
+        }
+
+        static void HACP_API_Logic_Test()
+        {
+            Dictionary<string, string> json = new Dictionary<string, string>();
+            json.Add("cmi.core.lesson_location", "end");
+            json.Add("cmi.core.credit", "credit");
+            json.Add("cmi.core.lesson_status", "attempted");
+            json.Add("cmi.core.score.raw", "8.5");
+            json.Add("cmi.core.score.min", "0");
+            json.Add("cmi.core.score.max", "10");
+            json.Add("cmi.core.session_time", "00:47:00");
+            json.Add("cmi.core.total_time", "1:23:00");
+            json.Add("cmi.core.lesson_mode", "normal");
+            json.Add("cmi.student_data.mastery_score", "8");
+            json.Add("cmi.suspend_data", "9 00 001010101100110\r\n000 001010101100110\r\n000001010101100110\r\ngl’;sdfgl’;sdfhgl’;sdfhgls’;df");
+            json.Add("cmi.comments", "<1>The background color is too blue!<1.e><2>The CDU\r\npanel has the incorrect ‘way points’ displayed for\r\nthis route. <2.e><3>The CDU panel has the incorrect\r\n‘way points’ displayed for this route. <3.e><4>The\r\nCDU panel has the incorrect ‘way points’ displayed\r\nfor this route. <e.4>");
+            json.Add("cmi.terminate", "true");
+
+            HACP_Logic hacp_logic = new HACP_Logic();
+            hacp_logic.ConsumeJSObj(json); // use same method as in JS API, since the HACP parser returns a flattened dict with the same data model (and names) as JS API
+
+            Debug.Assert(((string)hacp_logic.GetValue("cmi.core.lesson_location") == "end"));
+            Debug.Assert(((bool)hacp_logic.GetValue("cmi.core.credit")));
+            Debug.Assert(((string)hacp_logic.GetValue("cmi.core.lesson_status") == "passed"));
+            Debug.Assert(((double)hacp_logic.GetValue("cmi.core.score.raw") == 8.5d));
+            Debug.Assert(((double)hacp_logic.GetValue("cmi.core.score.min") == 0d));
+            Debug.Assert(((double)hacp_logic.GetValue("cmi.core.score.max") == 10d));
+            Debug.Assert(((int)hacp_logic.GetValue("cmi.core.session_time") == 2820));
+            //Debug.Assert(((string)hacp_logic.GetValue("cmi.core.total_time", "1:23:00");
+            Debug.Assert(((string)hacp_logic.GetValue("cmi.core.lesson_mode") == "normal"));
+            Debug.Assert(((double)hacp_logic.GetValue("cmi.student_data.mastery_score") == 8d));
+            Debug.Assert(((string)hacp_logic.GetValue("cmi.suspend_data") == "9 00 001010101100110\r\n000 001010101100110\r\n000001010101100110\r\ngl’;sdfgl’;sdfhgl’;sdfhgls’;df"));
+            Debug.Assert(((string)hacp_logic.GetValue("cmi.comments") == "<1>The background color is too blue!<1.e><2>The CDU\r\npanel has the incorrect ‘way points’ displayed for\r\nthis route. <2.e><3>The CDU panel has the incorrect\r\n‘way points’ displayed for this route. <3.e><4>The\r\nCDU panel has the incorrect ‘way points’ displayed\r\nfor this route. <e.4>"));
 
         }
     }

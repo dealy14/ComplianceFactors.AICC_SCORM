@@ -195,7 +195,7 @@ namespace AICC_CMI
 
                         );
                     tx.t_transcript_target_due_date = enroll.e_enroll_target_due_date;
-                    tx.t_transcript_status_id_fk = enroll.e_enroll_status_id_fk;
+                    
                     tx.t_transcript_score = enroll.e_enroll_score;
 
                     //TODO: score min/max must be added to transcripts table
@@ -204,7 +204,19 @@ namespace AICC_CMI
 
                     tx.t_transcript_hours = enroll.c_tb_deliveries_master.c_delivery_credit_hours;
                     tx.t_transcript_time_spent = enroll.e_enroll_time_spent;
-                    tx.t_transcript_completion_score = CalcCompletionScore(enrollment_id);
+
+                    string pass_status_fk;
+                    tx.t_transcript_completion_score = CalcCompletionScore(enroll.e_enroll_score,
+                        enroll.c_tb_deliveries_master.c_delivery_grading_scheme_id_fk, out pass_status_fk);
+
+                    if ("" == pass_status_fk)
+                        tx.t_transcript_status_id_fk = enroll.e_enroll_status_id_fk;
+                    else
+                    {
+                        tx.t_transcript_status_id_fk = Guid.Parse(pass_status_fk);
+                        tx.t_transcript_grade_id_fk = enroll.c_tb_deliveries_master.c_delivery_grading_scheme_id_fk;
+                    }
+                        
 
                     tx.t_transcript_active_flag = true;
 
@@ -213,12 +225,19 @@ namespace AICC_CMI
             }
         }
 
-        private string CalcCompletionScore(string eid)
+        private string CalcCompletionScore(decimal? raw_score, Guid? grading_scheme_id, out string pass_status_fk)
         {
-            string score;
+            // default value
+            string score = raw_score.ToString();
+            pass_status_fk = "";
+
+            if (null == grading_scheme_id)
+            {
+                return score;
+            }
 
             /*
-             * TODO: Implement!
+             * t_transcript_grade_id_fk
              * 
              * Lookup the Grading Scheme equivalent value by ID [s_tb_grading_schemes_values] (s_grading_scheme_system_id_fk) 
              *      WHERE {Score} IS GREATER OR EQUAL THAN (s_grading_scheme_value_min_score) 
@@ -227,22 +246,19 @@ namespace AICC_CMI
              *        
              *      [c_tb_deliveries_master].c_delivery_system_id_pk  ==    [e_tb_enrollments].e_enroll_delivery_id_fk
                     [s_tb_grading_schemes].s_grading_scheme_system_id_pk == [c_tb_deliveries_master].c_delivery_grading_scheme_id_fk
-             * 
              */
         
             using (ComplianceFactorsEntities ctx = new ComplianceFactorsEntities())
             {
-                var enroll = (from e in ctx.e_tb_enrollments
-                              where e.e_enroll_system_id_pk == new Guid(eid)
-                              select e).FirstOrDefault();
+                var gs = (from g in ctx.s_tb_grading_schemes_values
+                              where g.s_grading_scheme_system_id_fk == grading_scheme_id
+                              && ( raw_score >= g.s_grading_scheme_value_min_score && raw_score <= g.s_grading_scheme_value_max_score)
+                              select g).FirstOrDefault();
                 
-                //default value
-                score = Convert.ToString(enroll.e_enroll_score);
-
-                if (null != enroll.c_tb_deliveries_master.s_tb_grading_schemes.s_grading_scheme_system_id_pk)
+                if (null != gs)
                 {
-                    // TODO: check for correct logic to determine whether grading scheme exists;
-                                //  if exits, follow logic above; else, return as a string the original enroll_score value
+                    score = gs.s_grading_scheme_value_grade;
+                    pass_status_fk = gs.s_grading_scheme_value_pass_status_id_fk;
                 }
             }
 
