@@ -9,11 +9,11 @@ namespace HACP
 {
     public class HACP_Parser
     {
-        private static readonly string cmi_core_score_raw = "cmi.core.score.raw";
-        private static readonly string cmi_core_score_max = "cmi.core.score.max";
-        private static readonly string cmi_core_score_min = "cmi.core.score.min";
-        private static readonly string cmi_core_lesson_status = "cmi.core.lesson_status";
-        private static readonly string cmi_core_exit = "cmi.core.exit";
+        private const string cmi_core_score_raw = "cmi.core.score.raw";
+        private const string cmi_core_score_max = "cmi.core.score.max";
+        private const string cmi_core_score_min = "cmi.core.score.min";
+        private const string cmi_core_lesson_status = "cmi.core.lesson_status";
+        private const string cmi_core_exit = "cmi.core.exit";
 
         protected Dictionary<string, string> dMapping = new Dictionary<string, string>();
 

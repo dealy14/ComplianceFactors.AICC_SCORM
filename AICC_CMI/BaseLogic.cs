@@ -20,6 +20,8 @@ namespace AICC_CMI
         protected Dictionary<string, string> m_map_lesson_status = new Dictionary<string,string>();
         protected List<string> m_lesson_statuses_completed = new List<string>();
 
+        private const string OLT_Player = "cd8a0438-0631-4996-8bc0-5b9609e70cb6"; // GUID for OLT Player as 'actor'
+
         public BaseLogic()
         {
             InitDelegates();
@@ -35,6 +37,7 @@ namespace AICC_CMI
             m_json_values = json_values;
         }
 
+        #region Initialization
         private void InitDelegates()
         {
             m_delegates["cmi.core.credit"] = CreditDelegate;
@@ -88,6 +91,7 @@ namespace AICC_CMI
             m_lesson_statuses_completed.Add("failed");
             m_lesson_statuses_completed.Add("browsed");
         }
+        #endregion
 
         public void ConsumeJSObj(Dictionary<string, string> json_values)
         {
@@ -102,11 +106,10 @@ namespace AICC_CMI
             }
         }
 
+        #region Persistence and Completion Logic
+
         public void Persist(string enrollment_id)
         {
-            // for now use a constant
-            //enrollment_id = "";
-
             using (var context = new ComplianceFactorsEntities())
             {
                 bool terminate = false;
@@ -174,6 +177,19 @@ namespace AICC_CMI
                 }
                 context.SaveChanges();
 
+                // TODO: COMPLETION ( if terminate and lesson complete) --> 
+                //      A.  Insert audit log record (a_tb_audit_log)
+                //          a_action_desc -> Marked Completion / Type (OLT Player)
+                //          a_values -> (Completed, {Attendance="OLT Player"}, {Passing Status}, {Completion Score}
+                
+                //      B.  Recurrence
+                //          If course has recurrence, calc next due date and create new enrollment record
+                
+                //      C.  Curriculum update logic (e_tb_curricula_assign)
+                //          Does course and user have curriculum assigned?
+                //          If so, update curriculum status and % complete
+                //          If 100% complete, (1) create curriculum history record
+
                 //Was LMSFinish / Terminate called?
                 if (terminate && LessonCompleted(enroll.e_enroll_lesson_status))
                 {
@@ -186,22 +202,20 @@ namespace AICC_CMI
                                         t_transcript_user_id_fk: enroll.e_enroll_user_id_fk, 
                                         t_transcript_course_id_fk: enroll.e_enroll_course_id_fk, 
                                         t_transcript_delivery_id_fk: enroll.e_enroll_delivery_id_fk, 
-                                        t_transcript_attendance_id_fk: "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
+                                        t_transcript_attendance_id_fk: OLT_Player,
                                         t_transcript_passing_status_id_fk: enroll.e_enroll_lesson_status, 
                                         t_transcript_completion_date_time: DateTime.Now, 
-                                        t_transcript_completion_type_id_fk: "cd8a0438-0631-4996-8bc0-5b9609e70cb6",//"OLT Player",
+                                        t_transcript_completion_type_id_fk: OLT_Player,
                                         t_transcript_marked_by_user_id_fk: new Guid(),// all zeroes
                                         t_transcript_actual_date: DateTime.Now
 
                         );
                     tx.t_transcript_target_due_date = enroll.e_enroll_target_due_date;
-                    
                     tx.t_transcript_score = enroll.e_enroll_score;
 
-                    //TODO: score min/max must be added to transcripts table
-
+                    //TODO: score min/max must be added to transcripts table ???? maybe not... (not in player logic document)
+                    
                     tx.t_transcript_credits = enroll.c_tb_deliveries_master.c_delivery_credit_units;
-
                     tx.t_transcript_hours = enroll.c_tb_deliveries_master.c_delivery_credit_hours;
                     tx.t_transcript_time_spent = enroll.e_enroll_time_spent;
 
@@ -217,7 +231,6 @@ namespace AICC_CMI
                         tx.t_transcript_grade_id_fk = enroll.c_tb_deliveries_master.c_delivery_grading_scheme_id_fk;
                     }
                         
-
                     tx.t_transcript_active_flag = true;
 
                     context.SaveChanges();
@@ -264,6 +277,8 @@ namespace AICC_CMI
 
             return score;
         }
+            
+        #endregion
 
         #region Delegates
         private void CommentsDelegate(string key, Dictionary<string, string> json_values)
