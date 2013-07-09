@@ -25,6 +25,10 @@ namespace LMS_Prototype_1
 
         protected string responseString = "";
 
+        private const string no_error_output = "error=0\r\nerror_text=Successful\r\n";
+        private const string error_invalid_command = "error=1\r\nerror_text=Invalid Command\r\n";
+        private const string error_invalid_session_id = "error=3\r\nerror_text=Invalid Session ID\r\n";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             string command = Request.Params["command"];
@@ -37,11 +41,11 @@ namespace LMS_Prototype_1
 
             if (String.IsNullOrEmpty(command))
             {
-                sendOutput("error=1\r\nerror_text=Invalid Command\r\n");
+                sendOutput(error_invalid_command);
             }
             if (String.IsNullOrEmpty(sessionid))
             {
-                sendOutput("error=3\r\nerror_text=Invalid Session ID\r\n");
+                sendOutput(error_invalid_session_id);
             }
 
             switch (command.ToLower())
@@ -55,7 +59,7 @@ namespace LMS_Prototype_1
 
                         if (enroll == null) //no record found, invalid eid
                         {
-                            sendOutput("error=3\r\nerror_text=Invalid Session ID\r\n");
+                            sendOutput(error_invalid_session_id);
                         }
 
                         student_id = enroll.e_enroll_user_id_fk.ToString();
@@ -108,7 +112,7 @@ namespace LMS_Prototype_1
                         //context.SaveChanges();
                     }
 
-                    responseString += "error=0\r\nerror_text=Successful\r\naicc_data=";
+                    responseString += no_error_output + "aicc_data=";
                     responseString += "[Core]\r\n";
                     responseString += "Student_ID=" + student_id + "\r\n";
                     responseString += "Student_Name=" + student_name + "\r\n";
@@ -150,6 +154,8 @@ namespace LMS_Prototype_1
                     hacp.ConsumeJSObj(parsed_dictionary);
                     hacp.Persist(sessionid);
 
+                    sendOutput(no_error_output);
+
                     break;
 
                 case "putcomments":
@@ -170,10 +176,12 @@ namespace LMS_Prototype_1
                     hacp.ConsumeJSObj(parsed_dictionary);
                     hacp.Persist(sessionid);
 
+                    sendOutput(no_error_output);
+
                     break;
 
                 default:
-                    sendOutput("error=1\r\nerror_text=Invalid Command\r\n");
+                    sendOutput(error_invalid_command);
                     break;
             }
 

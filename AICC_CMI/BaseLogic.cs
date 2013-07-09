@@ -197,7 +197,7 @@ namespace AICC_CMI
 
                     enroll.e_enroll_completion_date = DateTime.Now;
                     enroll.e_enroll_active_flag = false;
-
+                    
                     t_tb_transcripts tx = t_tb_transcripts.Createt_tb_transcripts(Guid.NewGuid(), 
                                         t_transcript_user_id_fk: enroll.e_enroll_user_id_fk, 
                                         t_transcript_course_id_fk: enroll.e_enroll_course_id_fk, 
@@ -223,17 +223,45 @@ namespace AICC_CMI
                     tx.t_transcript_completion_score = CalcCompletionScore(enroll.e_enroll_score,
                         enroll.c_tb_deliveries_master.c_delivery_grading_scheme_id_fk, out pass_status_fk);
 
-                    if ("" == pass_status_fk)
-                        tx.t_transcript_status_id_fk = enroll.e_enroll_status_id_fk;
-                    else
+                    switch (pass_status_fk)
                     {
-                        tx.t_transcript_status_id_fk = Guid.Parse(pass_status_fk);
-                        tx.t_transcript_grade_id_fk = enroll.c_tb_deliveries_master.c_delivery_grading_scheme_id_fk;
+                        case "":
+                            tx.t_transcript_status_id_fk = enroll.e_enroll_status_id_fk;
+                            break;
+                        default:
+                            tx.t_transcript_status_id_fk = Guid.Parse(pass_status_fk);
+                            tx.t_transcript_grade_id_fk = enroll.c_tb_deliveries_master.c_delivery_grading_scheme_id_fk;
+                            break;
                     }
                         
                     tx.t_transcript_active_flag = true;
 
                     context.SaveChanges();
+
+                    var course = enroll.c_tb_courses_master;
+
+                    // Check for recurrence
+                    if (course.c_cource_recurrance_every != null && course.c_cource_recurrance_every != 0)
+                    {
+                        // Course has recurrence, calc next due date and create new enrollment record
+                        
+                        DateTime? start_date = DateTime.Now;  // if the date_option is 'completion date'
+                        start_date = enroll.u_tb_users_master.u_hris_hire_date; // if date_option is 'hire date'
+                        start_date = enroll.e_enroll_approval_date;  // if date_option is 'approval date'
+                        start_date = course.c_cource_recurance_date; // if 'fixed_date'
+
+                        // Every [every: X] [date_option: days/months/years] from [c_cource_recurance_date_option]
+
+                        //enroll.e_enroll_target_due_date ???
+
+
+                        /*course.c_cource_recurance_date;
+                        course.c_cource_recurance_date_option;
+                        course.c_cource_recurrance_every;
+                        course.c_cource_recurrance_period;*/
+
+                    }
+                       //if (hasRecurrence(enroll.c_tb_courses_master.c_course_system_id_pk))
                 }
             }
         }
@@ -263,10 +291,11 @@ namespace AICC_CMI
         
             using (ComplianceFactorsEntities ctx = new ComplianceFactorsEntities())
             {
-                var gs = (from g in ctx.s_tb_grading_schemes_values
-                              where g.s_grading_scheme_system_id_fk == grading_scheme_id
-                              && ( raw_score >= g.s_grading_scheme_value_min_score && raw_score <= g.s_grading_scheme_value_max_score)
-                              select g).FirstOrDefault();
+                var gs = (ctx.s_tb_grading_schemes_values.Where(
+                    g => g.s_grading_scheme_system_id_fk == grading_scheme_id
+                         &&
+                         (raw_score >= g.s_grading_scheme_value_min_score &&
+                          raw_score <= g.s_grading_scheme_value_max_score))).FirstOrDefault();
                 
                 if (null != gs)
                 {
@@ -277,7 +306,28 @@ namespace AICC_CMI
 
             return score;
         }
+         
+        //      B.  Recurrence
+        //          If course has recurrence, calc next due date and create new enrollment record
+        private bool hasRecurrence(Guid course_id)
+        {
+            bool ret = false;
+
+            using (ComplianceFactorsEntities ctx = new ComplianceFactorsEntities())
+            {
+                var r = ctx.c_tb_courses_master.FirstOrDefault(i => i.c_course_system_id_pk == course_id);
+
+                if (r.c_cource_recurrance_every != null && r.c_cource_recurrance_every != 0)
+                {
+                    ret = true;
+                }
+            }
             
+            return ret;
+        }
+       
+                
+
         #endregion
 
         #region Delegates
