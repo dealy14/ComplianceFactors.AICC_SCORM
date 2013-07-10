@@ -177,28 +177,34 @@ namespace AICC_CMI
                 }
                 context.SaveChanges();
 
-                // TODO: COMPLETION ( if terminate and lesson complete) --> 
+                // COMPLETION PROCESS
+
                 //      A.  Insert audit log record (a_tb_audit_log)
                 //          a_action_desc -> Marked Completion / Type (OLT Player)
                 //          a_values -> (Completed, {Attendance="OLT Player"}, {Passing Status}, {Completion Score}
-                
                 //      B.  Recurrence
                 //          If course has recurrence, calc next due date and create new enrollment record
-                
                 //      C.  Curriculum update logic (e_tb_curricula_assign)
                 //          Does course and user have curriculum assigned?
                 //          If so, update curriculum status and % complete
                 //          If 100% complete, (1) create curriculum history record
+                //              e_tb_curricula_assign -> e_curriculum_assign_user_id_fk
+                //                  e_tb_curricula_statuses_history -> records 100% completion of a curriculum 
 
                 //Was LMSFinish / Terminate called?
                 if (terminate && LessonCompleted(enroll.e_enroll_lesson_status))
                 {
-                    // do completion process; create transcript record; disable enrollment so as not to show in 'my courses'
+                    // Do completion process
+                    // 1. create transcript record
+                    // 2. disable enrollment so as not to show in 'my courses'
+                    // 3. insert audit log record
+                    // 4. handle possible recurrence
+                    // 5. handle possible curriculum update
 
                     enroll.e_enroll_completion_date = DateTime.Now;
                     enroll.e_enroll_active_flag = false;
                     
-                    t_tb_transcripts tx = t_tb_transcripts.Createt_tb_transcripts(Guid.NewGuid(), 
+                    var tx = t_tb_transcripts.Createt_tb_transcripts(Guid.NewGuid(), 
                                         t_transcript_user_id_fk: enroll.e_enroll_user_id_fk, 
                                         t_transcript_course_id_fk: enroll.e_enroll_course_id_fk, 
                                         t_transcript_delivery_id_fk: enroll.e_enroll_delivery_id_fk, 
@@ -238,30 +244,76 @@ namespace AICC_CMI
 
                     context.SaveChanges();
 
+                    // A. Insert completion record in audit log
+                    insertAuditRecord(Guid.NewGuid(), "Marked Completion / Type (OLT Player)", 
+                                "(Completed, Attendance='OLT PLayer', Passing Status=" + pass_status_fk 
+                                    + ", Completion Score=" + enroll.e_enroll_score.ToString(), null);
+
                     var course = enroll.c_tb_courses_master;
 
-                    // Check for recurrence
+                    // B. Check for recurrence
+                    //          if (hasRecurrence(enroll.c_tb_courses_master.c_course_system_id_pk))
                     if (course.c_cource_recurrance_every != null && course.c_cource_recurrance_every != 0)
                     {
-                        // Course has recurrence, calc next due date and create new enrollment record
+                        // Course has recurrence, so calc next due date and create new enrollment record
+
+                        DateTime start_date;
                         
-                        DateTime? start_date = DateTime.Now;  // if the date_option is 'completion date'
-                        start_date = enroll.u_tb_users_master.u_hris_hire_date; // if date_option is 'hire date'
-                        start_date = enroll.e_enroll_approval_date;  // if date_option is 'approval date'
-                        start_date = course.c_cource_recurance_date; // if 'fixed_date'
+                        // determine start date to use in calc
+                        switch (course.c_cource_recurance_date_option) 
+                        {
+                            case "fixed":
+                                start_date = (DateTime)course.c_cource_recurance_date;
+                                break;
+                            case "hire":
+                                start_date = (DateTime)enroll.u_tb_users_master.u_hris_hire_date;
+                                break;
+                            case "assignment":
+                                // TODO: Check this value! Approval or Assignment?
+                                start_date = (DateTime)enroll.e_enroll_approval_date;
+                                break;
+                            case "completion":
+                                start_date = DateTime.Now;
+                                break;
+                            default:
+                                start_date = DateTime.Now; // default to completion date
+                                break;
+                        }
 
-                        // Every [every: X] [date_option: days/months/years] from [c_cource_recurance_date_option]
+                        int units = (int)course.c_cource_recurrance_every; // number of units
+                        DateTime new_date;
 
-                        //enroll.e_enroll_target_due_date ???
-
-
-                        /*course.c_cource_recurance_date;
-                        course.c_cource_recurance_date_option;
-                        course.c_cource_recurrance_every;
-                        course.c_cource_recurrance_period;*/
-
+                        // TimeDate units
+                        switch (course.c_cource_recurrance_period)
+                        {
+                            case "days":
+                                new_date = start_date.AddDays(units);
+                                break;
+                            case "months":
+                                new_date = start_date.AddMonths(units);
+                                break;
+                            case "years":
+                                new_date = start_date.AddYears(units);
+                                break;
+                            default:
+                                new_date = start_date.AddDays(units);  //default to Days
+                                break;
+                        }
+                        // new_date = [X] [days/months/years] from [start_date]
+                        
+                        // Create new enrollment record
+                        insertEnrollmentRecord(enroll.u_tb_users_master.u_user_id_pk, course.c_course_system_id_pk,
+                                                enroll.e_enroll_delivery_id_fk, new_date, (bool)enroll.e_enroll_required_flag);
                     }
-                       //if (hasRecurrence(enroll.c_tb_courses_master.c_course_system_id_pk))
+                
+                    // C.  Curriculum update logic (e_tb_curricula_assign)
+                    //  Does course and user have curriculum assigned?
+                    //   If so, update curriculum status and % complete
+                    //   If 100% complete, (1) create curriculum history record
+                    //      e_tb_curricula_assign -> e_curriculum_assign_user_id_fk
+                    //      e_tb_curricula_statuses_history -> records 100% completion of a curriculum 
+
+                
                 }
             }
         }
@@ -278,18 +330,13 @@ namespace AICC_CMI
             }
 
             /*
-             * t_transcript_grade_id_fk
-             * 
-             * Lookup the Grading Scheme equivalent value by ID [s_tb_grading_schemes_values] (s_grading_scheme_system_id_fk) 
-             *      WHERE {Score} IS GREATER OR EQUAL THAN (s_grading_scheme_value_min_score) 
-             *          AND LESS THAN OR EQUAL (s_grading_scheme_value_max_score) and take the value in (s_grading_scheme_value_grade) 
-             *          and (s_grading_scheme_value_pass_status_id_fk) to store in the Transcript table.
-             *        
+             * Notes
              *      [c_tb_deliveries_master].c_delivery_system_id_pk  ==    [e_tb_enrollments].e_enroll_delivery_id_fk
                     [s_tb_grading_schemes].s_grading_scheme_system_id_pk == [c_tb_deliveries_master].c_delivery_grading_scheme_id_fk
+             *  t_transcript_grade_id_fk
              */
-        
-            using (ComplianceFactorsEntities ctx = new ComplianceFactorsEntities())
+
+            using (var ctx = new ComplianceFactorsEntities())
             {
                 var gs = (ctx.s_tb_grading_schemes_values.Where(
                     g => g.s_grading_scheme_system_id_fk == grading_scheme_id
@@ -307,13 +354,12 @@ namespace AICC_CMI
             return score;
         }
          
-        //      B.  Recurrence
-        //          If course has recurrence, calc next due date and create new enrollment record
+        // Determines whether course has a recurrence
         private bool hasRecurrence(Guid course_id)
         {
             bool ret = false;
 
-            using (ComplianceFactorsEntities ctx = new ComplianceFactorsEntities())
+            using (var ctx = new ComplianceFactorsEntities())
             {
                 var r = ctx.c_tb_courses_master.FirstOrDefault(i => i.c_course_system_id_pk == course_id);
 
@@ -325,8 +371,49 @@ namespace AICC_CMI
             
             return ret;
         }
-       
-                
+
+        private void insertAuditRecord(Guid user_id, string action_description, string values, string ip_address)
+        {
+            using (var ctx = new ComplianceFactorsEntities())
+            {
+                var rec = new a_tb_audit_log
+                    {
+                        a_user_id_fk = user_id,
+                        a_action_desc = action_description,
+                        a_values = values,
+                        a_ip_address = ip_address
+                    };
+                ctx.a_tb_audit_log.AddObject(rec);
+                ctx.SaveChanges();
+            }
+        }
+
+        private Guid insertEnrollmentRecord(Guid user_id, Guid course_id, Guid delivery_id, DateTime new_target_due_date, bool required)
+        {
+            Guid system_completion_assign_id = new Guid("0481a04e-ec8a-410a-bd4e-ef415d884857");
+            Guid enrolled_status_id = new Guid("8d8adfbc-6e24-4081-8e3e-f7675d1dcecc");
+            Guid new_enrollment_id = Guid.NewGuid();
+
+            using (var ctx = new ComplianceFactorsEntities())
+            {
+                var rec = new e_tb_enrollments
+                {
+                    e_enroll_system_id_pk = new_enrollment_id,
+                    e_enroll_user_id_fk = user_id,
+                    e_enroll_course_id_fk = course_id,
+                    e_enroll_delivery_id_fk = delivery_id,
+                    e_enroll_enroll_date_time = DateTime.Now,
+                    e_enroll_enroll_type_id_fk = system_completion_assign_id,
+                    e_enroll_required_flag = required,
+                    e_enroll_target_due_date = new_target_due_date,
+                    e_enroll_status_id_fk = enrolled_status_id,
+                    e_enroll_active_flag = true
+                };
+                ctx.e_tb_enrollments.AddObject(rec);
+                ctx.SaveChanges();
+            }
+            return new_enrollment_id;
+        }
 
         #endregion
 
