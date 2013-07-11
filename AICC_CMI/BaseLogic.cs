@@ -178,20 +178,7 @@ namespace AICC_CMI
                 context.SaveChanges();
 
                 // COMPLETION PROCESS
-
-                //      A.  Insert audit log record (a_tb_audit_log)
-                //          a_action_desc -> Marked Completion / Type (OLT Player)
-                //          a_values -> (Completed, {Attendance="OLT Player"}, {Passing Status}, {Completion Score}
-                //      B.  Recurrence
-                //          If course has recurrence, calc next due date and create new enrollment record
-                //      C.  Curriculum update logic (e_tb_curricula_assign)
-                //          Does course and user have curriculum assigned?
-                //          If so, update curriculum status and % complete
-                //          If 100% complete, (1) create curriculum history record
-                //              e_tb_curricula_assign -> e_curriculum_assign_user_id_fk
-                //                  e_tb_curricula_statuses_history -> records 100% completion of a curriculum 
-
-                //Was LMSFinish / Terminate called?
+                // Was LMSFinish / Terminate called?
                 if (terminate && LessonCompleted(enroll.e_enroll_lesson_status))
                 {
                     // Do completion process
@@ -305,7 +292,7 @@ namespace AICC_CMI
                         insertEnrollmentRecord(enroll.u_tb_users_master.u_user_id_pk, course.c_course_system_id_pk,
                                                 enroll.e_enroll_delivery_id_fk, new_date, (bool)enroll.e_enroll_required_flag);
                     }
-                
+
                     // C.  Curriculum update logic (e_tb_curricula_assign)
                     //  Does course and user have curriculum assigned?
                     //   If so, update curriculum status and % complete
@@ -372,8 +359,10 @@ namespace AICC_CMI
             return ret;
         }
 
-        private void insertAuditRecord(Guid user_id, string action_description, string values, string ip_address)
+        private Guid insertAuditRecord(Guid user_id, string action_description, string values, string ip_address)
         {
+            Guid new_id;
+
             using (var ctx = new ComplianceFactorsEntities())
             {
                 var rec = new a_tb_audit_log
@@ -385,7 +374,10 @@ namespace AICC_CMI
                     };
                 ctx.a_tb_audit_log.AddObject(rec);
                 ctx.SaveChanges();
+                new_id = rec.a_audit_log_id_pk;
             }
+
+            return new_id;
         }
 
         private Guid insertEnrollmentRecord(Guid user_id, Guid course_id, Guid delivery_id, DateTime new_target_due_date, bool required)
