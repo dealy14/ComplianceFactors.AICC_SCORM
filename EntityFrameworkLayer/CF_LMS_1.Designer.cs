@@ -5348,30 +5348,6 @@ namespace EntityFrameworkLayer
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> c_course_recurrance_grace_days
-        {
-            get
-            {
-                return _c_course_recurrance_grace_days;
-            }
-            set
-            {
-                Onc_course_recurrance_grace_daysChanging(value);
-                ReportPropertyChanging("c_course_recurrance_grace_days");
-                _c_course_recurrance_grace_days = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("c_course_recurrance_grace_days");
-                Onc_course_recurrance_grace_daysChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _c_course_recurrance_grace_days;
-        partial void Onc_course_recurrance_grace_daysChanging(Nullable<global::System.Int32> value);
-        partial void Onc_course_recurrance_grace_daysChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Guid> c_course_owner_id_fk
         {
             get
@@ -5486,102 +5462,6 @@ namespace EntityFrameworkLayer
         private Nullable<global::System.Boolean> _c_course_visible_flag;
         partial void Onc_course_visible_flagChanging(Nullable<global::System.Boolean> value);
         partial void Onc_course_visible_flagChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> c_cource_recurrance_every
-        {
-            get
-            {
-                return _c_cource_recurrance_every;
-            }
-            set
-            {
-                Onc_cource_recurrance_everyChanging(value);
-                ReportPropertyChanging("c_cource_recurrance_every");
-                _c_cource_recurrance_every = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("c_cource_recurrance_every");
-                Onc_cource_recurrance_everyChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _c_cource_recurrance_every;
-        partial void Onc_cource_recurrance_everyChanging(Nullable<global::System.Int32> value);
-        partial void Onc_cource_recurrance_everyChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String c_cource_recurrance_period
-        {
-            get
-            {
-                return _c_cource_recurrance_period;
-            }
-            set
-            {
-                Onc_cource_recurrance_periodChanging(value);
-                ReportPropertyChanging("c_cource_recurrance_period");
-                _c_cource_recurrance_period = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("c_cource_recurrance_period");
-                Onc_cource_recurrance_periodChanged();
-            }
-        }
-        private global::System.String _c_cource_recurrance_period;
-        partial void Onc_cource_recurrance_periodChanging(global::System.String value);
-        partial void Onc_cource_recurrance_periodChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String c_cource_recurance_date_option
-        {
-            get
-            {
-                return _c_cource_recurance_date_option;
-            }
-            set
-            {
-                Onc_cource_recurance_date_optionChanging(value);
-                ReportPropertyChanging("c_cource_recurance_date_option");
-                _c_cource_recurance_date_option = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("c_cource_recurance_date_option");
-                Onc_cource_recurance_date_optionChanged();
-            }
-        }
-        private global::System.String _c_cource_recurance_date_option;
-        partial void Onc_cource_recurance_date_optionChanging(global::System.String value);
-        partial void Onc_cource_recurance_date_optionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> c_cource_recurance_date
-        {
-            get
-            {
-                return _c_cource_recurance_date;
-            }
-            set
-            {
-                Onc_cource_recurance_dateChanging(value);
-                ReportPropertyChanging("c_cource_recurance_date");
-                _c_cource_recurance_date = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("c_cource_recurance_date");
-                Onc_cource_recurance_dateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _c_cource_recurance_date;
-        partial void Onc_cource_recurance_dateChanging(Nullable<global::System.DateTime> value);
-        partial void Onc_cource_recurance_dateChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6086,6 +5966,126 @@ namespace EntityFrameworkLayer
         private Nullable<global::System.Guid> _c_course_created_by_id_fk;
         partial void Onc_course_created_by_id_fkChanging(Nullable<global::System.Guid> value);
         partial void Onc_course_created_by_id_fkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> c_course_recurrence_grace_days
+        {
+            get
+            {
+                return _c_course_recurrence_grace_days;
+            }
+            set
+            {
+                Onc_course_recurrence_grace_daysChanging(value);
+                ReportPropertyChanging("c_course_recurrence_grace_days");
+                _c_course_recurrence_grace_days = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_course_recurrence_grace_days");
+                Onc_course_recurrence_grace_daysChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _c_course_recurrence_grace_days;
+        partial void Onc_course_recurrence_grace_daysChanging(Nullable<global::System.Int32> value);
+        partial void Onc_course_recurrence_grace_daysChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> c_course_recurrence_every
+        {
+            get
+            {
+                return _c_course_recurrence_every;
+            }
+            set
+            {
+                Onc_course_recurrence_everyChanging(value);
+                ReportPropertyChanging("c_course_recurrence_every");
+                _c_course_recurrence_every = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_course_recurrence_every");
+                Onc_course_recurrence_everyChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _c_course_recurrence_every;
+        partial void Onc_course_recurrence_everyChanging(Nullable<global::System.Int32> value);
+        partial void Onc_course_recurrence_everyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String c_course_recurrence_period
+        {
+            get
+            {
+                return _c_course_recurrence_period;
+            }
+            set
+            {
+                Onc_course_recurrence_periodChanging(value);
+                ReportPropertyChanging("c_course_recurrence_period");
+                _c_course_recurrence_period = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("c_course_recurrence_period");
+                Onc_course_recurrence_periodChanged();
+            }
+        }
+        private global::System.String _c_course_recurrence_period;
+        partial void Onc_course_recurrence_periodChanging(global::System.String value);
+        partial void Onc_course_recurrence_periodChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String c_course_recurrence_date_option
+        {
+            get
+            {
+                return _c_course_recurrence_date_option;
+            }
+            set
+            {
+                Onc_course_recurrence_date_optionChanging(value);
+                ReportPropertyChanging("c_course_recurrence_date_option");
+                _c_course_recurrence_date_option = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("c_course_recurrence_date_option");
+                Onc_course_recurrence_date_optionChanged();
+            }
+        }
+        private global::System.String _c_course_recurrence_date_option;
+        partial void Onc_course_recurrence_date_optionChanging(global::System.String value);
+        partial void Onc_course_recurrence_date_optionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> c_course_recurrence_date
+        {
+            get
+            {
+                return _c_course_recurrence_date;
+            }
+            set
+            {
+                Onc_course_recurrence_dateChanging(value);
+                ReportPropertyChanging("c_course_recurrence_date");
+                _c_course_recurrence_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_course_recurrence_date");
+                Onc_course_recurrence_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _c_course_recurrence_date;
+        partial void Onc_course_recurrence_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onc_course_recurrence_dateChanged();
 
         #endregion
     

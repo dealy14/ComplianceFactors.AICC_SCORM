@@ -372,6 +372,22 @@ my lesson state data – 1111111111111111111000000000000000001110000
             parsed_dictionary = hacpParser.parsePutParam("", value);
 
             Debug.Assert(parsed_dictionary["cmi.core.exit"] == "s");
+
+            value = "[Core]\r\nLESSON_Status=,S";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.exit"] == "s");
+
+            value = "[Core]\r\nLESSON_Status=,R";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.exit"] == "r");
+
+            value = "[Core]\r\nLESSON_Status=,L";
+            parsed_dictionary = hacpParser.parsePutParam("", value);
+
+            Debug.Assert(parsed_dictionary["cmi.core.exit"] == "l");
+
         }
 
         static void JSONTest()
@@ -521,6 +537,8 @@ my lesson state data – 1111111111111111111000000000000000001110000
         private static void RecurrenceEnrollmentTest()
         {
             // TODO: must create recurring course/delivery and associated enrollment for this test
+
+            // To test: look for an enrollment with the same (user_id and delivery_id) and an enrollment generation date after the original enrollment
         }
     }
 }

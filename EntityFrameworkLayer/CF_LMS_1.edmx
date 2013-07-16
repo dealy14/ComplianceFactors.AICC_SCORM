@@ -663,16 +663,16 @@
           <Property Name="c_course_credit_hours" Type="int" />
           <Property Name="c_course_credit_units" Type="int" />
           <Property Name="c_course_cert_flag" Type="bit" />
-          <Property Name="c_course_recurrance_grace_days" Type="int" />
+          <Property Name="c_course_recurrence_grace_days" Type="int" />
           <Property Name="c_course_owner_id_fk" Type="uniqueidentifier" />
           <Property Name="c_course_coordinator_id_fk" Type="uniqueidentifier" />
           <Property Name="c_course_active_flag" Type="bit" />
           <Property Name="c_course_active_type_id_fk" Type="nvarchar" MaxLength="255" />
           <Property Name="c_course_visible_flag" Type="bit" />
-          <Property Name="c_cource_recurrance_every" Type="int" />
-          <Property Name="c_cource_recurrance_period" Type="varchar" MaxLength="20" />
-          <Property Name="c_cource_recurance_date_option" Type="varchar" MaxLength="20" />
-          <Property Name="c_cource_recurance_date" Type="date" />
+          <Property Name="c_course_recurrence_every" Type="int" />
+          <Property Name="c_course_recurrence_period" Type="varchar" MaxLength="20" />
+          <Property Name="c_course_recurrence_date_option" Type="varchar" MaxLength="20" />
+          <Property Name="c_course_recurrence_date" Type="date" />
           <Property Name="c_course_cost" Type="int" />
           <Property Name="c_course_icon_uri_file_name" Type="nvarchar" MaxLength="100" />
           <Property Name="c_course_custom_01" Type="varchar" MaxLength="50" />
@@ -3074,16 +3074,11 @@
           <Property Name="c_course_credit_hours" Type="Int32" />
           <Property Name="c_course_credit_units" Type="Int32" />
           <Property Name="c_course_cert_flag" Type="Boolean" />
-          <Property Name="c_course_recurrance_grace_days" Type="Int32" />
           <Property Name="c_course_owner_id_fk" Type="Guid" />
           <Property Name="c_course_coordinator_id_fk" Type="Guid" />
           <Property Name="c_course_active_flag" Type="Boolean" />
           <Property Name="c_course_active_type_id_fk" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="c_course_visible_flag" Type="Boolean" />
-          <Property Name="c_cource_recurrance_every" Type="Int32" />
-          <Property Name="c_cource_recurrance_period" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="c_cource_recurance_date_option" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="c_cource_recurance_date" Type="DateTime" />
           <Property Name="c_course_cost" Type="Int32" />
           <Property Name="c_course_icon_uri_file_name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="c_course_custom_01" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
@@ -3125,6 +3120,11 @@
           <NavigationProperty Name="t_tb_transcripts" Relationship="ComplianceFactorsModel.FK__t_tb_tran__t_tra__63F9955D" FromRole="c_tb_courses_master" ToRole="t_tb_transcripts" />
           <NavigationProperty Name="e_tb_courses_assign" Relationship="ComplianceFactorsModel.FK__e_tb_cour__e_cou__75C33FDD" FromRole="c_tb_courses_master" ToRole="e_tb_courses_assign" />
           <NavigationProperty Name="t_tb_transcripts_sessions" Relationship="ComplianceFactorsModel.FK__t_tb_tran__t_tra__6B9AB725" FromRole="c_tb_courses_master" ToRole="t_tb_transcripts_sessions" />
+          <Property Type="Int32" Name="c_course_recurrence_grace_days" />
+          <Property Type="Int32" Name="c_course_recurrence_every" />
+          <Property Type="String" Name="c_course_recurrence_period" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="c_course_recurrence_date_option" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="c_course_recurrence_date" />
         </EntityType>
         <EntityType Name="c_tb_deliveries_master">
           <Key>
@@ -5332,7 +5332,12 @@
             <ScalarProperty Name="c_course_status_desc" ColumnName="c_course_status_desc" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="c_tb_courses_master"><EntityTypeMapping TypeName="ComplianceFactorsModel.c_tb_courses_master"><MappingFragment StoreEntitySet="c_tb_courses_master">
-            <ScalarProperty Name="c_course_system_id_pk" ColumnName="c_course_system_id_pk" />
+            <ScalarProperty Name="c_course_recurrence_date" ColumnName="c_course_recurrence_date" />
+                <ScalarProperty Name="c_course_recurrence_date_option" ColumnName="c_course_recurrence_date_option" />
+                <ScalarProperty Name="c_course_recurrence_period" ColumnName="c_course_recurrence_period" />
+                <ScalarProperty Name="c_course_recurrence_every" ColumnName="c_course_recurrence_every" />
+                <ScalarProperty Name="c_course_recurrence_grace_days" ColumnName="c_course_recurrence_grace_days" />
+                <ScalarProperty Name="c_course_system_id_pk" ColumnName="c_course_system_id_pk" />
             <ScalarProperty Name="c_course_title" ColumnName="c_course_title" />
             <ScalarProperty Name="c_course_desc" ColumnName="c_course_desc" />
             <ScalarProperty Name="c_course_abstract" ColumnName="c_course_abstract" />
@@ -5343,16 +5348,11 @@
             <ScalarProperty Name="c_course_credit_hours" ColumnName="c_course_credit_hours" />
             <ScalarProperty Name="c_course_credit_units" ColumnName="c_course_credit_units" />
             <ScalarProperty Name="c_course_cert_flag" ColumnName="c_course_cert_flag" />
-            <ScalarProperty Name="c_course_recurrance_grace_days" ColumnName="c_course_recurrance_grace_days" />
             <ScalarProperty Name="c_course_owner_id_fk" ColumnName="c_course_owner_id_fk" />
             <ScalarProperty Name="c_course_coordinator_id_fk" ColumnName="c_course_coordinator_id_fk" />
             <ScalarProperty Name="c_course_active_flag" ColumnName="c_course_active_flag" />
             <ScalarProperty Name="c_course_active_type_id_fk" ColumnName="c_course_active_type_id_fk" />
             <ScalarProperty Name="c_course_visible_flag" ColumnName="c_course_visible_flag" />
-            <ScalarProperty Name="c_cource_recurrance_every" ColumnName="c_cource_recurrance_every" />
-            <ScalarProperty Name="c_cource_recurrance_period" ColumnName="c_cource_recurrance_period" />
-            <ScalarProperty Name="c_cource_recurance_date_option" ColumnName="c_cource_recurance_date_option" />
-            <ScalarProperty Name="c_cource_recurance_date" ColumnName="c_cource_recurance_date" />
             <ScalarProperty Name="c_course_cost" ColumnName="c_course_cost" />
             <ScalarProperty Name="c_course_icon_uri_file_name" ColumnName="c_course_icon_uri_file_name" />
             <ScalarProperty Name="c_course_custom_01" ColumnName="c_course_custom_01" />
@@ -6418,14 +6418,14 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Model1" ZoomLevel="31">
+      <Diagram Name="Model1" ZoomLevel="30">
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_approval" Width="2" PointX="6.625" PointY="1" Height="1.59568359375" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_domain" Width="2" PointX="8.5" PointY="9.5" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_equivalencies" Width="2.125" PointX="8.5" PointY="12.125" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_fulfillments" Width="2" PointX="8.375" PointY="15" Height="2.1725878906249978" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_prerequisite" Width="2" PointX="8.375" PointY="17.875" Height="2.172587890624996" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_status" Width="2.125" PointX="23.375" PointY="0.875" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_courses_master" Width="2.625" PointX="5" PointY="9.125" Height="11.979960937500003" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_courses_master" Width="2.625" PointX="5" PointY="9.125" Height="12.941468098958339" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_deliveries_master" Width="2.75" PointX="11.5" PointY="4.25" Height="14.095276692708332" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_delivery_attachments" Width="2.375" PointX="15.5" PointY="6.5" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_delivery_type" Width="2" PointX="9.25" PointY="1" Height="1.5956835937499996" IsExpanded="true" />
@@ -6439,114 +6439,78 @@
           <ConnectorPoint PointX="8.5" PointY="10.490143229166666" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__0A338187" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.625" PointY="13.61466429233551" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="13.61466429233551" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="13.61466429233551" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="13.61466429233551" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="13.61466429233551" />
-          <ConnectorPoint PointX="8.5" PointY="13.61466429233551" />
+          <ConnectorPoint PointX="7.625" PointY="13.672806804812437" />
+          <ConnectorPoint PointX="8.5" PointY="13.672806804812437" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_rel__0B27A5C0" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.625" PointY="12.807332146167756" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="12.807332146167756" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="12.807332146167756" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="12.807332146167756" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="12.807332146167756" />
-          <ConnectorPoint PointX="8.223107655132031" PointY="12.807332146167756" />
-          <ConnectorPoint PointX="8.3897743217986989" PointY="12.807332146167756" />
-          <ConnectorPoint PointX="8.5" PointY="12.807332146167756" />
+          <ConnectorPoint PointX="7.625" PointY="12.836403402406219" />
+          <ConnectorPoint PointX="8.5" PointY="12.836403402406219" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__0C1BC9F9" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.625" PointY="16.490033949911592" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="16.490033949911592" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="16.490033949911592" />
-          <ConnectorPoint PointX="8.375" PointY="16.490033949911592" />
+          <ConnectorPoint PointX="7.625" PointY="16.490058208690023" />
+          <ConnectorPoint PointX="8.375" PointY="16.490058208690023" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_rel__0D0FEE32" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.625" PointY="15.682516974955796" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="15.682516974955796" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="15.682516974955796" />
-          <ConnectorPoint PointX="8.375" PointY="15.682516974955796" />
+          <ConnectorPoint PointX="7.625" PointY="15.682529104345012" />
+          <ConnectorPoint PointX="8.375" PointY="15.682529104345012" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__0E04126B" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.625" PointY="19.416652841287672" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="19.416652841287672" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="19.416652841287672" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="19.416652841287672" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="19.416652841287672" />
-          <ConnectorPoint PointX="8.375" PointY="19.416652841287672" />
+          <ConnectorPoint PointX="7.625" PointY="19.372019256563838" />
+          <ConnectorPoint PointX="8.375" PointY="19.372019256563838" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_rel__0EF836A4" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.625" PointY="18.785630283594223" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="18.785630283594223" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="18.785630283594223" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="18.785630283594223" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="18.785630283594223" />
-          <ConnectorPoint PointX="8.375" PointY="18.785630283594223" />
+          <ConnectorPoint PointX="7.625" PointY="18.561009628281919" />
+          <ConnectorPoint PointX="8.375" PointY="18.561009628281919" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__11D4A34F" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="14.112515268325808" />
-          <ConnectorPoint PointX="4.416666666666667" PointY="14.112515268325806" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="14.112515268325806" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="14.112515268325806" />
-          <ConnectorPoint PointX="4.927083333333333" PointY="14.112515268325808" />
-          <ConnectorPoint PointX="5" PointY="14.112515268325808" />
+          <ConnectorPoint PointX="4.125" PointY="14.426728791161093" />
+          <ConnectorPoint PointX="4.604166666666667" PointY="14.426728791161093" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="14.426728791161093" />
+          <ConnectorPoint PointX="5" PointY="14.426728791161093" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__2077C861" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="11.556257634162904" />
-          <ConnectorPoint PointX="4.416666666666667" PointY="11.556257634162902" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="11.556257634162902" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="11.556257634162902" />
-          <ConnectorPoint PointX="4.927083333333333" PointY="11.556257634162904" />
-          <ConnectorPoint PointX="5" PointY="11.556257634162904" />
+          <ConnectorPoint PointX="4.125" PointY="11.713364395580546" />
+          <ConnectorPoint PointX="4.604166666666667" PointY="11.713364395580546" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="11.713364395580546" />
+          <ConnectorPoint PointX="5" PointY="11.713364395580546" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__216BEC9A" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="19.431327540079756" />
-          <ConnectorPoint PointX="4.416666666666667" PointY="19.431327540079753" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="19.431327540079753" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="19.431327540079753" />
-          <ConnectorPoint PointX="4.927083333333333" PointY="19.431327540079756" />
-          <ConnectorPoint PointX="5" PointY="19.431327540079756" />
+          <ConnectorPoint PointX="4.125" PointY="19.626740504974862" />
+          <ConnectorPoint PointX="4.604166666666667" PointY="19.626740504974862" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="19.626740504974862" />
+          <ConnectorPoint PointX="5" PointY="19.626740504974862" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__7760A435" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="16.771921404202782" />
-          <ConnectorPoint PointX="4.416666666666667" PointY="16.771921404202779" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="16.771921404202779" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="16.771921404202779" />
-          <ConnectorPoint PointX="4.927083333333333" PointY="16.771921404202782" />
-          <ConnectorPoint PointX="5" PointY="16.771921404202782" />
+          <ConnectorPoint PointX="4.125" PointY="17.026734648067979" />
+          <ConnectorPoint PointX="4.604166666666667" PointY="17.026734648067979" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="17.026734648067979" />
+          <ConnectorPoint PointX="5" PointY="17.026734648067979" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_deli__c_cou__320C68B7" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.625" PointY="14.6487939453125" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="14.6487939453125" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="14.6487939453125" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="14.6487939453125" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="14.6487939453125" />
-          <ConnectorPoint PointX="10.854166666666666" PointY="14.648793945312498" />
-          <ConnectorPoint PointX="11.104166666666666" PointY="14.648793945312496" />
+          <ConnectorPoint PointX="7.625" PointY="14.648793945312498" />
+          <ConnectorPoint PointX="11.104166666666666" PointY="14.648793945312498" />
           <ConnectorPoint PointX="11.270833333333334" PointY="14.648793945312498" />
-          <ConnectorPoint PointX="11.270833333333334" PointY="14.6487939453125" />
-          <ConnectorPoint PointX="11.5" PointY="14.6487939453125" />
+          <ConnectorPoint PointX="11.5" PointY="14.648793945312498" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_deli__c_del__34E8D562" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="7.9444482421874971" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="7.9444482421874962" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="7.9444482421874971" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="7.9444482421874962" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="7.9444482421874971" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="7.9444482421874962" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="7.9444482421874971" />
-          <ConnectorPoint PointX="11.5" PointY="7.9444482421874971" />
+          <ConnectorPoint PointX="4.125" PointY="7.805560302734369" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="7.8055603027343681" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="7.805560302734369" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="7.8055603027343681" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="7.805560302734369" />
+          <ConnectorPoint PointX="6.072916666666667" PointY="7.8055603027343681" />
+          <ConnectorPoint PointX="6.239583333333333" PointY="7.805560302734369" />
+          <ConnectorPoint PointX="11.5" PointY="7.805560302734369" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_deli__c_del__35DCF99B" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="8.222224121093749" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="8.222224121093749" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="8.222224121093749" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="8.222224121093749" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="8.222224121093749" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="8.222224121093749" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="8.222224121093749" />
-          <ConnectorPoint PointX="11.5" PointY="8.222224121093749" />
+          <ConnectorPoint PointX="4.125" PointY="8.2561508610026664" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="8.2561508610026664" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="8.2561508610026664" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="8.2561508610026664" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="8.2561508610026664" />
+          <ConnectorPoint PointX="6.072916666666667" PointY="8.2561508610026664" />
+          <ConnectorPoint PointX="6.239583333333333" PointY="8.2561508610026664" />
+          <ConnectorPoint PointX="11.5" PointY="8.2561508610026664" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_deli__c_del__592635D8" ManuallyRouted="false">
           <ConnectorPoint PointX="14.25" PointY="7.4901432291666659" />
@@ -6559,88 +6523,60 @@
         <EntityTypeShape EntityType="ComplianceFactorsModel.e_tb_enrollments" Width="2.5" PointX="19.875" PointY="11.875" Height="6.4032194010416674" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.e_tb_enrollments_approvals" Width="2.75" PointX="23.75" PointY="11.875" Height="6.4032194010416674" />
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__082C08DB" >
-          <ConnectorPoint PointX="7.625" PointY="21.470734049479169" />
-          <ConnectorPoint PointX="11.416666666666666" PointY="21.470734049479169" />
-          <ConnectorPoint PointX="11.583333333333334" PointY="21.470734049479169" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="21.470734049479169" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="21.470734049479169" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="21.470734049479169" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="21.470734049479169" />
-          <ConnectorPoint PointX="16.5" PointY="21.470734049479169" />
+          <ConnectorPoint PointX="7.625" PointY="21.32658129846444" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="21.32658129846444" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="21.32658129846444" />
+          <ConnectorPoint PointX="13.010416666666666" PointY="21.32658129846444" />
+          <ConnectorPoint PointX="13.177083333333334" PointY="21.32658129846444" />
+          <ConnectorPoint PointX="14.791666666666666" PointY="21.32658129846444" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="21.32658129846444" />
+          <ConnectorPoint PointX="16.5" PointY="21.32658129846444" />
         </AssociationConnector>
-        <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__267B85D1" ManuallyRouted="true" >
-          <ConnectorPoint PointX="7.625" PointY="18.217102725900791" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="18.217102725900791" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="18.217102725900791" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="18.217102725900791" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="18.217102725900791" />
-          <ConnectorPoint PointX="10.791666666666666" PointY="18.217102725900791" />
-          <ConnectorPoint PointX="11.208333333333334" PointY="18.217102725900791" />
-          <ConnectorPoint PointX="11.25" PointY="18.217102725900791" />
-          <ConnectorPoint PointX="11.25" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="11.291666666666666" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="11.458333333333334" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="14.541666666666666" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="14.708333333333334" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="15.354166666666666" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="15.708333333333334" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="17.041666666666668" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="17.208333333333332" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="18.987745305250428" PointY="18.595276692708332" />
-          <ConnectorPoint PointX="18.987745305250428" PointY="11.240502573357466" />
-          <ConnectorPoint PointX="21.041666666666668" PointY="11.240502573357466" />
-          <ConnectorPoint PointX="21.208333333333332" PointY="11.240502573357466" />
-          <ConnectorPoint PointX="24.68229091666667" PointY="11.240502573357466" />
-          <ConnectorPoint PointX="24.848957583333334" PointY="11.240502573357466" />
-          <ConnectorPoint PointX="25.243815838541671" PointY="11.240502573357466" />
-          <ConnectorPoint PointX="25.410482505208336" PointY="11.240502573357466" />
-          <ConnectorPoint PointX="25.88867409375" PointY="11.240502573357466" />
-          <ConnectorPoint PointX="25.88867409375" PointY="11.875" />
+        <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__267B85D1" ManuallyRouted="false" >
+          <ConnectorPoint PointX="7.625" PointY="20.735341796875" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="20.735341796875" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="20.735341796875" />
+          <ConnectorPoint PointX="13.010416666666666" PointY="20.735341796875" />
+          <ConnectorPoint PointX="13.177083333333334" PointY="20.735341796875" />
+          <ConnectorPoint PointX="14.791666666666666" PointY="20.735341796875" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="20.735341796875" />
+          <ConnectorPoint PointX="20.634437213541666" PointY="20.735341796875" />
+          <ConnectorPoint PointX="20.801103880208331" PointY="20.735341796875" />
+          <ConnectorPoint PointX="26.15625" PointY="20.735341796875" />
+          <ConnectorPoint PointX="26.15625" PointY="18.278219401041667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__7EA29EA1" >
-          <ConnectorPoint PointX="7.625" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="11.416666666666666" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="11.583333333333334" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="18.879289319291882" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="19.045955985958546" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="20.787758854166668" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="20.954425520833333" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="21.65429859375" PointY="20.461293945312498" />
-          <ConnectorPoint PointX="21.65429859375" PointY="20.008932291666667" />
+          <ConnectorPoint PointX="7.625" PointY="20.425686799438552" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="20.425686799438552" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="20.425686799438552" />
+          <ConnectorPoint PointX="13.010416666666666" PointY="20.425686799438552" />
+          <ConnectorPoint PointX="13.177083333333334" PointY="20.425686799438552" />
+          <ConnectorPoint PointX="14.791666666666666" PointY="20.425686799438552" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="20.425686799438552" />
+          <ConnectorPoint PointX="20.634437213541666" PointY="20.425686799438552" />
+          <ConnectorPoint PointX="20.801103880208331" PointY="20.425686799438552" />
+          <ConnectorPoint PointX="21.5776377734375" PointY="20.425686799438552" />
+          <ConnectorPoint PointX="21.5776377734375" PointY="20.008932291666667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__09202D14" >
           <ConnectorPoint PointX="13.09375" PointY="18.729879557291667" />
-          <ConnectorPoint PointX="13.09375" PointY="22.047869524739578" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="22.047869524739578" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="22.047869524739578" />
-          <ConnectorPoint PointX="16.5" PointY="22.047869524739578" />
+          <ConnectorPoint PointX="13.09375" PointY="22.087307313539551" />
+          <ConnectorPoint PointX="14.791666666666666" PointY="22.087307313539551" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="22.087307313539551" />
+          <ConnectorPoint PointX="16.5" PointY="22.087307313539551" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__276FAA0A" >
-          <ConnectorPoint PointX="14.25" PointY="8.6776432291666659" />
-          <ConnectorPoint PointX="25.327149171875003" PointY="8.6776432291666659" />
+          <ConnectorPoint PointX="14.25" PointY="8.7075276874400824" />
+          <ConnectorPoint PointX="25.327149171875003" PointY="8.7075276874400824" />
           <ConnectorPoint PointX="25.327149171875003" PointY="11.875" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__7F96C2DA" >
-          <ConnectorPoint PointX="14.25" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="14.541666666666666" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="14.708333333333334" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="17.041666666666668" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="17.208333333333332" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="17.757351242979272" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="17.924017909645936" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="18.160539819291881" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="18.327206485958545" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="18.904411971917096" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="19.07107863858376" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="19.541666666666668" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="19.708333333333332" PointY="14.523753255208334" />
-          <ConnectorPoint PointX="19.875" PointY="14.523753255208334" />
+          <ConnectorPoint PointX="14.25" PointY="15.910200866270449" />
+          <ConnectorPoint PointX="17.041666666666668" PointY="15.910200866270449" />
+          <ConnectorPoint PointX="17.208333333333332" PointY="15.910200866270449" />
+          <ConnectorPoint PointX="18.885416666666668" PointY="15.910200866270449" />
+          <ConnectorPoint PointX="19.052083333333332" PointY="15.910200866270449" />
+          <ConnectorPoint PointX="19.875" PointY="15.910200866270449" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__017F0B4C" >
           <ConnectorPoint PointX="21.125" PointY="10.662985026041667" />
@@ -6652,35 +6588,29 @@
           <ConnectorPoint PointX="24.765624250000002" PointY="11.875" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__0A14514D" >
-          <ConnectorPoint PointX="4.125" PointY="22.367684762369791" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="22.367684762369791" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="22.367684762369791" />
-          <ConnectorPoint PointX="5.7447891666666671" PointY="22.367684762369791" />
-          <ConnectorPoint PointX="5.9114558333333331" PointY="22.367684762369791" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="22.367684762369791" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="22.367684762369791" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="22.367684762369791" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="22.367684762369791" />
-          <ConnectorPoint PointX="16.5" PointY="22.367684762369791" />
+          <ConnectorPoint PointX="4.125" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="4.604166666666667" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="4.770833333333333" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="5.6451785416666684" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="5.8118452083333345" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="6.2408844166666677" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="6.4075510833333338" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="14.791666666666666" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="16.5" PointY="22.451070963541671" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__02732F85" >
-          <ConnectorPoint PointX="29.5" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="29.019369036458333" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="28.852702369791668" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="28.711295271809892" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="28.544628605143227" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="28.434529446614579" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="28.267862779947915" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="27.849689856770834" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="27.683023190104169" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="27.243974973958334" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="27.07730830729167" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="26.913651653645832" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="26.746984986979168" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="26.404739993489581" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="26.238073326822917" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="20.8710921875" PointY="21.069235026041671" />
-          <ConnectorPoint PointX="20.8710921875" PointY="20.008932291666667" />
+          <ConnectorPoint PointX="29.5" PointY="21.12202686935035" />
+          <ConnectorPoint PointX="29.208333333333332" PointY="21.12202686935035" />
+          <ConnectorPoint PointX="29.041666666666668" PointY="21.12202686935035" />
+          <ConnectorPoint PointX="28.711295271809895" PointY="21.12202686935035" />
+          <ConnectorPoint PointX="28.544628605143231" PointY="21.12202686935035" />
+          <ConnectorPoint PointX="26.958333333333332" PointY="21.12202686935035" />
+          <ConnectorPoint PointX="26.791666666666668" PointY="21.12202686935035" />
+          <ConnectorPoint PointX="20.717770546875" PointY="21.12202686935035" />
+          <ConnectorPoint PointX="20.717770546875" PointY="20.008932291666667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__008AE713" >
           <ConnectorPoint PointX="23.625" PointY="19.504466145833334" />
@@ -6693,35 +6623,37 @@
           <ConnectorPoint PointX="23.75" PointY="13.913557615966793" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__7DAE7A68" >
-          <ConnectorPoint PointX="3.250002" PointY="2.125" />
-          <ConnectorPoint PointX="3.250002" PointY="1.859375" />
-          <ConnectorPoint PointX="4.75" PointY="1.859375" />
+          <ConnectorPoint PointX="1.8437489999999994" PointY="2.125" />
+          <ConnectorPoint PointX="1.8437489999999994" PointY="1.875" />
+          <ConnectorPoint PointX="4.75" PointY="1.875" />
           <ConnectorPoint PointX="4.75" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="5.7447891666666671" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="5.9114558333333331" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="11.5" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="11.5" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="18.879289319291882" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="19.045955985958546" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="19.5" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="19.5" PointY="17.297594773437496" />
-          <ConnectorPoint PointX="19.875" PointY="17.297594773437496" />
+          <ConnectorPoint PointX="5.6451785416666684" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="5.8118452083333345" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="6.2408844166666677" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="6.4075510833333338" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="11.25" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="11.25" PointY="18.979879557291667" />
+          <ConnectorPoint PointX="13.010416666666666" PointY="18.979879557291667" />
+          <ConnectorPoint PointX="13.177083333333334" PointY="18.979879557291667" />
+          <ConnectorPoint PointX="14.791666666666666" PointY="18.979879557291667" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="18.979879557291667" />
+          <ConnectorPoint PointX="18.885416666666668" PointY="18.979879557291667" />
+          <ConnectorPoint PointX="19.052083333333332" PointY="18.979879557291667" />
+          <ConnectorPoint PointX="19.5" PointY="18.979879557291667" />
+          <ConnectorPoint PointX="19.5" PointY="17.990818578968607" />
+          <ConnectorPoint PointX="19.875" PointY="17.990818578968607" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__25876198" >
-          <ConnectorPoint PointX="4.125" PointY="3.1422170072696387" />
-          <ConnectorPoint PointX="4.291666666666667" PointY="3.1422170072696383" />
-          <ConnectorPoint PointX="4.458333333333333" PointY="3.1422170072696387" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="3.1422170072696383" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="3.1422170072696387" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="3.1422170072696383" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="3.1422170072696387" />
-          <ConnectorPoint PointX="26.225589546875" PointY="3.1422170072696387" />
+          <ConnectorPoint PointX="4.125" PointY="3.0815559029810125" />
+          <ConnectorPoint PointX="4.291666666666667" PointY="3.081555902981012" />
+          <ConnectorPoint PointX="4.458333333333333" PointY="3.0815559029810125" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="3.081555902981012" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="3.0815559029810125" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="3.081555902981012" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="3.0815559029810125" />
+          <ConnectorPoint PointX="26.225589546875" PointY="3.0815559029810125" />
           <ConnectorPoint PointX="26.225589546875" PointY="11.875" />
         </AssociationConnector>
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_curriculum_domain" Width="2.25" PointX="0.625" PointY="40.5" Height="1.7879850260416674" />
@@ -6743,42 +6675,32 @@
         <EntityTypeShape EntityType="ComplianceFactorsModel.s_tb_grading_schemes_values" Width="3" PointX="10.25" PointY="50.5" Height="3.903300781249996" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.t_tb_transcripts" Width="3.75" PointX="25.875" PointY="23.625" Height="6.21091796875001" />
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__2D5D8D8A" >
-          <ConnectorPoint PointX="6.71875" PointY="22.066468098958339" />
-          <ConnectorPoint PointX="6.71875" PointY="44.375" />
+          <ConnectorPoint PointX="6.7864583333333339" PointY="22.066468098958339" />
+          <ConnectorPoint PointX="6.7864583333333339" PointY="44.375" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__4C4C28FE" >
-          <ConnectorPoint PointX="5.8281225" PointY="22.066468098958339" />
-          <ConnectorPoint PointX="5.8281225" PointY="22.84375" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="22.84375" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="22.84375" />
-          <ConnectorPoint PointX="9.375" PointY="22.84375" />
+          <ConnectorPoint PointX="6.3242177500000007" PointY="22.066468098958339" />
+          <ConnectorPoint PointX="6.3242177500000007" PointY="22.75" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="22.75" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="22.75" />
+          <ConnectorPoint PointX="9.375" PointY="22.75" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__63F9955D" >
-          <ConnectorPoint PointX="7.625" PointY="11.648737687667211" />
-          <ConnectorPoint PointX="8.125" PointY="11.648737687667211" />
-          <ConnectorPoint PointX="8.125" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="11.416666666666666" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="11.583333333333334" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="18.879289319291882" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="19.045955985958546" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="20.787758854166668" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="20.954425520833333" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="21.570965260416667" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="21.737631927083331" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="23.375" PointY="20.258932291666667" />
-          <ConnectorPoint PointX="23.375" PointY="18.528219401041667" />
-          <ConnectorPoint PointX="26.746984986979168" PointY="18.528219401041667" />
-          <ConnectorPoint PointX="26.913651653645832" PointY="18.528219401041667" />
-          <ConnectorPoint PointX="27.07730830729167" PointY="18.528219401041667" />
-          <ConnectorPoint PointX="27.243974973958334" PointY="18.528219401041667" />
-          <ConnectorPoint PointX="27.672585543619793" PointY="18.528219401041667" />
-          <ConnectorPoint PointX="27.839252210286457" PointY="18.528219401041667" />
-          <ConnectorPoint PointX="28.62796193847656" PointY="18.528219401041667" />
-          <ConnectorPoint PointX="28.62796193847656" PointY="23.625" />
+          <ConnectorPoint PointX="5.7285118750000015" PointY="22.066468098958339" />
+          <ConnectorPoint PointX="5.7285118750000015" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="13.291666666666666" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="13.458333333333334" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="14.791666666666666" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="17.875" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="17.875" PointY="24.75" />
+          <ConnectorPoint PointX="25.5" PointY="24.75" />
+          <ConnectorPoint PointX="25.5" PointY="26.730458984375005" />
+          <ConnectorPoint PointX="25.875" PointY="26.730458984375005" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_dom__1D864D1D" >
           <ConnectorPoint PointX="3.5" PointY="41.490143229166669" />
@@ -6788,66 +6710,66 @@
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__318D45CA" >
           <ConnectorPoint PointX="6.25" PointY="33.836293945312505" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="33.836293945312505" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="33.836293945312505" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="33.836293945312505" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="33.836293945312505" />
           <ConnectorPoint PointX="6.875" PointY="33.836293945312505" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_rel__32816A03" >
           <ConnectorPoint PointX="6.25" PointY="33.230646972656253" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="33.230646972656253" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="33.230646972656253" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="33.230646972656253" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="33.230646972656253" />
           <ConnectorPoint PointX="6.875" PointY="33.230646972656253" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__37461F20" >
-          <ConnectorPoint PointX="5.5" PointY="32.125" />
-          <ConnectorPoint PointX="5.5" PointY="31.183736979166667" />
-          <ConnectorPoint PointX="6.541666666666667" PointY="31.183736979166667" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="31.183736979166667" />
+          <ConnectorPoint PointX="5.5468740000000016" PointY="32.125" />
+          <ConnectorPoint PointX="5.5468740000000016" PointY="31.183736979166667" />
+          <ConnectorPoint PointX="6.5520833333333339" PointY="31.183736979166667" />
+          <ConnectorPoint PointX="6.8697916666666661" PointY="31.183736979166667" />
           <ConnectorPoint PointX="7" PointY="31.183736979166667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_rel__383A4359" >
-          <ConnectorPoint PointX="5.9062525" PointY="32.125" />
-          <ConnectorPoint PointX="5.9062525" PointY="31.214989479166661" />
-          <ConnectorPoint PointX="6.541666666666667" PointY="31.214989479166661" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="31.214989479166661" />
+          <ConnectorPoint PointX="4.8437480000000015" PointY="32.125" />
+          <ConnectorPoint PointX="4.8437480000000015" PointY="31.214989479166661" />
+          <ConnectorPoint PointX="5.111977666666669" PointY="31.214989479166661" />
+          <ConnectorPoint PointX="5.278644333333335" PointY="31.214989479166661" />
+          <ConnectorPoint PointX="6.5520833333333339" PointY="31.214989479166661" />
+          <ConnectorPoint PointX="6.8697916666666661" PointY="31.214989479166661" />
           <ConnectorPoint PointX="7" PointY="31.214989479166661" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__088B3037" >
-          <ConnectorPoint PointX="3.1874975" PointY="31.027486979166667" />
-          <ConnectorPoint PointX="3.1874975" PointY="43.804627278645832" />
+          <ConnectorPoint PointX="2.9999937499999985" PointY="31.027486979166667" />
+          <ConnectorPoint PointX="2.9999937499999985" PointY="43.804627278645832" />
           <ConnectorPoint PointX="3.5" PointY="43.804627278645832" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__097F5470" >
-          <ConnectorPoint PointX="3.0312462499999993" PointY="31.027486979166667" />
-          <ConnectorPoint PointX="3.0312462499999993" PointY="39.264150390624991" />
-          <ConnectorPoint PointX="3.1041641666666666" PointY="39.264150390624991" />
-          <ConnectorPoint PointX="3.2708308333333336" PointY="39.264150390624991" />
-          <ConnectorPoint PointX="3.5" PointY="39.264150390624991" />
+          <ConnectorPoint PointX="3.1249924999999985" PointY="31.027486979166667" />
+          <ConnectorPoint PointX="3.1249924999999985" PointY="39.216072532552076" />
+          <ConnectorPoint PointX="3.5" PointY="39.216072532552076" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__1D2725C1" >
           <ConnectorPoint PointX="6.25" PointY="40.384348958333334" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="40.384348958333334" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="40.384348958333334" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="40.384348958333334" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="40.384348958333334" />
           <ConnectorPoint PointX="7.625" PointY="40.384348958333334" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__1E1B49FA" >
           <ConnectorPoint PointX="6.25" PointY="39.442174479166667" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="39.442174479166667" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="39.442174479166667" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="39.442174479166667" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="39.442174479166667" />
           <ConnectorPoint PointX="7.625" PointY="39.442174479166667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__22DFFF17" >
           <ConnectorPoint PointX="6.25" PointY="43.049947916666667" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="43.049947916666667" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="43.049947916666667" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="43.049947916666667" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="43.049947916666667" />
           <ConnectorPoint PointX="8.6041666666666661" PointY="43.049947916666667" />
           <ConnectorPoint PointX="8.7708333333333339" PointY="43.049947916666667" />
           <ConnectorPoint PointX="10.625" PointY="43.049947916666667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__24C84789" >
           <ConnectorPoint PointX="6.25" PointY="42.565572916666667" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="42.565572916666667" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="42.565572916666667" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="42.565572916666667" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="42.565572916666667" />
           <ConnectorPoint PointX="8.6041666666666661" PointY="42.565572916666667" />
           <ConnectorPoint PointX="8.7708333333333339" PointY="42.565572916666667" />
           <ConnectorPoint PointX="10.625" PointY="42.565572916666667" />
@@ -6858,49 +6780,63 @@
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__2BD46C74" >
           <ConnectorPoint PointX="6.25" PointY="36.961293945312505" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="36.961293945312505" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="36.961293945312505" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="36.961293945312505" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="36.961293945312505" />
           <ConnectorPoint PointX="6.875" PointY="36.961293945312505" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__3EF22DE0" >
           <ConnectorPoint PointX="6.25" PointY="32.40625" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="32.40625" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="32.40625" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="32.40625" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="32.40625" />
           <ConnectorPoint PointX="9.25" PointY="32.40625" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__43B6E2FD" >
           <ConnectorPoint PointX="6.25" PointY="35.398793945312505" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="35.398793945312505" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="35.398793945312505" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="35.398793945312505" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="35.398793945312505" />
           <ConnectorPoint PointX="14.0625" PointY="35.398793945312505" />
           <ConnectorPoint PointX="14.0625" PointY="34.634095052083325" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__496FBC53" >
-          <ConnectorPoint PointX="5.0937475" PointY="32.125" />
-          <ConnectorPoint PointX="5.0937475" PointY="22.875" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="22.875" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="22.875" />
+          <ConnectorPoint PointX="5.195311000000002" PointY="32.125" />
+          <ConnectorPoint PointX="5.195311000000002" PointY="23.054423828125003" />
+          <ConnectorPoint PointX="5.6451785416666684" PointY="23.054423828125003" />
+          <ConnectorPoint PointX="5.8118452083333345" PointY="23.054423828125003" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="23.054423828125003" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="23.054423828125003" />
+          <ConnectorPoint PointX="7.875" PointY="23.054423828125003" />
+          <ConnectorPoint PointX="7.875" PointY="22.875" />
           <ConnectorPoint PointX="9" PointY="22.875" />
-          <ConnectorPoint PointX="9" PointY="24.332674526041657" />
-          <ConnectorPoint PointX="9.375" PointY="24.332674526041657" />
+          <ConnectorPoint PointX="9" PointY="24.317047026041664" />
+          <ConnectorPoint PointX="9.375" PointY="24.317047026041664" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__62307D25" >
-          <ConnectorPoint PointX="3.1562449999999993" PointY="31.027486979166667" />
-          <ConnectorPoint PointX="3.1562449999999993" PointY="33.09375" />
-          <ConnectorPoint PointX="3.5" PointY="33.09375" />
+          <ConnectorPoint PointX="0.53125" PointY="31.027486979166667" />
+          <ConnectorPoint PointX="0.53125" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="0.74479166666666663" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="0.91145833333333337" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="1.0729166666666667" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="1.2395833333333333" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="1.4283854166666667" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="1.5950520833333333" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="1.7838541666666667" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="1.9505208333333333" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="2.916660416666665" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="3.2083258333333324" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="3.5" PointY="33.457274800766172" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_rel__2CC890AD" >
           <ConnectorPoint PointX="6.25" PointY="36.355646972656253" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="36.355646972656253" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="36.355646972656253" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="36.355646972656253" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="36.355646972656253" />
           <ConnectorPoint PointX="6.875" PointY="36.355646972656253" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_curr__e_cur__5B644F5C" >
           <ConnectorPoint PointX="6.2500000000000018" PointY="32.125" />
-          <ConnectorPoint PointX="6.625" PointY="31.75" />
-          <ConnectorPoint PointX="6.625" PointY="26.831342714843757" />
+          <ConnectorPoint PointX="6.635416666666667" PointY="31.75" />
           <ConnectorPoint PointX="6.635416666666667" PointY="26.831342714843757" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="26.831342714843757" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="26.831342714843757" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="26.831342714843757" />
           <ConnectorPoint PointX="10.354166666666666" PointY="26.831342714843757" />
           <ConnectorPoint PointX="10.520833333333334" PointY="26.831342714843757" />
           <ConnectorPoint PointX="13.291666666666666" PointY="26.831342714843757" />
@@ -6941,8 +6877,8 @@
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_deli__c_del__666BEDB4" >
           <ConnectorPoint PointX="14.875" PointY="40.875" />
-          <ConnectorPoint PointX="14.875" PointY="18.266134440104167" />
-          <ConnectorPoint PointX="14.25" PointY="18.266134440104167" />
+          <ConnectorPoint PointX="14.875" PointY="17.283991279489328" />
+          <ConnectorPoint PointX="14.25" PointY="17.283991279489328" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__64EDB996" ManuallyRouted="false" >
           <ConnectorPoint PointX="14.25" PointY="8.7763241145833266" />
@@ -6956,36 +6892,36 @@
           <ConnectorPoint PointX="27.160641640625002" PointY="23.625" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_curr__e_cur__597C06EA" >
-          <ConnectorPoint PointX="4.125" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="5.0104141666666671" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="5.1770808333333331" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="6.541666666666667" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="13.291666666666666" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="13.458333333333334" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="27.595896809895834" />
-          <ConnectorPoint PointX="18.125" PointY="27.595896809895834" />
+          <ConnectorPoint PointX="4.125" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="4.604166666666667" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="4.770833333333333" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="5.111977666666669" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="5.278644333333335" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="6.5520833333333339" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="6.8697916666666661" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="13.291666666666666" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="13.458333333333334" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="14.791666666666666" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="18.125" PointY="27.611520559895837" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_curr__e_cur__5A702B23" >
-          <ConnectorPoint PointX="4.125" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="5.0104141666666671" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="5.1770808333333331" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="6.541666666666667" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="13.291666666666666" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="13.458333333333334" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="28.391698404947917" />
-          <ConnectorPoint PointX="18.125" PointY="28.391698404947917" />
+          <ConnectorPoint PointX="4.125" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="4.604166666666667" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="4.770833333333333" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="5.111977666666669" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="5.278644333333335" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="6.5520833333333339" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="6.8697916666666661" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="13.291666666666666" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="13.458333333333334" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="14.791666666666666" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="18.125" PointY="28.399510279947918" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_curr__e_cur__5D4C97CE" >
           <ConnectorPoint PointX="22" PointY="32.875" />
@@ -7012,30 +6948,30 @@
           <ConnectorPoint PointX="13.25" PointY="52.451650390625" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__63057124" >
-          <ConnectorPoint PointX="4.125" PointY="3.44611100363487" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="3.4461110036348694" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="3.44611100363487" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="3.4461110036348694" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="3.44611100363487" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="3.4461110036348694" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="3.44611100363487" />
-          <ConnectorPoint PointX="26.142256213541668" PointY="3.4461110036348694" />
-          <ConnectorPoint PointX="26.308922880208332" PointY="3.44611100363487" />
-          <ConnectorPoint PointX="26.746984986979168" PointY="3.4461110036348694" />
-          <ConnectorPoint PointX="26.913651653645832" PointY="3.44611100363487" />
-          <ConnectorPoint PointX="27.755918876953125" PointY="3.44611100363487" />
-          <ConnectorPoint PointX="27.755918876953125" PointY="23.625" />
+          <ConnectorPoint PointX="4.125" PointY="3.490832002726127" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="3.4908320027261266" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="3.490832002726127" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="3.4908320027261266" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="3.490832002726127" />
+          <ConnectorPoint PointX="6.072916666666667" PointY="3.4908320027261266" />
+          <ConnectorPoint PointX="6.239583333333333" PointY="3.490832002726127" />
+          <ConnectorPoint PointX="26.142256213541668" PointY="3.4908320027261266" />
+          <ConnectorPoint PointX="26.308922880208332" PointY="3.490832002726127" />
+          <ConnectorPoint PointX="26.791666666666668" PointY="3.4908320027261266" />
+          <ConnectorPoint PointX="26.958333333333332" PointY="3.490832002726127" />
+          <ConnectorPoint PointX="29.125" PointY="3.490832002726127" />
+          <ConnectorPoint PointX="29.125" PointY="23.625" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__67CA2641" >
-          <ConnectorPoint PointX="4.125" PointY="2.8689478005097704" />
-          <ConnectorPoint PointX="4.291666666666667" PointY="2.86894780050977" />
-          <ConnectorPoint PointX="4.458333333333333" PointY="2.8689478005097704" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="2.86894780050977" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="2.8689478005097704" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="2.86894780050977" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="2.8689478005097704" />
-          <ConnectorPoint PointX="26.8303183203125" PointY="2.8689478005097704" />
-          <ConnectorPoint PointX="26.8303183203125" PointY="23.625" />
+          <ConnectorPoint PointX="4.125" PointY="2.8386172483655692" />
+          <ConnectorPoint PointX="4.291666666666667" PointY="2.8386172483655687" />
+          <ConnectorPoint PointX="4.458333333333333" PointY="2.8386172483655692" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="2.8386172483655687" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="2.8386172483655692" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="2.8386172483655687" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="2.8386172483655692" />
+          <ConnectorPoint PointX="26.875" PointY="2.8386172483655692" />
+          <ConnectorPoint PointX="26.875" PointY="23.625" />
         </AssociationConnector>
         <EntityTypeShape EntityType="ComplianceFactorsModel.a_tb_audit_log" Width="1.5" PointX="7.375" PointY="4.125" Height="3.326396484374996" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.a_tb_ui_labels" Width="1.5" PointX="28.875" PointY="31" Height="8.9031380208333246" />
@@ -7051,61 +6987,61 @@
         <EntityTypeShape EntityType="ComplianceFactorsModel.s_tb_ui_texts" Width="1.5" PointX="17.875" PointY="3.75" Height="1.9802864583333246" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.t_tb_transcripts_sessions" Width="1.5" PointX="17.5" PointY="9.25" Height="4.6725065104166674" />
         <AssociationConnector Association="ComplianceFactorsModel.FK__a_tb_audi__a_use__038683F8" >
-          <ConnectorPoint PointX="4.125" PointY="5.1093383719768877" />
-          <ConnectorPoint PointX="4.760416666666667" PointY="5.1093383719768868" />
-          <ConnectorPoint PointX="4.927083333333333" PointY="5.1093383719768877" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="5.1093383719768868" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="5.1093383719768877" />
-          <ConnectorPoint PointX="7.375" PointY="5.1093383719768877" />
+          <ConnectorPoint PointX="4.125" PointY="5.788198242187498" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="5.7881982421874971" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="5.788198242187498" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="5.7881982421874971" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="5.788198242187498" />
+          <ConnectorPoint PointX="6.072916666666667" PointY="5.7881982421874971" />
+          <ConnectorPoint PointX="6.239583333333333" PointY="5.788198242187498" />
+          <ConnectorPoint PointX="7.375" PointY="5.788198242187498" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__app_tb_us__useri__056ECC6A" >
-          <ConnectorPoint PointX="4.125" PointY="24.168206584554952" />
-          <ConnectorPoint PointX="4.5104204166666673" PointY="24.168206584554952" />
-          <ConnectorPoint PointX="4.6770870833333333" PointY="24.168206584554952" />
-          <ConnectorPoint PointX="4.760416666666667" PointY="24.168206584554952" />
-          <ConnectorPoint PointX="4.927083333333333" PointY="24.168206584554952" />
-          <ConnectorPoint PointX="5.0104141666666671" PointY="24.168206584554952" />
-          <ConnectorPoint PointX="5.1770808333333331" PointY="24.168206584554952" />
-          <ConnectorPoint PointX="5.3697936666666672" PointY="24.168206584554952" />
-          <ConnectorPoint PointX="5.5364603333333333" PointY="24.168206584554952" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="24.168206584554952" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="24.168206584554952" />
-          <ConnectorPoint PointX="7.375" PointY="24.168206584554952" />
+          <ConnectorPoint PointX="4.125" PointY="24.595896809895834" />
+          <ConnectorPoint PointX="4.604166666666667" PointY="24.595896809895834" />
+          <ConnectorPoint PointX="4.770833333333333" PointY="24.595896809895834" />
+          <ConnectorPoint PointX="5.111977666666669" PointY="24.595896809895834" />
+          <ConnectorPoint PointX="5.278644333333335" PointY="24.595896809895834" />
+          <ConnectorPoint PointX="5.6451785416666684" PointY="24.595896809895834" />
+          <ConnectorPoint PointX="5.8118452083333345" PointY="24.595896809895834" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="24.595896809895834" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="24.595896809895834" />
+          <ConnectorPoint PointX="7.375" PointY="24.595896809895834" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_rel__17E28260" >
-          <ConnectorPoint PointX="1.484375" PointY="34.125" />
-          <ConnectorPoint PointX="1.484375" PointY="31.277486979166667" />
-          <ConnectorPoint PointX="1.7291666666666667" PointY="31.277486979166667" />
-          <ConnectorPoint PointX="1.8958333333333333" PointY="31.277486979166667" />
-          <ConnectorPoint PointX="2.9479129166666658" PointY="31.277486979166667" />
-          <ConnectorPoint PointX="3.270830833333334" PointY="31.277486979166667" />
-          <ConnectorPoint PointX="4.75" PointY="31.277486979166667" />
-          <ConnectorPoint PointX="4.75" PointY="8.859375" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="8.859375" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="8.859375" />
-          <ConnectorPoint PointX="8.125" PointY="8.859375" />
-          <ConnectorPoint PointX="8.125" PointY="11.016466843749999" />
-          <ConnectorPoint PointX="8.5" PointY="11.016466843749999" />
+          <ConnectorPoint PointX="1.51171875" PointY="34.125" />
+          <ConnectorPoint PointX="1.51171875" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="1.7838541666666667" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="1.9505208333333333" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="2.916660416666665" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="3.2083258333333324" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="4.6875" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="4.6875" PointY="8.875" />
+          <ConnectorPoint PointX="6.072916666666667" PointY="8.875" />
+          <ConnectorPoint PointX="6.239583333333333" PointY="8.875" />
+          <ConnectorPoint PointX="8.125" PointY="8.875" />
+          <ConnectorPoint PointX="8.125" PointY="11.016466843749992" />
+          <ConnectorPoint PointX="8.5" PointY="11.016466843749992" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__75C33FDD" >
           <ConnectorPoint PointX="6.15625" PointY="9.125" />
-          <ConnectorPoint PointX="6.15625" PointY="3.2941640054522541" />
-          <ConnectorPoint PointX="26.142256213541668" PointY="3.2941640054522536" />
-          <ConnectorPoint PointX="26.308922880208332" PointY="3.2941640054522541" />
-          <ConnectorPoint PointX="26.746984986979168" PointY="3.2941640054522536" />
-          <ConnectorPoint PointX="26.913651653645832" PointY="3.2941640054522541" />
-          <ConnectorPoint PointX="30.125" PointY="3.2941640054522541" />
+          <ConnectorPoint PointX="6.15625" PointY="3.2861939528535697" />
+          <ConnectorPoint PointX="26.142256213541668" PointY="3.2861939528535693" />
+          <ConnectorPoint PointX="26.308922880208332" PointY="3.2861939528535697" />
+          <ConnectorPoint PointX="26.791666666666668" PointY="3.2861939528535693" />
+          <ConnectorPoint PointX="26.958333333333332" PointY="3.2861939528535697" />
+          <ConnectorPoint PointX="30.125" PointY="3.2861939528535697" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__6B9AB725" >
-          <ConnectorPoint PointX="7.625" PointY="20.668149472656243" />
-          <ConnectorPoint PointX="11.416666666666666" PointY="20.668149472656243" />
-          <ConnectorPoint PointX="11.583333333333334" PointY="20.668149472656243" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="20.668149472656243" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="20.668149472656243" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="20.668149472656243" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="20.668149472656243" />
-          <ConnectorPoint PointX="18.962622652625214" PointY="20.668149472656243" />
-          <ConnectorPoint PointX="18.962622652625214" PointY="13.922506510416667" />
+          <ConnectorPoint PointX="7.625" PointY="20.236634845031837" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="20.236634845031837" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="20.236634845031837" />
+          <ConnectorPoint PointX="13.010416666666666" PointY="20.236634845031837" />
+          <ConnectorPoint PointX="13.177083333333334" PointY="20.236634845031837" />
+          <ConnectorPoint PointX="14.791666666666666" PointY="20.236634845031837" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="20.236634845031837" />
+          <ConnectorPoint PointX="18.96875" PointY="20.236634845031837" />
+          <ConnectorPoint PointX="18.96875" PointY="13.922506510416667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_rel__1E7A7156" >
           <ConnectorPoint PointX="1.375" PointY="38.028300781249982" />
@@ -7116,31 +7052,33 @@
           <ConnectorPoint PointX="14.25" PointY="5.0814925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__6C8EDB5E" >
-          <ConnectorPoint PointX="14.25" PointY="10.362849121093749" />
-          <ConnectorPoint PointX="17.5" PointY="10.362849121093749" />
+          <ConnectorPoint PointX="14.25" PointY="11.586253255208334" />
+          <ConnectorPoint PointX="17.041666666666668" PointY="11.586253255208334" />
+          <ConnectorPoint PointX="17.208333333333332" PointY="11.586253255208334" />
+          <ConnectorPoint PointX="17.5" PointY="11.586253255208334" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__74CF1BA4" >
-          <ConnectorPoint PointX="4.125" PointY="3.6293055018174352" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="3.6293055018174347" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="3.6293055018174352" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="3.6293055018174347" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="3.6293055018174352" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="3.6293055018174347" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="3.6293055018174352" />
-          <ConnectorPoint PointX="26.142256213541668" PointY="3.6293055018174347" />
-          <ConnectorPoint PointX="26.308922880208332" PointY="3.6293055018174352" />
-          <ConnectorPoint PointX="26.746984986979168" PointY="3.6293055018174347" />
-          <ConnectorPoint PointX="26.913651653645832" PointY="3.6293055018174352" />
-          <ConnectorPoint PointX="27.672585543619793" PointY="3.6293055018174347" />
-          <ConnectorPoint PointX="27.839252210286457" PointY="3.6293055018174352" />
-          <ConnectorPoint PointX="29.666666666666668" PointY="3.6293055018174347" />
-          <ConnectorPoint PointX="29.833333333333332" PointY="3.6293055018174352" />
-          <ConnectorPoint PointX="30.125" PointY="3.6293055018174352" />
+          <ConnectorPoint PointX="4.125" PointY="3.6516660013630635" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="3.6516660013630631" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="3.6516660013630635" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="3.6516660013630631" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="3.6516660013630635" />
+          <ConnectorPoint PointX="6.072916666666667" PointY="3.6516660013630631" />
+          <ConnectorPoint PointX="6.239583333333333" PointY="3.6516660013630635" />
+          <ConnectorPoint PointX="26.142256213541668" PointY="3.6516660013630631" />
+          <ConnectorPoint PointX="26.308922880208332" PointY="3.6516660013630635" />
+          <ConnectorPoint PointX="26.791666666666668" PointY="3.6516660013630631" />
+          <ConnectorPoint PointX="26.958333333333332" PointY="3.6516660013630635" />
+          <ConnectorPoint PointX="29.041666666666668" PointY="3.6516660013630631" />
+          <ConnectorPoint PointX="29.208333333333332" PointY="3.6516660013630635" />
+          <ConnectorPoint PointX="29.666666666666668" PointY="3.6516660013630631" />
+          <ConnectorPoint PointX="29.833333333333332" PointY="3.6516660013630635" />
+          <ConnectorPoint PointX="30.125" PointY="3.6516660013630635" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__77AB884F" >
-          <ConnectorPoint PointX="1.3749980000000002" PointY="2.125" />
-          <ConnectorPoint PointX="1.3749980000000002" PointY="1.84375" />
-          <ConnectorPoint PointX="4.375" PointY="1.84375" />
+          <ConnectorPoint PointX="3.2500020000000007" PointY="2.125" />
+          <ConnectorPoint PointX="3.2500020000000007" PointY="1.859375" />
+          <ConnectorPoint PointX="4.375" PointY="1.859375" />
           <ConnectorPoint PointX="4.375" PointY="3.5" />
           <ConnectorPoint PointX="4.666666666666667" PointY="3.4999999999999996" />
           <ConnectorPoint PointX="4.833333333333333" PointY="3.5" />
@@ -7150,11 +7088,11 @@
           <ConnectorPoint PointX="6.239583333333333" PointY="3.5" />
           <ConnectorPoint PointX="26.142256213541668" PointY="3.4999999999999996" />
           <ConnectorPoint PointX="26.308922880208332" PointY="3.5" />
-          <ConnectorPoint PointX="26.746984986979168" PointY="3.4999999999999996" />
-          <ConnectorPoint PointX="26.913651653645832" PointY="3.5" />
+          <ConnectorPoint PointX="26.791666666666668" PointY="3.4999999999999996" />
+          <ConnectorPoint PointX="26.958333333333332" PointY="3.5" />
           <ConnectorPoint PointX="29.75" PointY="3.5" />
-          <ConnectorPoint PointX="29.75" PointY="5.3648565738253735" />
-          <ConnectorPoint PointX="30.125" PointY="5.3648565738253735" />
+          <ConnectorPoint PointX="29.75" PointY="5.3760368235982448" />
+          <ConnectorPoint PointX="30.125" PointY="5.3760368235982448" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__7993D0C1" >
           <ConnectorPoint PointX="30.875" PointY="19.5" />
@@ -7169,8 +7107,8 @@
           <ConnectorPoint PointX="20.0703125" PointY="30.249410807291667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__s_tb_doma__u_coo__379037E3" >
-          <ConnectorPoint PointX="1.8125" PointY="31.027486979166667" />
-          <ConnectorPoint PointX="1.8125" PointY="34.125" />
+          <ConnectorPoint PointX="1.8671875" PointY="31.027486979166667" />
+          <ConnectorPoint PointX="1.8671875" PointY="34.125" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__s_tb_doma__u_own__39788055" >
           <ConnectorPoint PointX="0.9375" PointY="31.027486979166667" />
@@ -7181,21 +7119,21 @@
           <ConnectorPoint PointX="1.15625" PointY="31.027486979166667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__6AA692EC" >
-          <ConnectorPoint PointX="2.3125" PointY="2.125" />
-          <ConnectorPoint PointX="2.3125" PointY="1.875" />
-          <ConnectorPoint PointX="5" PointY="1.875" />
-          <ConnectorPoint PointX="5" PointY="8.875" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="8.875" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="8.875" />
-          <ConnectorPoint PointX="11.1875" PointY="8.875" />
-          <ConnectorPoint PointX="11.1875" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="17.125" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="17.125" PointY="12.173929815755201" />
-          <ConnectorPoint PointX="17.5" PointY="12.173929815755201" />
+          <ConnectorPoint PointX="2.5468755" PointY="2.125" />
+          <ConnectorPoint PointX="2.5468755" PointY="1.84375" />
+          <ConnectorPoint PointX="5" PointY="1.84375" />
+          <ConnectorPoint PointX="5" PointY="8.859375" />
+          <ConnectorPoint PointX="6.072916666666667" PointY="8.859375" />
+          <ConnectorPoint PointX="6.239583333333333" PointY="8.859375" />
+          <ConnectorPoint PointX="11.1875" PointY="8.859375" />
+          <ConnectorPoint PointX="11.1875" PointY="18.995504557291667" />
+          <ConnectorPoint PointX="13.010416666666666" PointY="18.995504557291667" />
+          <ConnectorPoint PointX="13.177083333333334" PointY="18.995504557291667" />
+          <ConnectorPoint PointX="14.791666666666666" PointY="18.995504557291667" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="18.995504557291667" />
+          <ConnectorPoint PointX="17.125" PointY="18.995504557291667" />
+          <ConnectorPoint PointX="17.125" PointY="10.386874627604115" />
+          <ConnectorPoint PointX="17.5" PointY="10.386874627604115" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

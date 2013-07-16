@@ -232,7 +232,7 @@ namespace AICC_CMI
                     context.SaveChanges();
 
                     // A. Insert completion record in audit log
-                    insertAuditRecord(Guid.NewGuid(), "Marked Completion / Type (OLT Player)", 
+                    insertAuditRecord(enroll.u_tb_users_master.u_user_id_pk, "Marked Completion / Type (OLT Player)", 
                                 "(Completed, Attendance='OLT PLayer', Passing Status=" + pass_status_fk 
                                     + ", Completion Score=" + enroll.e_enroll_score.ToString(), null);
 
@@ -240,17 +240,17 @@ namespace AICC_CMI
 
                     // B. Check for recurrence
                     //          if (hasRecurrence(enroll.c_tb_courses_master.c_course_system_id_pk))
-                    if (course.c_cource_recurrance_every != null && course.c_cource_recurrance_every != 0)
+                    if (course.c_course_recurrence_every != null && course.c_course_recurrence_every != 0)
                     {
                         // Course has recurrence, so calc next due date and create new enrollment record
 
                         DateTime start_date;
                         
                         // determine start date to use in calc
-                        switch (course.c_cource_recurance_date_option) 
+                        switch (course.c_course_recurrence_date_option) 
                         {
                             case "fixed":
-                                start_date = (DateTime)course.c_cource_recurance_date;
+                                start_date = (DateTime)course.c_course_recurrence_date;
                                 break;
                             case "hire":
                                 start_date = (DateTime)enroll.u_tb_users_master.u_hris_hire_date;
@@ -267,11 +267,11 @@ namespace AICC_CMI
                                 break;
                         }
 
-                        int units = (int)course.c_cource_recurrance_every; // number of units
+                        int units = (int)course.c_course_recurrence_every; // number of units
                         DateTime new_date;
 
                         // TimeDate units
-                        switch (course.c_cource_recurrance_period)
+                        switch (course.c_course_recurrence_period)
                         {
                             case "days":
                                 new_date = start_date.AddDays(units);
@@ -350,7 +350,7 @@ namespace AICC_CMI
             {
                 var r = ctx.c_tb_courses_master.FirstOrDefault(i => i.c_course_system_id_pk == course_id);
 
-                if (r.c_cource_recurrance_every != null && r.c_cource_recurrance_every != 0)
+                if (r.c_course_recurrence_every != null && r.c_course_recurrence_every != 0)
                 {
                     ret = true;
                 }
@@ -361,16 +361,20 @@ namespace AICC_CMI
 
         private Guid insertAuditRecord(Guid user_id, string action_description, string values, string ip_address)
         {
-            Guid new_id;
+            Guid new_id = Guid.NewGuid();
 
             using (var ctx = new ComplianceFactorsEntities())
             {
                 var rec = new a_tb_audit_log
                     {
+                        GUID = new_id,
+                        a_audit_log_id_pk = new_id,
                         a_user_id_fk = user_id,
+                        a_user_details = user_id.ToString(),
                         a_action_desc = action_description,
                         a_values = values,
-                        a_ip_address = ip_address
+                        a_ip_address = ip_address,
+                        a_date_time = DateTime.Now
                     };
                 ctx.a_tb_audit_log.AddObject(rec);
                 ctx.SaveChanges();
