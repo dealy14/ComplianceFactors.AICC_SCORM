@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
 using System.Text;
 using System.Data.Entity;
@@ -72,6 +73,57 @@ namespace AICC_CMI
             m_dbmap["cmi.launch_data"] = "e_tb_enrollments.e_enroll_launch_data";
             m_dbmap["cmi.core.exit"] = "e_tb_enrollments.e_enroll_exit";
             m_dbmap["cmi.core.entry"] = "e_tb_enrollments.e_enroll_entry";
+            m_dbmap["cmi.comments"] = "e_tb_enrollments.e_enroll_instructor_comments";
+
+            // optional elements
+            m_dbmap["cmi.student_data.attempt_number"] = "e_tb_users_lesson_data.e_attempt_number";
+            m_dbmap["cmi.student_data.lesson_status.n"] = "e_tb_users_lesson_data.e_lesson_status";
+            m_dbmap["cmi.student_data.score.n"] = "e_tb_users_lesson_data.e_score";
+            m_dbmap["cmi.student_data.mastery_score"] = "e_tb_users_lesson_data.e_mastery_score";
+            m_dbmap["cmi.student_data.max_time_allowed"] = "e_tb_users_lesson_data.e_max_time_allowed";
+            m_dbmap["cmi.student_data.time_limit_action"] = "e_tb_users_lesson_data.e_time_limit_action";
+            m_dbmap["cmi.student_data.tries_during_lesson"] = "e_tb_users_lesson_data.e_tries_during_lesson";
+
+            m_dbmap["cmi.student_data.tries.n.score"] = "e_tb_users_lesson_data_tries.e_try_score";
+            m_dbmap["cmi.student_data.tries.n.score.raw"] = "e_tb_users_lesson_data_tries.e_try_score_raw";
+            m_dbmap["cmi.student_data.tries.n.score.max"] = "e_tb_users_lesson_data_tries.e_try_score_max";
+            m_dbmap["cmi.student_data.tries.n.score.min"] = "e_tb_users_lesson_data_tries.e_try_score_min";
+            m_dbmap["cmi.student_data.tries.n.status"] = "e_tb_users_lesson_data_tries.e_try_status";
+            m_dbmap["cmi.student_data.tries.n.time"] = "e_tb_users_lesson_data_tries.e_try_time";
+
+            m_dbmap["cmi.objectives.n.id"] = "e_tb_objectives.e_objective_id_pk";
+
+            m_dbmap["cmi.objectives.n.score.raw"] = "e_tb_objectives.e_objective_score";
+            m_dbmap["cmi.objectives.n.score.min"] = "e_tb_objectives.e_objective_score_min";
+            m_dbmap["cmi.objectives.n.score.max"] = "e_tb_objectives.e_objective_score_max";
+            m_dbmap["cmi.objectives.n.status"] = "e_tb_objectives.e_objective_status";
+
+            m_dbmap["cmi.evaluation.comments.n.content"] = "e_tb_comments.e_comment_content";
+            m_dbmap["cmi.evaluation.comments.n.time"] = "e_tb_comments.e_comment_time";
+            m_dbmap["cmi.evaluation.comments.n.location"] = "e_tb_comments.e_comment_location";
+
+            m_dbmap["cmi.interactions.n.date"] = "e_tb_interactions.e_interactions_date";
+            m_dbmap["cmi.interactions.n.time"] = "e_tb_interactions.e_interactions_time";
+            m_dbmap["cmi.interactions.n.id"] = "e_tb_interactions.e_interactions_id";
+            m_dbmap["cmi.interactions.n.objective.n.id"] = "e_tb_interactions.e_interactions_objective_id";
+            m_dbmap["cmi.interactions.n.type"] = "e_tb_interactions.e_interactions_type";
+            m_dbmap["cmi.interactions.n.correct_response.n.pattern"] = "e_tb_interactions_correct_responses.e_interactions_correct_response_pattern";
+            m_dbmap["cmi.interactions.n.student_response"] = "e_tb_interactions.e_interactions_student_response";
+            m_dbmap["cmi.interactions.n.result"] = "e_tb_interactions.e_interactions_result";
+            m_dbmap["cmi.interactions.n.weighting"] = "e_tb_interactions.e_interactions_weighting";
+            m_dbmap["cmi.interactions.n.latency"] = "e_tb_interactions.e_interactions_latency";
+
+            m_dbmap["cmi.student_preference.audio"] = "u_tb_users_lesson_prefs.u_audio_pref";
+            m_dbmap["cmi.student_preference.language"] = "u_tb_users_lesson_prefs.u_lang_pref";
+            m_dbmap["cmi.student_preference.lesson_type"] = "u_tb_users_lesson_prefs.u_lesson_type_pref";
+            m_dbmap["cmi.student_preference.speed"] = "u_tb_users_lesson_prefs.u_speed_pref";
+            m_dbmap["cmi.student_preference.text"] = "u_tb_users_lesson_prefs.u_text_pref";
+            m_dbmap["cmi.student_preference.text_color"] = "u_tb_users_lesson_prefs.u_text_color_pref";
+            m_dbmap["cmi.student_preference.text_location"] = "u_tb_users_lesson_prefs.u_text_location_pref";
+            m_dbmap["cmi.student_preference.text_size"] = "u_tb_users_lesson_prefs.u_text_size_pref";
+            m_dbmap["cmi.student_preference.video"] = "u_tb_users_lesson_prefs.u_video_pref";
+            m_dbmap["Enrollment ID related separate Table to be added"] = "u_tb_users_lesson_prefs_windows.u_window_pref";
+
         }
 
         protected void InitLessonStatusMap()
@@ -234,7 +286,8 @@ namespace AICC_CMI
                     // A. Insert completion record in audit log
                     insertAuditRecord(enroll.u_tb_users_master.u_user_id_pk, "Marked Completion / Type (OLT Player)", 
                                 "(Completed, Attendance='OLT PLayer', Passing Status=" + pass_status_fk 
-                                    + ", Completion Score=" + enroll.e_enroll_score.ToString(), null);
+                                    + ", Completion Score=" + enroll.e_enroll_score.ToString(), Guid.Parse(enrollment_id), 
+                                    "e_tb_enrollments", null);
 
                     var course = enroll.c_tb_courses_master;
 
@@ -244,48 +297,20 @@ namespace AICC_CMI
                     {
                         // Course has recurrence, so calc next due date and create new enrollment record
 
-                        DateTime start_date;
-                        
-                        // determine start date to use in calc
-                        switch (course.c_course_recurrence_date_option) 
-                        {
-                            case "fixed":
-                                start_date = (DateTime)course.c_course_recurrence_date;
-                                break;
-                            case "hire":
-                                start_date = (DateTime)enroll.u_tb_users_master.u_hris_hire_date;
-                                break;
+                        DateTime new_date = CalcRecurrenceDate(course.c_course_recurrence_date_option,
+                                                      (DateTime) course.c_course_recurrence_date,
+                                                      (DateTime)enroll.u_tb_users_master.u_hris_hire_date,
+                                                      (DateTime)enroll.e_enroll_approval_date,
+                                                      (int)course.c_course_recurrence_every,
+                                                      course.c_course_recurrence_period
+                            );
+
+                        /*
                             case "assignment":
                                 // TODO: Check this value! Approval or Assignment?
                                 start_date = (DateTime)enroll.e_enroll_approval_date;
                                 break;
-                            case "completion":
-                                start_date = DateTime.Now;
-                                break;
-                            default:
-                                start_date = DateTime.Now; // default to completion date
-                                break;
-                        }
-
-                        int units = (int)course.c_course_recurrence_every; // number of units
-                        DateTime new_date;
-
-                        // TimeDate units
-                        switch (course.c_course_recurrence_period)
-                        {
-                            case "days":
-                                new_date = start_date.AddDays(units);
-                                break;
-                            case "months":
-                                new_date = start_date.AddMonths(units);
-                                break;
-                            case "years":
-                                new_date = start_date.AddYears(units);
-                                break;
-                            default:
-                                new_date = start_date.AddDays(units);  //default to Days
-                                break;
-                        }
+                         */
                         // new_date = [X] [days/months/years] from [start_date]
                         
                         // Create new enrollment record
@@ -300,11 +325,169 @@ namespace AICC_CMI
                     //      e_tb_curricula_assign -> e_curriculum_assign_user_id_fk
                     //      e_tb_curricula_statuses_history -> records 100% completion of a curriculum 
 
-                
+
+                    //if (hasCurriculumAssigned(enroll.u_tb_users_master.u_user_id_pk, course.c_course_system_id_pk))
+                    //    updateCurriculumStatus();
+
+
+                    //var curricula_assign = context.e_tb_curricula_assign;
+
+
                 }
             }
         }
+        /*
+         * So the logic is to check if the course is part of a curriculum (lookup Course ID in “c_tb_curriculum_path_courses”) 
+         *      c_tb_curriculum_path_courses.c_curriculua_path_course_id_fk (course id fk)
+         *      Returns 0:n records ---> SET of curricula ids.
+         * 
+         * and if the curriculum is assigned to the user (lookup User ID in “e_tb_curricula_assign - this needs to check for 
+         * multiple curricula???? as the courses can be in more than one).
+         *      e_tb_curricula_assign.e_curriculum_assign_user_id_fk (user id fk)
+         *      Select * from e_tb_curricula_assign where uid = user_id and curriculum_id IN (set of curricula ids)
 
+           So if it is in 1 or more curricula assign to the user, the Status of the curriculum or curricula needs to be updated 
+         * and the course reassigned with the new due date(s) if it is recurring.
+         * 
+         *      % complete: e_tb_curricula_assign.e_curriculum_assign_percent_complete
+         *      target due date: e_tb_curricula_assign.e_curriculum_assign_target_due_date
+         */
+        
+        
+        // Determine whether curriculum is assigned to user/course; if so, update accordingly
+        private void updateAssignedCurricula(Guid user_id, Guid course_id)
+        {
+            // find a curriculum assignment based on uid and cid
+            bool ret = false;
+            //course_id = Guid.Parse("d18e9bc8-4cca-4770-8bb7-010504e341d5");
+            //user_id = Guid.Parse("48433026-7d99-4cc1-ade7-09b23b1bc5ef");
+
+            /*
+             * select * FROM e_tb_curricula_assign 
+                where 
+                  e_curriculum_assign_curriculum_id_fk in 
+                    (select distinct c_curricula_id_fk from c_tb_curriculum_path_courses 
+                          where c_curricula_path_course_id_fk = N'd18e9bc8-4cca-4770-8bb7-010504e341d5')
+                  and
+                   e_curriculum_assign_user_id_fk = N'48433026-7d99-4cc1-ade7-09b23b1bc5ef';
+             */
+
+            using (var ctx = new ComplianceFactorsEntities())
+            {
+
+                //var curriculum_path_courses = ctx.c_tb_curriculum_path_courses.;
+                string queryString =
+                    @"select VALUE e_tb_curricula_assign FROM e_tb_curricula_assign where e_tb_curricula_assign.e_curriculum_assign_curriculum_id_fk in 
+                                                set(select VALUE (c_tb_curriculum_path_courses.c_curricula_id_fk) from c_tb_curriculum_path_courses 
+                                                    where c_tb_curriculum_path_courses.c_curricula_path_course_id_fk = @courseid) 
+                                                and e_tb_curricula_assign.e_curriculum_assign_user_id_fk = @userid";
+
+                ObjectQuery<e_tb_curricula_assign> assignedCurricula =
+                    ctx.CreateQuery<e_tb_curricula_assign>(queryString, new ObjectParameter[]
+                        {
+                            new ObjectParameter("courseid", course_id),
+                            new ObjectParameter("userid", user_id)
+                        });
+
+                // Iterate through matching curricula 
+                foreach (e_tb_curricula_assign curriculum in assignedCurricula)
+                {
+ /*                   Console.WriteLine("pk: {0}, uid: {1}, curr_id: {2}, assign_date: {3}",
+                                      curriculum.e_curriculum_assign_system_id_pk,
+                                      curriculum.e_curriculum_assign_user_id_fk,
+                                      curriculum.e_curriculum_assign_curriculum_id_fk,
+                                      curriculum.e_curriculum_assign_date_time);
+*/                }
+            }
+
+        }
+
+/*        private void updateCurriculumStatus()
+        {
+            throw new NotImplementedException();
+        }
+ */
+        
+        private Guid insertCurriculaStatusHistoryRecord(Guid user_id, Guid curriculum_id, DateTime original_assignment_date, 
+                bool required, DateTime original_target_due_date, Guid new_status, Guid previous_status, int percent_complete)
+        {
+            Guid player_status_change_type_id = new Guid("3083c38c-a8be-4e08-abe3-e768ffa3d6a1");
+            Guid new_pk_id = Guid.NewGuid();
+
+            using (var ctx = new ComplianceFactorsEntities())
+            {
+                var rec = new e_tb_curricula_statuses_history
+                {
+                    e_curriculum_assign_system_id_pk = new_pk_id,
+                    e_curriculum_assign_user_id_fk = user_id,
+                    e_curriculum_assign_curriculum_id_fk = curriculum_id,
+                    e_curriculum_assign_date_time = original_assignment_date,
+                    e_curriculum_assign_original_target_due_date = original_target_due_date,
+                    e_curriculum_assign_after_status_id_fk = new_status,
+                    e_curriculum_assign_recert_status_change_type_id_fk = player_status_change_type_id,
+                    e_curriculum_before_status_id_fk = previous_status,
+                    e_curriculum_assign_status_change_date_time = DateTime.Now,
+                    e_curriculum_assign_percent_complete = percent_complete,
+                    e_curriculum_assign_required_flag = required,
+                    e_curriculum_assign_cert_date = DateTime.Now,       // TODO: calculate new date
+                    e_curriculum_assign_recert_due_date = DateTime.Now  // TODO: calculate new date
+                };
+                ctx.e_tb_curricula_statuses_history.AddObject(rec);
+                ctx.SaveChanges();
+            }
+            return new_pk_id;
+        }
+
+        private DateTime CalcRecurrenceDate(string recurrence_date_option, DateTime recurrence_date, 
+                                            DateTime hire_date, DateTime assign_date, int recurrence_every, 
+                                            string recurrence_period)
+        {
+            DateTime start_date;
+
+            // determine start date to use in calc
+            switch (recurrence_date_option)
+            {
+                case "fixed":
+                    start_date = recurrence_date;
+                    break;
+                case "hire":
+                    start_date = hire_date;
+                    break;
+                case "assignment":
+                    // TODO: Check this value! Approval or Assignment?
+                    start_date = assign_date;
+                    break;
+                case "completion":
+                    start_date = DateTime.Now;
+                    break;
+                default:
+                    start_date = DateTime.Now; // default to completion date
+                    break;
+            }
+
+            int units = recurrence_every; // number of units
+            DateTime new_date;
+
+            // TimeDate units
+            switch (recurrence_period)
+            {
+                case "days":
+                    new_date = start_date.AddDays(units);
+                    break;
+                case "months":
+                    new_date = start_date.AddMonths(units);
+                    break;
+                case "years":
+                    new_date = start_date.AddYears(units);
+                    break;
+                default:
+                    new_date = start_date.AddDays(units);  //default to Days
+                    break;
+            }
+            
+            return new_date;
+        }
+        
         private string CalcCompletionScore(decimal? raw_score, Guid? grading_scheme_id, out string pass_status_fk)
         {
             // default value
@@ -342,7 +525,7 @@ namespace AICC_CMI
         }
          
         // Determines whether course has a recurrence
-        private bool hasRecurrence(Guid course_id)
+        private bool courseHasRecurrence(Guid course_id)
         {
             bool ret = false;
 
@@ -359,7 +542,26 @@ namespace AICC_CMI
             return ret;
         }
 
-        private Guid insertAuditRecord(Guid user_id, string action_description, string values, string ip_address)
+        // Determines whether curriculum has a recurrence
+        private bool curriculumHasRecurrence(Guid curriculum_id)
+        {
+            bool ret = false;
+
+            using (var ctx = new ComplianceFactorsEntities())
+            {
+                var r = ctx.c_tb_curriculum_master.FirstOrDefault(i => i.c_curriculum_system_id_pk == curriculum_id);
+
+                if (r.c_curriculum_recurrance_every != null && r.c_curriculum_recurrance_every != 0)
+                {
+                    ret = true;
+                }
+            }
+
+            return ret;
+        }
+
+        private Guid insertAuditRecord(Guid user_id, string action_description, string values, Guid affected_object_id, 
+                                        string affected_object_table, string ip_address)
         {
             Guid new_id = Guid.NewGuid();
 
@@ -374,7 +576,9 @@ namespace AICC_CMI
                         a_action_desc = action_description,
                         a_values = values,
                         a_ip_address = ip_address,
-                        a_date_time = DateTime.Now
+                        a_date_time = DateTime.Now,
+                        a_affected_object_id_fk = affected_object_id,
+                        a_affected_object_table_name = affected_object_table
                     };
                 ctx.a_tb_audit_log.AddObject(rec);
                 ctx.SaveChanges();

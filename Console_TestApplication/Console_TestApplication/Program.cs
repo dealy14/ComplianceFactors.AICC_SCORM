@@ -1,5 +1,6 @@
 ﻿using System; 
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
 using System.Text;
 using System.Collections;
@@ -34,6 +35,39 @@ namespace Console_TestApplication
 
         static void TempTest()
         {
+
+
+            using (var ctx = new ComplianceFactorsEntities())
+            {
+
+                //var curriculum_path_courses = ctx.c_tb_curriculum_path_courses.;
+                string queryString =
+                    @"select VALUE e_tb_curricula_assign FROM e_tb_curricula_assign where e_tb_curricula_assign.e_curriculum_assign_curriculum_id_fk in 
+                                                set(select VALUE (c_tb_curriculum_path_courses.c_curricula_id_fk) from c_tb_curriculum_path_courses 
+                                                    where c_tb_curriculum_path_courses.c_curricula_path_course_id_fk = @courseid) 
+                                                and e_tb_curricula_assign.e_curriculum_assign_user_id_fk = @userid";
+                Guid course_id = Guid.Parse("d18e9bc8-4cca-4770-8bb7-010504e341d5");
+                Guid user_id = Guid.Parse("48433026-7d99-4cc1-ade7-09b23b1bc5ef");
+
+                ObjectQuery<e_tb_curricula_assign> assignedCurricula =
+                    ctx.CreateQuery<e_tb_curricula_assign>(queryString, new ObjectParameter[]
+                        {
+                            new ObjectParameter("courseid", course_id),
+                            new ObjectParameter("userid", user_id)
+                        });
+
+                //if (assignedCurricula.)
+
+                // Iterate through the collection. 
+                foreach (e_tb_curricula_assign curriculum in assignedCurricula)
+                {
+                    Console.WriteLine("pk: {0}, uid: {1}, curr_id: {2}, assign_date: {3}",
+                                      curriculum.e_curriculum_assign_system_id_pk,
+                                      curriculum.e_curriculum_assign_user_id_fk,
+                                      curriculum.e_curriculum_assign_curriculum_id_fk,
+                                      curriculum.e_curriculum_assign_date_time);
+                }
+            }
         }
 
         static void JSAPILogicTest()
@@ -527,10 +561,15 @@ my lesson state data – 1111111111111111111000000000000000001110000
                 hacp_logic.Persist(enrollment_id);
 
                 ctx.Refresh(System.Data.Objects.RefreshMode.StoreWins, enroll);
-
-                // TODO: add object id field to audit table for association
-
-
+                
+                var eid = Guid.Parse(enrollment_id);
+                // check audit table, get last record with object_id_fk matching enrollment_id
+                var a = (from audit in ctx.a_tb_audit_log
+                         where audit.a_affected_object_id_fk == eid
+                         && audit.a_action_desc == "Marked Completion / Type (OLT Player)"
+                         orderby audit.a_date_time descending
+                         select audit).FirstOrDefault();
+                Debug.Assert(a != null);
             }
         }
 
@@ -538,7 +577,7 @@ my lesson state data – 1111111111111111111000000000000000001110000
         {
             // TODO: must create recurring course/delivery and associated enrollment for this test
 
-            // To test: look for an enrollment with the same (user_id and delivery_id) and an enrollment generation date after the original enrollment
+            // Test: look for an enrollment with the same (user_id and delivery_id) and an enrollment generation date after the original enrollment
         }
     }
 }

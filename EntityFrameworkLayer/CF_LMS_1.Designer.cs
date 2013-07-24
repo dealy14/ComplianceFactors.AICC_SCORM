@@ -1662,6 +1662,54 @@ namespace EntityFrameworkLayer
         private global::System.String _a_device_used;
         partial void Ona_device_usedChanging(global::System.String value);
         partial void Ona_device_usedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> a_affected_object_id_fk
+        {
+            get
+            {
+                return _a_affected_object_id_fk;
+            }
+            set
+            {
+                Ona_affected_object_id_fkChanging(value);
+                ReportPropertyChanging("a_affected_object_id_fk");
+                _a_affected_object_id_fk = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("a_affected_object_id_fk");
+                Ona_affected_object_id_fkChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _a_affected_object_id_fk;
+        partial void Ona_affected_object_id_fkChanging(Nullable<global::System.Guid> value);
+        partial void Ona_affected_object_id_fkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String a_affected_object_table_name
+        {
+            get
+            {
+                return _a_affected_object_table_name;
+            }
+            set
+            {
+                Ona_affected_object_table_nameChanging(value);
+                ReportPropertyChanging("a_affected_object_table_name");
+                _a_affected_object_table_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("a_affected_object_table_name");
+                Ona_affected_object_table_nameChanged();
+            }
+        }
+        private global::System.String _a_affected_object_table_name;
+        partial void Ona_affected_object_table_nameChanging(global::System.String value);
+        partial void Ona_affected_object_table_nameChanged();
 
         #endregion
     

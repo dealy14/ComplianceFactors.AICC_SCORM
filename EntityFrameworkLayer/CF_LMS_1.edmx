@@ -487,6 +487,8 @@
           <Property Name="a_esignature_pin" Type="varchar" MaxLength="12" />
           <Property Name="a_ip_address" Type="varchar" MaxLength="255" />
           <Property Name="a_device_used" Type="varchar" MaxLength="50" />
+          <Property Name="a_affected_object_id_fk" Type="uniqueidentifier" />
+          <Property Name="a_affected_object_table_name" Type="nvarchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'ComplianceFactors.dbo.a_tb_ui_labels' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -4720,6 +4722,8 @@
           <Property Type="String" Name="a_ip_address" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="a_device_used" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="u_tb_users_master" Relationship="ComplianceFactorsModel.FK__a_tb_audi__a_use__038683F8" FromRole="a_tb_audit_log" ToRole="u_tb_users_master" />
+          <Property Type="Guid" Name="a_affected_object_id_fk" />
+          <Property Type="String" Name="a_affected_object_table_name" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="a_tb_ui_labels">
           <Key>
@@ -6035,6 +6039,8 @@
           <EntitySetMapping Name="a_tb_audit_log">
             <EntityTypeMapping TypeName="ComplianceFactorsModel.a_tb_audit_log">
               <MappingFragment StoreEntitySet="a_tb_audit_log">
+                <ScalarProperty Name="a_affected_object_table_name" ColumnName="a_affected_object_table_name" />
+                <ScalarProperty Name="a_affected_object_id_fk" ColumnName="a_affected_object_id_fk" />
                 <ScalarProperty Name="a_device_used" ColumnName="a_device_used" />
                 <ScalarProperty Name="a_ip_address" ColumnName="a_ip_address" />
                 <ScalarProperty Name="a_esignature_pin" ColumnName="a_esignature_pin" />
