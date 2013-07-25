@@ -19,22 +19,24 @@ types = {
 	'CMIDecimal' => 'double?',
 	'CMIIdentifier' => 'string',
 	'CMIFeedback' => 'string',
-	'CMIIndex' => 'string'
+	'CMIIndex' => 'string',
+	'CMIStatus2' => 'string'
 }
 
 while (line = file.gets())
 	# puts(line)
 	next if (/_(count|children)/.match(line))
+
 	the_match = /\s*'([a-z_\.]*)'.*/.match(line)
 	key = the_match[1]
 	the_match = /'format': (CMI[a-zA-Z0-9]*)/.match(line)
 	type = nil
 	type = the_match[1] unless (the_match == nil)
+	type = (types.has_key?(type)) ? types[type] : 'string'
+	# puts "type = #{type}"
 
 	tokens = key.split(".")
 	basename = tokens[1..-1].map{|t| camel_case(t)}.join
-	type = (type == nil) ? 'string' : types[type]
-	# puts "type = #{type}"
 
 	case type
 	when 'string'
