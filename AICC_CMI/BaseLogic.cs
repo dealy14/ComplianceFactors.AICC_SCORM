@@ -56,6 +56,45 @@ namespace AICC_CMI
             m_delegates["cmi.terminate"] = TerminateDelegate;
             m_delegates["cmi.comments"] = CommentsDelegate;
 
+            m_delegates["cmi.launch_data"] = LaunchDataDelegate;
+            m_delegates["cmi.evaluation.comments.n.content"] = EvaluationCommentsNContentDelegate;
+            m_delegates["cmi.evaluation.comments.n.location"] = EvaluationCommentsNLocationDelegate;
+            m_delegates["cmi.evaluation.comments.n.time"] = EvaluationCommentsNTimeDelegate;
+            m_delegates["cmi.comments_from_lms"] = CommentsFromLmsDelegate;
+            m_delegates["cmi.objectives.n.id"] = ObjectivesNIdDelegate;
+            m_delegates["cmi.objectives.n.score.raw"] = ObjectivesNScoreRawDelegate;
+            m_delegates["cmi.objectives.n.score.min"] = ObjectivesNScoreMinDelegate;
+            m_delegates["cmi.objectives.n.score.max"] = ObjectivesNScoreMaxDelegate;
+            m_delegates["cmi.objectives.n.status"] = ObjectivesNStatusDelegate;
+            m_delegates["cmi.student_data.attempt_number"] = StudentDataAttemptNumberDelegate;
+            m_delegates["cmi.student_data.tries.n.score.raw"] = StudentDataTriesNScoreRawDelegate;
+            m_delegates["cmi.student_data.tries.n.score.min"] = StudentDataTriesNScoreMinDelegate;
+            m_delegates["cmi.student_data.tries.n.score.max"] = StudentDataTriesNScoreMaxDelegate;
+            m_delegates["cmi.student_data.tries.n.status"] = StudentDataTriesNStatusDelegate;
+            m_delegates["cmi.student_data.tries.n.time"] = StudentDataTriesNTimeDelegate;
+            m_delegates["cmi.student_data.mastery_score"] = StudentDataMasteryScoreDelegate;
+            m_delegates["cmi.student_data.max_time_allowed"] = StudentDataMaxTimeAllowedDelegate;
+            m_delegates["cmi.student_data.time_limit_action"] = StudentDataTimeLimitActionDelegate;
+            m_delegates["cmi.student_data.tries_during_lesson"] = StudentDataTriesDuringLessonDelegate;
+            m_delegates["cmi.student_preference.audio"] = StudentPreferenceAudioDelegate;
+            m_delegates["cmi.student_preference.language"] = StudentPreferenceLanguageDelegate;
+            m_delegates["cmi.student_preference.lesson_type"] = StudentPreferenceLessonTypeDelegate;
+            m_delegates["cmi.student_preference.speed"] = StudentPreferenceSpeedDelegate;
+            m_delegates["cmi.student_preference.text"] = StudentPreferenceTextDelegate;
+            m_delegates["cmi.student_preference.text_color"] = StudentPreferenceTextColorDelegate;
+            m_delegates["cmi.student_preference.text_location"] = StudentPreferenceTextLocationDelegate;
+            m_delegates["cmi.student_preference.text_size"] = StudentPreferenceTextSizeDelegate;
+            m_delegates["cmi.student_preference.video"] = StudentPreferenceVideoDelegate;
+            m_delegates["cmi.student_preference.windows.n."] = StudentPreferenceWindowsNDelegate;
+            m_delegates["cmi.interactions.n.id"] = InteractionsNIdDelegate;
+            m_delegates["cmi.interactions.n.objectives.n.id"] = InteractionsNObjectivesNIdDelegate;
+            m_delegates["cmi.interactions.n.time"] = InteractionsNTimeDelegate;
+            m_delegates["cmi.interactions.n.type"] = InteractionsNTypeDelegate;
+            m_delegates["cmi.interactions.n.correct_responses.n.pattern"] = InteractionsNCorrectResponsesNPatternDelegate;
+            m_delegates["cmi.interactions.n.weighting"] = InteractionsNWeightingDelegate;
+            m_delegates["cmi.interactions.n.student_response"] = InteractionsNStudentResponseDelegate;
+            m_delegates["cmi.interactions.n.result"] = InteractionsNResultDelegate;
+            m_delegates["cmi.interactions.n.latency"] = InteractionsNLatencyDelegate;
         }
 
         private void InitDbMap()
@@ -715,6 +754,279 @@ namespace AICC_CMI
             this.m_values[key] = tmp;
         }
 
+        private void LaunchDataDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetLaunchData(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void EvaluationCommentsNContentDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetEvaluationCommentsNContent(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void EvaluationCommentsNLocationDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetEvaluationCommentsNLocation(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void EvaluationCommentsNTimeDelegate(string key, Dictionary<string, string> json_values)
+        {
+            int? tmp = GetEvaluationCommentsNTime(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void CommentsFromLmsDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetCommentsFromLms(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void ObjectivesNIdDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetObjectivesNId(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void ObjectivesNScoreRawDelegate(string key, Dictionary<string, string> json_values)
+        {
+            double? tmp = GetObjectivesNScoreRaw(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void ObjectivesNScoreMinDelegate(string key, Dictionary<string, string> json_values)
+        {
+            double? tmp = GetObjectivesNScoreMin(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void ObjectivesNScoreMaxDelegate(string key, Dictionary<string, string> json_values)
+        {
+            double? tmp = GetObjectivesNScoreMax(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void ObjectivesNStatusDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetObjectivesNStatus(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentDataAttemptNumberDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentDataAttemptNumber(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentDataTriesNScoreRawDelegate(string key, Dictionary<string, string> json_values)
+        {
+            double? tmp = GetStudentDataTriesNScoreRaw(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentDataTriesNScoreMinDelegate(string key, Dictionary<string, string> json_values)
+        {
+            double? tmp = GetStudentDataTriesNScoreMin(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentDataTriesNScoreMaxDelegate(string key, Dictionary<string, string> json_values)
+        {
+            double? tmp = GetStudentDataTriesNScoreMax(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentDataTriesNStatusDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentDataTriesNStatus(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentDataTriesNTimeDelegate(string key, Dictionary<string, string> json_values)
+        {
+            int? tmp = GetStudentDataTriesNTime(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentDataMasteryScoreDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentDataMasteryScore(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentDataMaxTimeAllowedDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentDataMaxTimeAllowed(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentDataTimeLimitActionDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentDataTimeLimitAction(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentDataTriesDuringLessonDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentDataTriesDuringLesson(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentPreferenceAudioDelegate(string key, Dictionary<string, string> json_values)
+        {
+            int? tmp = GetStudentPreferenceAudio(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentPreferenceLanguageDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentPreferenceLanguage(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentPreferenceLessonTypeDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentPreferenceLessonType(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentPreferenceSpeedDelegate(string key, Dictionary<string, string> json_values)
+        {
+            int? tmp = GetStudentPreferenceSpeed(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentPreferenceTextDelegate(string key, Dictionary<string, string> json_values)
+        {
+            int? tmp = GetStudentPreferenceText(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentPreferenceTextColorDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentPreferenceTextColor(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentPreferenceTextLocationDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentPreferenceTextLocation(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentPreferenceTextSizeDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentPreferenceTextSize(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentPreferenceVideoDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentPreferenceVideo(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void StudentPreferenceWindowsNDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetStudentPreferenceWindowsN(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void InteractionsNIdDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetInteractionsNId(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void InteractionsNObjectivesNIdDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetInteractionsNObjectivesNId(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void InteractionsNTimeDelegate(string key, Dictionary<string, string> json_values)
+        {
+            int? tmp = GetInteractionsNTime(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void InteractionsNTypeDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetInteractionsNType(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void InteractionsNCorrectResponsesNPatternDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetInteractionsNCorrectResponsesNPattern(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void InteractionsNWeightingDelegate(string key, Dictionary<string, string> json_values)
+        {
+            double? tmp = GetInteractionsNWeighting(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void InteractionsNStudentResponseDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetInteractionsNStudentResponse(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void InteractionsNResultDelegate(string key, Dictionary<string, string> json_values)
+        {
+            string tmp = GetInteractionsNResult(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
+        private void InteractionsNLatencyDelegate(string key, Dictionary<string, string> json_values)
+        {
+            int? tmp = GetInteractionsNLatency(json_values);
+            if (tmp != null)
+                this.m_values[key] = tmp;
+        }
+
         #endregion
 
         #region Getters
@@ -984,6 +1296,303 @@ namespace AICC_CMI
             }
 
             return ret;
+        }
+
+        private string GetLaunchData(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.launch_data", out val);
+
+            return val;
+        }
+
+        private string GetEvaluationCommentsNContent(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.evaluation.comments.n.content", out val);
+
+            return val;
+        }
+
+        private string GetEvaluationCommentsNLocation(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.evaluation.comments.n.location", out val);
+
+            return val;
+        }
+
+        private int? GetEvaluationCommentsNTime(Dictionary<string, string> json_values)
+        {
+            return GetTime("cmi.evaluation.comments.n.time", json_values);
+        }
+
+        private string GetCommentsFromLms(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.comments_from_lms", out val);
+
+            return val;
+        }
+
+        private string GetObjectivesNId(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.objectives.n.id", out val);
+
+            return val;
+        }
+
+        private double? GetObjectivesNScoreRaw(Dictionary<string, string> json_values)
+        {
+            return GetDouble("cmi.objectives.n.score.raw", json_values);
+        }
+
+        private double? GetObjectivesNScoreMin(Dictionary<string, string> json_values)
+        {
+            return GetDouble("cmi.objectives.n.score.min", json_values);
+        }
+
+        private double? GetObjectivesNScoreMax(Dictionary<string, string> json_values)
+        {
+            return GetDouble("cmi.objectives.n.score.max", json_values);
+        }
+
+        private string GetObjectivesNStatus(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.objectives.n.status", out val);
+
+            return val;
+        }
+
+        private string GetStudentDataAttemptNumber(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_data.attempt_number", out val);
+
+            return val;
+        }
+
+        private double? GetStudentDataTriesNScoreRaw(Dictionary<string, string> json_values)
+        {
+            return GetDouble("cmi.student_data.tries.n.score.raw", json_values);
+        }
+
+        private double? GetStudentDataTriesNScoreMin(Dictionary<string, string> json_values)
+        {
+            return GetDouble("cmi.student_data.tries.n.score.min", json_values);
+        }
+
+        private double? GetStudentDataTriesNScoreMax(Dictionary<string, string> json_values)
+        {
+            return GetDouble("cmi.student_data.tries.n.score.max", json_values);
+        }
+
+        private string GetStudentDataTriesNStatus(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_data.tries.n.status", out val);
+
+            return val;
+        }
+
+        private int? GetStudentDataTriesNTime(Dictionary<string, string> json_values)
+        {
+            return GetTime("cmi.student_data.tries.n.time", json_values);
+        }
+
+        private string GetStudentDataMasteryScore(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_data.mastery_score", out val);
+
+            return val;
+        }
+
+        private string GetStudentDataMaxTimeAllowed(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_data.max_time_allowed", out val);
+
+            return val;
+        }
+
+        private string GetStudentDataTimeLimitAction(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_data.time_limit_action", out val);
+
+            return val;
+        }
+
+        private string GetStudentDataTriesDuringLesson(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_data.tries_during_lesson", out val);
+
+            return val;
+        }
+
+        private int? GetStudentPreferenceAudio(Dictionary<string, string> json_values)
+        {
+            int? ret = null;
+            string tmp = null;
+            json_values.TryGetValue("cmi.student_preference.audio", out tmp);
+
+            int i;
+            bool res = Int32.TryParse(tmp, out i);
+            if (res)
+                ret = i;
+
+            return ret;
+        }
+
+        private string GetStudentPreferenceLanguage(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_preference.language", out val);
+
+            return val;
+        }
+
+        private string GetStudentPreferenceLessonType(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_preference.lesson_type", out val);
+
+            return val;
+        }
+
+        private int? GetStudentPreferenceSpeed(Dictionary<string, string> json_values)
+        {
+            int? ret = null;
+            string tmp = null;
+            json_values.TryGetValue("cmi.student_preference.speed", out tmp);
+
+            int i;
+            bool res = Int32.TryParse(tmp, out i);
+            if (res)
+                ret = i;
+
+            return ret;
+        }
+
+        private int? GetStudentPreferenceText(Dictionary<string, string> json_values)
+        {
+            int? ret = null;
+            string tmp = null;
+            json_values.TryGetValue("cmi.student_preference.text", out tmp);
+
+            int i;
+            bool res = Int32.TryParse(tmp, out i);
+            if (res)
+                ret = i;
+
+            return ret;
+        }
+
+        private string GetStudentPreferenceTextColor(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_preference.text_color", out val);
+
+            return val;
+        }
+
+        private string GetStudentPreferenceTextLocation(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_preference.text_location", out val);
+
+            return val;
+        }
+
+        private string GetStudentPreferenceTextSize(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_preference.text_size", out val);
+
+            return val;
+        }
+
+        private string GetStudentPreferenceVideo(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_preference.video", out val);
+
+            return val;
+        }
+
+        private string GetStudentPreferenceWindowsN(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.student_preference.windows.n.", out val);
+
+            return val;
+        }
+
+        private string GetInteractionsNId(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.interactions.n.id", out val);
+
+            return val;
+        }
+
+        private string GetInteractionsNObjectivesNId(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.interactions.n.objectives.n.id", out val);
+
+            return val;
+        }
+
+        private int? GetInteractionsNTime(Dictionary<string, string> json_values)
+        {
+            return GetTime("cmi.interactions.n.time", json_values);
+        }
+
+        private string GetInteractionsNType(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.interactions.n.type", out val);
+
+            return val;
+        }
+
+        private string GetInteractionsNCorrectResponsesNPattern(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.interactions.n.correct_responses.n.pattern", out val);
+
+            return val;
+        }
+
+        private double? GetInteractionsNWeighting(Dictionary<string, string> json_values)
+        {
+            return GetDouble("cmi.interactions.n.weighting", json_values);
+        }
+
+        private string GetInteractionsNStudentResponse(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.interactions.n.student_response", out val);
+
+            return val;
+        }
+
+        private string GetInteractionsNResult(Dictionary<string, string> json_values)
+        {
+            string val;
+            json_values.TryGetValue("cmi.interactions.n.result", out val);
+
+            return val;
+        }
+
+        private int? GetInteractionsNLatency(Dictionary<string, string> json_values)
+        {
+            return GetTime("cmi.interactions.n.latency", json_values);
         }
 
         #endregion
