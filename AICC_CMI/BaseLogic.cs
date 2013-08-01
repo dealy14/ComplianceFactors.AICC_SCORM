@@ -85,7 +85,7 @@ namespace AICC_CMI
             m_delegates["cmi.student_preference.text_location"] = StudentPreferenceTextLocationDelegate;
             m_delegates["cmi.student_preference.text_size"] = StudentPreferenceTextSizeDelegate;
             m_delegates["cmi.student_preference.video"] = StudentPreferenceVideoDelegate;
-            m_delegates["cmi.student_preference.windows.n."] = StudentPreferenceWindowsNDelegate;
+            m_delegates["cmi.student_preference.windows.1"] = StudentPreferenceWindows1Delegate;
             m_delegates["cmi.interactions.n.id"] = InteractionsNIdDelegate;
             m_delegates["cmi.interactions.n.objectives.n.id"] = InteractionsNObjectivesNIdDelegate;
             m_delegates["cmi.interactions.n.time"] = InteractionsNTimeDelegate;
@@ -363,7 +363,7 @@ namespace AICC_CMI
                     //   If 100% complete, (1) create curriculum history record
                     //      e_tb_curricula_assign -> e_curriculum_assign_user_id_fk
                     //      e_tb_curricula_statuses_history -> records 100% completion of a curriculum 
-
+                    updateAssignedCurricula(user_id: enroll.e_enroll_user_id_fk, course_id: enroll.e_enroll_course_id_fk);
 
                     //if (hasCurriculumAssigned(enroll.u_tb_users_master.u_user_id_pk, course.c_course_system_id_pk))
                     //    updateCurriculumStatus();
@@ -868,14 +868,14 @@ namespace AICC_CMI
 
         private void StudentDataMasteryScoreDelegate(string key, Dictionary<string, string> json_values)
         {
-            string tmp = GetStudentDataMasteryScore(json_values);
+            double? tmp = GetStudentDataMasteryScore(json_values);
             if (tmp != null)
                 this.m_values[key] = tmp;
         }
 
         private void StudentDataMaxTimeAllowedDelegate(string key, Dictionary<string, string> json_values)
         {
-            string tmp = GetStudentDataMaxTimeAllowed(json_values);
+            int? tmp = GetStudentDataMaxTimeAllowed(json_values);
             if (tmp != null)
                 this.m_values[key] = tmp;
         }
@@ -889,7 +889,7 @@ namespace AICC_CMI
 
         private void StudentDataTriesDuringLessonDelegate(string key, Dictionary<string, string> json_values)
         {
-            string tmp = GetStudentDataTriesDuringLesson(json_values);
+            int? tmp = GetStudentDataTriesDuringLesson(json_values);
             if (tmp != null)
                 this.m_values[key] = tmp;
         }
@@ -957,9 +957,9 @@ namespace AICC_CMI
                 this.m_values[key] = tmp;
         }
 
-        private void StudentPreferenceWindowsNDelegate(string key, Dictionary<string, string> json_values)
+        private void StudentPreferenceWindows1Delegate(string key, Dictionary<string, string> json_values)
         {
-            string tmp = GetStudentPreferenceWindowsN(json_values);
+            string tmp = GetStudentPreferenceWindows1(json_values);
             if (tmp != null)
                 this.m_values[key] = tmp;
         }
@@ -1402,20 +1402,14 @@ namespace AICC_CMI
             return GetTime("cmi.student_data.tries.n.time", json_values);
         }
 
-        private string GetStudentDataMasteryScore(Dictionary<string, string> json_values)
+        private double? GetStudentDataMasteryScore(Dictionary<string, string> json_values)
         {
-            string val;
-            json_values.TryGetValue("cmi.student_data.mastery_score", out val);
-
-            return val;
+            return GetDouble("cmi.student_data.mastery_score", json_values);
         }
 
-        private string GetStudentDataMaxTimeAllowed(Dictionary<string, string> json_values)
+        private int? GetStudentDataMaxTimeAllowed(Dictionary<string, string> json_values)
         {
-            string val;
-            json_values.TryGetValue("cmi.student_data.max_time_allowed", out val);
-
-            return val;
+            return GetTime("cmi.student_data.max_time_allowed", json_values);
         }
 
         private string GetStudentDataTimeLimitAction(Dictionary<string, string> json_values)
@@ -1426,12 +1420,18 @@ namespace AICC_CMI
             return val;
         }
 
-        private string GetStudentDataTriesDuringLesson(Dictionary<string, string> json_values)
+        private int? GetStudentDataTriesDuringLesson(Dictionary<string, string> json_values)
         {
-            string val;
-            json_values.TryGetValue("cmi.student_data.tries_during_lesson", out val);
+            int? ret = null;
+            string tmp = null;
+            json_values.TryGetValue("cmi.student_data.tries_during_lesson", out tmp);
 
-            return val;
+            int i;
+            bool res = Int32.TryParse(tmp, out i);
+            if (res)
+                ret = i;
+
+            return ret;
         }
 
         private int? GetStudentPreferenceAudio(Dictionary<string, string> json_values)
@@ -1523,11 +1523,11 @@ namespace AICC_CMI
 
             return val;
         }
-
-        private string GetStudentPreferenceWindowsN(Dictionary<string, string> json_values)
+        
+        private string GetStudentPreferenceWindows1(Dictionary<string, string> json_values)
         {
             string val;
-            json_values.TryGetValue("cmi.student_preference.windows.n.", out val);
+            json_values.TryGetValue("cmi.student_preference.windows.1", out val);
 
             return val;
         }

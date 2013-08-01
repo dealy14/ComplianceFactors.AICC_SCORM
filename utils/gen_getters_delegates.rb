@@ -27,7 +27,7 @@ while (line = file.gets())
 	# puts(line)
 	next if (/_(count|children)/.match(line))
 
-	the_match = /\s*'([a-z_\.]*)'.*/.match(line)
+	the_match = /\s*'([a-z1_\.]*)'.*/.match(line)
 	key = the_match[1]
 	the_match = /'format': (CMI[a-zA-Z0-9]*)/.match(line)
 	type = nil
