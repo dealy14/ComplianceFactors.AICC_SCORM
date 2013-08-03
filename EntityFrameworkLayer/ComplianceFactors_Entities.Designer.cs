@@ -102,6 +102,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("ComplianceFactorsModel", "FK__s_tb_doma__u_own__39788055", "u_tb_users_master", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(EntityFrameworkLayer.u_tb_users_master), "s_tb_domains", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(EntityFrameworkLayer.s_tb_domains), true)]
 [assembly: EdmRelationshipAttribute("ComplianceFactorsModel", "FK__u_tb_user__u_dom__3C54ED00", "s_tb_domains", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(EntityFrameworkLayer.s_tb_domains), "u_tb_users_master", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(EntityFrameworkLayer.u_tb_users_master), true)]
 [assembly: EdmRelationshipAttribute("ComplianceFactorsModel", "FK__t_tb_tran__t_tra__6AA692EC", "u_tb_users_master", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(EntityFrameworkLayer.u_tb_users_master), "t_tb_transcripts_sessions", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(EntityFrameworkLayer.t_tb_transcripts_sessions), true)]
+[assembly: EdmRelationshipAttribute("ComplianceFactorsModel", "FK__c_tb_curr__c_cur__17CD73C7", "c_tb_curriculum_master", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(EntityFrameworkLayer.c_tb_curriculum_master), "c_tb_curriculum_category", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(EntityFrameworkLayer.c_tb_curriculum_category), true)]
+[assembly: EdmRelationshipAttribute("ComplianceFactorsModel", "FK__c_tb_curr__c_rel__18C19800", "s_tb_categories", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(EntityFrameworkLayer.s_tb_categories), "c_tb_curriculum_category", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(EntityFrameworkLayer.c_tb_curriculum_category), true)]
+[assembly: EdmRelationshipAttribute("ComplianceFactorsModel", "FK__c_tb_sess__c_del__4CC05EF3", "c_tb_deliveries_master", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(EntityFrameworkLayer.c_tb_deliveries_master), "c_tb_sessions_master", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(EntityFrameworkLayer.c_tb_sessions_master), true)]
+[assembly: EdmRelationshipAttribute("ComplianceFactorsModel", "FK__e_tb_cour__e_cou__76B76416", "e_tb_assignment_types", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(EntityFrameworkLayer.e_tb_assignment_types), "e_tb_courses_assign", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(EntityFrameworkLayer.e_tb_courses_assign), true)]
+[assembly: EdmRelationshipAttribute("ComplianceFactorsModel", "FK__e_tb_cour__e_cou__789FAC88", "e_tb_cert_statuses", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(EntityFrameworkLayer.e_tb_cert_statuses), "e_tb_courses_assign", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(EntityFrameworkLayer.e_tb_courses_assign), true)]
 
 #endregion
 
@@ -952,6 +957,134 @@ namespace EntityFrameworkLayer
             }
         }
         private ObjectSet<t_tb_transcripts_sessions> _t_tb_transcripts_sessions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<c_tb_categories> c_tb_categories
+        {
+            get
+            {
+                if ((_c_tb_categories == null))
+                {
+                    _c_tb_categories = base.CreateObjectSet<c_tb_categories>("c_tb_categories");
+                }
+                return _c_tb_categories;
+            }
+        }
+        private ObjectSet<c_tb_categories> _c_tb_categories;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<c_tb_curriculum_approval> c_tb_curriculum_approval
+        {
+            get
+            {
+                if ((_c_tb_curriculum_approval == null))
+                {
+                    _c_tb_curriculum_approval = base.CreateObjectSet<c_tb_curriculum_approval>("c_tb_curriculum_approval");
+                }
+                return _c_tb_curriculum_approval;
+            }
+        }
+        private ObjectSet<c_tb_curriculum_approval> _c_tb_curriculum_approval;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<c_tb_curriculum_category> c_tb_curriculum_category
+        {
+            get
+            {
+                if ((_c_tb_curriculum_category == null))
+                {
+                    _c_tb_curriculum_category = base.CreateObjectSet<c_tb_curriculum_category>("c_tb_curriculum_category");
+                }
+                return _c_tb_curriculum_category;
+            }
+        }
+        private ObjectSet<c_tb_curriculum_category> _c_tb_curriculum_category;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<c_tb_sessions_master> c_tb_sessions_master
+        {
+            get
+            {
+                if ((_c_tb_sessions_master == null))
+                {
+                    _c_tb_sessions_master = base.CreateObjectSet<c_tb_sessions_master>("c_tb_sessions_master");
+                }
+                return _c_tb_sessions_master;
+            }
+        }
+        private ObjectSet<c_tb_sessions_master> _c_tb_sessions_master;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<e_tb_assignment_types> e_tb_assignment_types
+        {
+            get
+            {
+                if ((_e_tb_assignment_types == null))
+                {
+                    _e_tb_assignment_types = base.CreateObjectSet<e_tb_assignment_types>("e_tb_assignment_types");
+                }
+                return _e_tb_assignment_types;
+            }
+        }
+        private ObjectSet<e_tb_assignment_types> _e_tb_assignment_types;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<e_tb_cert_statuses> e_tb_cert_statuses
+        {
+            get
+            {
+                if ((_e_tb_cert_statuses == null))
+                {
+                    _e_tb_cert_statuses = base.CreateObjectSet<e_tb_cert_statuses>("e_tb_cert_statuses");
+                }
+                return _e_tb_cert_statuses;
+            }
+        }
+        private ObjectSet<e_tb_cert_statuses> _e_tb_cert_statuses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<s_tb_categories> s_tb_categories
+        {
+            get
+            {
+                if ((_s_tb_categories == null))
+                {
+                    _s_tb_categories = base.CreateObjectSet<s_tb_categories>("s_tb_categories");
+                }
+                return _s_tb_categories;
+            }
+        }
+        private ObjectSet<s_tb_categories> _s_tb_categories;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<u_tb_employee_type> u_tb_employee_type
+        {
+            get
+            {
+                if ((_u_tb_employee_type == null))
+                {
+                    _u_tb_employee_type = base.CreateObjectSet<u_tb_employee_type>("u_tb_employee_type");
+                }
+                return _u_tb_employee_type;
+            }
+        }
+        private ObjectSet<u_tb_employee_type> _u_tb_employee_type;
 
         #endregion
         #region AddTo Methods
@@ -1354,6 +1487,70 @@ namespace EntityFrameworkLayer
         public void AddTot_tb_transcripts_sessions(t_tb_transcripts_sessions t_tb_transcripts_sessions)
         {
             base.AddObject("t_tb_transcripts_sessions", t_tb_transcripts_sessions);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the c_tb_categories EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToc_tb_categories(c_tb_categories c_tb_categories)
+        {
+            base.AddObject("c_tb_categories", c_tb_categories);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the c_tb_curriculum_approval EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToc_tb_curriculum_approval(c_tb_curriculum_approval c_tb_curriculum_approval)
+        {
+            base.AddObject("c_tb_curriculum_approval", c_tb_curriculum_approval);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the c_tb_curriculum_category EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToc_tb_curriculum_category(c_tb_curriculum_category c_tb_curriculum_category)
+        {
+            base.AddObject("c_tb_curriculum_category", c_tb_curriculum_category);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the c_tb_sessions_master EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToc_tb_sessions_master(c_tb_sessions_master c_tb_sessions_master)
+        {
+            base.AddObject("c_tb_sessions_master", c_tb_sessions_master);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the e_tb_assignment_types EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToe_tb_assignment_types(e_tb_assignment_types e_tb_assignment_types)
+        {
+            base.AddObject("e_tb_assignment_types", e_tb_assignment_types);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the e_tb_cert_statuses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToe_tb_cert_statuses(e_tb_cert_statuses e_tb_cert_statuses)
+        {
+            base.AddObject("e_tb_cert_statuses", e_tb_cert_statuses);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the s_tb_categories EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTos_tb_categories(s_tb_categories s_tb_categories)
+        {
+            base.AddObject("s_tb_categories", s_tb_categories);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the u_tb_employee_type EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTou_tb_employee_type(u_tb_employee_type u_tb_employee_type)
+        {
+            base.AddObject("u_tb_employee_type", u_tb_employee_type);
         }
 
         #endregion
@@ -4077,6 +4274,111 @@ namespace EntityFrameworkLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ComplianceFactorsModel", Name="c_tb_categories")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class c_tb_categories : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new c_tb_categories object.
+        /// </summary>
+        /// <param name="categoryID">Initial value of the CategoryID property.</param>
+        /// <param name="categoryName">Initial value of the CategoryName property.</param>
+        public static c_tb_categories Createc_tb_categories(global::System.Guid categoryID, global::System.String categoryName)
+        {
+            c_tb_categories c_tb_categories = new c_tb_categories();
+            c_tb_categories.CategoryID = categoryID;
+            c_tb_categories.CategoryName = categoryName;
+            return c_tb_categories;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid CategoryID
+        {
+            get
+            {
+                return _CategoryID;
+            }
+            set
+            {
+                if (_CategoryID != value)
+                {
+                    OnCategoryIDChanging(value);
+                    ReportPropertyChanging("CategoryID");
+                    _CategoryID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CategoryID");
+                    OnCategoryIDChanged();
+                }
+            }
+        }
+        private global::System.Guid _CategoryID;
+        partial void OnCategoryIDChanging(global::System.Guid value);
+        partial void OnCategoryIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CategoryName
+        {
+            get
+            {
+                return _CategoryName;
+            }
+            set
+            {
+                OnCategoryNameChanging(value);
+                ReportPropertyChanging("CategoryName");
+                _CategoryName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CategoryName");
+                OnCategoryNameChanged();
+            }
+        }
+        private global::System.String _CategoryName;
+        partial void OnCategoryNameChanging(global::System.String value);
+        partial void OnCategoryNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="ComplianceFactorsModel", Name="c_tb_course_approval")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -6649,6 +6951,291 @@ namespace EntityFrameworkLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ComplianceFactorsModel", Name="c_tb_curriculum_approval")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class c_tb_curriculum_approval : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new c_tb_curriculum_approval object.
+        /// </summary>
+        /// <param name="c_curriculum_approval_id">Initial value of the c_curriculum_approval_id property.</param>
+        public static c_tb_curriculum_approval Createc_tb_curriculum_approval(global::System.Guid c_curriculum_approval_id)
+        {
+            c_tb_curriculum_approval c_tb_curriculum_approval = new c_tb_curriculum_approval();
+            c_tb_curriculum_approval.c_curriculum_approval_id = c_curriculum_approval_id;
+            return c_tb_curriculum_approval;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid c_curriculum_approval_id
+        {
+            get
+            {
+                return _c_curriculum_approval_id;
+            }
+            set
+            {
+                if (_c_curriculum_approval_id != value)
+                {
+                    Onc_curriculum_approval_idChanging(value);
+                    ReportPropertyChanging("c_curriculum_approval_id");
+                    _c_curriculum_approval_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("c_curriculum_approval_id");
+                    Onc_curriculum_approval_idChanged();
+                }
+            }
+        }
+        private global::System.Guid _c_curriculum_approval_id;
+        partial void Onc_curriculum_approval_idChanging(global::System.Guid value);
+        partial void Onc_curriculum_approval_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String c_curriculum_approval_name
+        {
+            get
+            {
+                return _c_curriculum_approval_name;
+            }
+            set
+            {
+                Onc_curriculum_approval_nameChanging(value);
+                ReportPropertyChanging("c_curriculum_approval_name");
+                _c_curriculum_approval_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("c_curriculum_approval_name");
+                Onc_curriculum_approval_nameChanged();
+            }
+        }
+        private global::System.String _c_curriculum_approval_name;
+        partial void Onc_curriculum_approval_nameChanging(global::System.String value);
+        partial void Onc_curriculum_approval_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String c_curriculum_approval_desc
+        {
+            get
+            {
+                return _c_curriculum_approval_desc;
+            }
+            set
+            {
+                Onc_curriculum_approval_descChanging(value);
+                ReportPropertyChanging("c_curriculum_approval_desc");
+                _c_curriculum_approval_desc = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("c_curriculum_approval_desc");
+                Onc_curriculum_approval_descChanged();
+            }
+        }
+        private global::System.String _c_curriculum_approval_desc;
+        partial void Onc_curriculum_approval_descChanging(global::System.String value);
+        partial void Onc_curriculum_approval_descChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ComplianceFactorsModel", Name="c_tb_curriculum_category")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class c_tb_curriculum_category : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new c_tb_curriculum_category object.
+        /// </summary>
+        /// <param name="c_curriculum_system_id_pk">Initial value of the c_curriculum_system_id_pk property.</param>
+        public static c_tb_curriculum_category Createc_tb_curriculum_category(global::System.Guid c_curriculum_system_id_pk)
+        {
+            c_tb_curriculum_category c_tb_curriculum_category = new c_tb_curriculum_category();
+            c_tb_curriculum_category.c_curriculum_system_id_pk = c_curriculum_system_id_pk;
+            return c_tb_curriculum_category;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid c_curriculum_system_id_pk
+        {
+            get
+            {
+                return _c_curriculum_system_id_pk;
+            }
+            set
+            {
+                if (_c_curriculum_system_id_pk != value)
+                {
+                    Onc_curriculum_system_id_pkChanging(value);
+                    ReportPropertyChanging("c_curriculum_system_id_pk");
+                    _c_curriculum_system_id_pk = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("c_curriculum_system_id_pk");
+                    Onc_curriculum_system_id_pkChanged();
+                }
+            }
+        }
+        private global::System.Guid _c_curriculum_system_id_pk;
+        partial void Onc_curriculum_system_id_pkChanging(global::System.Guid value);
+        partial void Onc_curriculum_system_id_pkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> c_related_category_id_fk
+        {
+            get
+            {
+                return _c_related_category_id_fk;
+            }
+            set
+            {
+                Onc_related_category_id_fkChanging(value);
+                ReportPropertyChanging("c_related_category_id_fk");
+                _c_related_category_id_fk = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_related_category_id_fk");
+                Onc_related_category_id_fkChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _c_related_category_id_fk;
+        partial void Onc_related_category_id_fkChanging(Nullable<global::System.Guid> value);
+        partial void Onc_related_category_id_fkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> c_curriculum_id_fk
+        {
+            get
+            {
+                return _c_curriculum_id_fk;
+            }
+            set
+            {
+                Onc_curriculum_id_fkChanging(value);
+                ReportPropertyChanging("c_curriculum_id_fk");
+                _c_curriculum_id_fk = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_curriculum_id_fk");
+                Onc_curriculum_id_fkChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _c_curriculum_id_fk;
+        partial void Onc_curriculum_id_fkChanging(Nullable<global::System.Guid> value);
+        partial void Onc_curriculum_id_fkChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ComplianceFactorsModel", "FK__c_tb_curr__c_cur__17CD73C7", "c_tb_curriculum_master")]
+        public c_tb_curriculum_master c_tb_curriculum_master
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<c_tb_curriculum_master>("ComplianceFactorsModel.FK__c_tb_curr__c_cur__17CD73C7", "c_tb_curriculum_master").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<c_tb_curriculum_master>("ComplianceFactorsModel.FK__c_tb_curr__c_cur__17CD73C7", "c_tb_curriculum_master").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<c_tb_curriculum_master> c_tb_curriculum_masterReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<c_tb_curriculum_master>("ComplianceFactorsModel.FK__c_tb_curr__c_cur__17CD73C7", "c_tb_curriculum_master");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<c_tb_curriculum_master>("ComplianceFactorsModel.FK__c_tb_curr__c_cur__17CD73C7", "c_tb_curriculum_master", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ComplianceFactorsModel", "FK__c_tb_curr__c_rel__18C19800", "s_tb_categories")]
+        public s_tb_categories s_tb_categories
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<s_tb_categories>("ComplianceFactorsModel.FK__c_tb_curr__c_rel__18C19800", "s_tb_categories").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<s_tb_categories>("ComplianceFactorsModel.FK__c_tb_curr__c_rel__18C19800", "s_tb_categories").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<s_tb_categories> s_tb_categoriesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<s_tb_categories>("ComplianceFactorsModel.FK__c_tb_curr__c_rel__18C19800", "s_tb_categories");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<s_tb_categories>("ComplianceFactorsModel.FK__c_tb_curr__c_rel__18C19800", "s_tb_categories", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="ComplianceFactorsModel", Name="c_tb_curriculum_domain")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -8769,6 +9356,28 @@ namespace EntityFrameworkLayer
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<e_tb_curricula_statuses_history>("ComplianceFactorsModel.FK__e_tb_curr__e_cur__5B644F5C", "e_tb_curricula_statuses_history", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ComplianceFactorsModel", "FK__c_tb_curr__c_cur__17CD73C7", "c_tb_curriculum_category")]
+        public EntityCollection<c_tb_curriculum_category> c_tb_curriculum_category
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<c_tb_curriculum_category>("ComplianceFactorsModel.FK__c_tb_curr__c_cur__17CD73C7", "c_tb_curriculum_category");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<c_tb_curriculum_category>("ComplianceFactorsModel.FK__c_tb_curr__c_cur__17CD73C7", "c_tb_curriculum_category", value);
                 }
             }
         }
@@ -13138,6 +13747,28 @@ namespace EntityFrameworkLayer
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ComplianceFactorsModel", "FK__c_tb_sess__c_del__4CC05EF3", "c_tb_sessions_master")]
+        public EntityCollection<c_tb_sessions_master> c_tb_sessions_master
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<c_tb_sessions_master>("ComplianceFactorsModel.FK__c_tb_sess__c_del__4CC05EF3", "c_tb_sessions_master");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<c_tb_sessions_master>("ComplianceFactorsModel.FK__c_tb_sess__c_del__4CC05EF3", "c_tb_sessions_master", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -13538,6 +14169,626 @@ namespace EntityFrameworkLayer
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<c_tb_deliveries_master>("ComplianceFactorsModel.FK__c_tb_deli__c_olt__37C5420D", "c_tb_deliveries_master", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ComplianceFactorsModel", Name="c_tb_sessions_master")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class c_tb_sessions_master : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new c_tb_sessions_master object.
+        /// </summary>
+        /// <param name="c_session_system_id_pk">Initial value of the c_session_system_id_pk property.</param>
+        public static c_tb_sessions_master Createc_tb_sessions_master(global::System.Guid c_session_system_id_pk)
+        {
+            c_tb_sessions_master c_tb_sessions_master = new c_tb_sessions_master();
+            c_tb_sessions_master.c_session_system_id_pk = c_session_system_id_pk;
+            return c_tb_sessions_master;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid c_session_system_id_pk
+        {
+            get
+            {
+                return _c_session_system_id_pk;
+            }
+            set
+            {
+                if (_c_session_system_id_pk != value)
+                {
+                    Onc_session_system_id_pkChanging(value);
+                    ReportPropertyChanging("c_session_system_id_pk");
+                    _c_session_system_id_pk = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("c_session_system_id_pk");
+                    Onc_session_system_id_pkChanged();
+                }
+            }
+        }
+        private global::System.Guid _c_session_system_id_pk;
+        partial void Onc_session_system_id_pkChanging(global::System.Guid value);
+        partial void Onc_session_system_id_pkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String c_session_id_pk
+        {
+            get
+            {
+                return _c_session_id_pk;
+            }
+            set
+            {
+                Onc_session_id_pkChanging(value);
+                ReportPropertyChanging("c_session_id_pk");
+                _c_session_id_pk = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("c_session_id_pk");
+                Onc_session_id_pkChanged();
+            }
+        }
+        private global::System.String _c_session_id_pk;
+        partial void Onc_session_id_pkChanging(global::System.String value);
+        partial void Onc_session_id_pkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> c_delivery_id_fk
+        {
+            get
+            {
+                return _c_delivery_id_fk;
+            }
+            set
+            {
+                Onc_delivery_id_fkChanging(value);
+                ReportPropertyChanging("c_delivery_id_fk");
+                _c_delivery_id_fk = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_delivery_id_fk");
+                Onc_delivery_id_fkChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _c_delivery_id_fk;
+        partial void Onc_delivery_id_fkChanging(Nullable<global::System.Guid> value);
+        partial void Onc_delivery_id_fkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String c_session_title
+        {
+            get
+            {
+                return _c_session_title;
+            }
+            set
+            {
+                Onc_session_titleChanging(value);
+                ReportPropertyChanging("c_session_title");
+                _c_session_title = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("c_session_title");
+                Onc_session_titleChanged();
+            }
+        }
+        private global::System.String _c_session_title;
+        partial void Onc_session_titleChanging(global::System.String value);
+        partial void Onc_session_titleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String c_sessions_desc
+        {
+            get
+            {
+                return _c_sessions_desc;
+            }
+            set
+            {
+                Onc_sessions_descChanging(value);
+                ReportPropertyChanging("c_sessions_desc");
+                _c_sessions_desc = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("c_sessions_desc");
+                Onc_sessions_descChanged();
+            }
+        }
+        private global::System.String _c_sessions_desc;
+        partial void Onc_sessions_descChanging(global::System.String value);
+        partial void Onc_sessions_descChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> c_session_start_date
+        {
+            get
+            {
+                return _c_session_start_date;
+            }
+            set
+            {
+                Onc_session_start_dateChanging(value);
+                ReportPropertyChanging("c_session_start_date");
+                _c_session_start_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_session_start_date");
+                Onc_session_start_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _c_session_start_date;
+        partial void Onc_session_start_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onc_session_start_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> c_session_end_date
+        {
+            get
+            {
+                return _c_session_end_date;
+            }
+            set
+            {
+                Onc_session_end_dateChanging(value);
+                ReportPropertyChanging("c_session_end_date");
+                _c_session_end_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_session_end_date");
+                Onc_session_end_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _c_session_end_date;
+        partial void Onc_session_end_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onc_session_end_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> c_session_start_time
+        {
+            get
+            {
+                return _c_session_start_time;
+            }
+            set
+            {
+                Onc_session_start_timeChanging(value);
+                ReportPropertyChanging("c_session_start_time");
+                _c_session_start_time = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_session_start_time");
+                Onc_session_start_timeChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _c_session_start_time;
+        partial void Onc_session_start_timeChanging(Nullable<global::System.DateTime> value);
+        partial void Onc_session_start_timeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> c_sessions_end_time
+        {
+            get
+            {
+                return _c_sessions_end_time;
+            }
+            set
+            {
+                Onc_sessions_end_timeChanging(value);
+                ReportPropertyChanging("c_sessions_end_time");
+                _c_sessions_end_time = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_sessions_end_time");
+                Onc_sessions_end_timeChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _c_sessions_end_time;
+        partial void Onc_sessions_end_timeChanging(Nullable<global::System.DateTime> value);
+        partial void Onc_sessions_end_timeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> c_session_duration
+        {
+            get
+            {
+                return _c_session_duration;
+            }
+            set
+            {
+                Onc_session_durationChanging(value);
+                ReportPropertyChanging("c_session_duration");
+                _c_session_duration = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_session_duration");
+                Onc_session_durationChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _c_session_duration;
+        partial void Onc_session_durationChanging(Nullable<global::System.DateTime> value);
+        partial void Onc_session_durationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> c_session_location_id_fk
+        {
+            get
+            {
+                return _c_session_location_id_fk;
+            }
+            set
+            {
+                Onc_session_location_id_fkChanging(value);
+                ReportPropertyChanging("c_session_location_id_fk");
+                _c_session_location_id_fk = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_session_location_id_fk");
+                Onc_session_location_id_fkChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _c_session_location_id_fk;
+        partial void Onc_session_location_id_fkChanging(Nullable<global::System.Guid> value);
+        partial void Onc_session_location_id_fkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> c_session_facility_id_fk
+        {
+            get
+            {
+                return _c_session_facility_id_fk;
+            }
+            set
+            {
+                Onc_session_facility_id_fkChanging(value);
+                ReportPropertyChanging("c_session_facility_id_fk");
+                _c_session_facility_id_fk = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_session_facility_id_fk");
+                Onc_session_facility_id_fkChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _c_session_facility_id_fk;
+        partial void Onc_session_facility_id_fkChanging(Nullable<global::System.Guid> value);
+        partial void Onc_session_facility_id_fkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> c_sessions_room_id_fk
+        {
+            get
+            {
+                return _c_sessions_room_id_fk;
+            }
+            set
+            {
+                Onc_sessions_room_id_fkChanging(value);
+                ReportPropertyChanging("c_sessions_room_id_fk");
+                _c_sessions_room_id_fk = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("c_sessions_room_id_fk");
+                Onc_sessions_room_id_fkChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _c_sessions_room_id_fk;
+        partial void Onc_sessions_room_id_fkChanging(Nullable<global::System.Guid> value);
+        partial void Onc_sessions_room_id_fkChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ComplianceFactorsModel", "FK__c_tb_sess__c_del__4CC05EF3", "c_tb_deliveries_master")]
+        public c_tb_deliveries_master c_tb_deliveries_master
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<c_tb_deliveries_master>("ComplianceFactorsModel.FK__c_tb_sess__c_del__4CC05EF3", "c_tb_deliveries_master").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<c_tb_deliveries_master>("ComplianceFactorsModel.FK__c_tb_sess__c_del__4CC05EF3", "c_tb_deliveries_master").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<c_tb_deliveries_master> c_tb_deliveries_masterReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<c_tb_deliveries_master>("ComplianceFactorsModel.FK__c_tb_sess__c_del__4CC05EF3", "c_tb_deliveries_master");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<c_tb_deliveries_master>("ComplianceFactorsModel.FK__c_tb_sess__c_del__4CC05EF3", "c_tb_deliveries_master", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ComplianceFactorsModel", Name="e_tb_assignment_types")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class e_tb_assignment_types : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new e_tb_assignment_types object.
+        /// </summary>
+        /// <param name="e_assign_type_system_id_pk">Initial value of the e_assign_type_system_id_pk property.</param>
+        public static e_tb_assignment_types Createe_tb_assignment_types(global::System.Guid e_assign_type_system_id_pk)
+        {
+            e_tb_assignment_types e_tb_assignment_types = new e_tb_assignment_types();
+            e_tb_assignment_types.e_assign_type_system_id_pk = e_assign_type_system_id_pk;
+            return e_tb_assignment_types;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid e_assign_type_system_id_pk
+        {
+            get
+            {
+                return _e_assign_type_system_id_pk;
+            }
+            set
+            {
+                if (_e_assign_type_system_id_pk != value)
+                {
+                    One_assign_type_system_id_pkChanging(value);
+                    ReportPropertyChanging("e_assign_type_system_id_pk");
+                    _e_assign_type_system_id_pk = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("e_assign_type_system_id_pk");
+                    One_assign_type_system_id_pkChanged();
+                }
+            }
+        }
+        private global::System.Guid _e_assign_type_system_id_pk;
+        partial void One_assign_type_system_id_pkChanging(global::System.Guid value);
+        partial void One_assign_type_system_id_pkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String e_assign_type_name
+        {
+            get
+            {
+                return _e_assign_type_name;
+            }
+            set
+            {
+                One_assign_type_nameChanging(value);
+                ReportPropertyChanging("e_assign_type_name");
+                _e_assign_type_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("e_assign_type_name");
+                One_assign_type_nameChanged();
+            }
+        }
+        private global::System.String _e_assign_type_name;
+        partial void One_assign_type_nameChanging(global::System.String value);
+        partial void One_assign_type_nameChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ComplianceFactorsModel", "FK__e_tb_cour__e_cou__76B76416", "e_tb_courses_assign")]
+        public EntityCollection<e_tb_courses_assign> e_tb_courses_assign
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<e_tb_courses_assign>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__76B76416", "e_tb_courses_assign");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<e_tb_courses_assign>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__76B76416", "e_tb_courses_assign", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ComplianceFactorsModel", Name="e_tb_cert_statuses")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class e_tb_cert_statuses : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new e_tb_cert_statuses object.
+        /// </summary>
+        /// <param name="u_cert_status_system_id_pk">Initial value of the u_cert_status_system_id_pk property.</param>
+        /// <param name="u_cert_status_name">Initial value of the u_cert_status_name property.</param>
+        /// <param name="u_cert_status_desc">Initial value of the u_cert_status_desc property.</param>
+        public static e_tb_cert_statuses Createe_tb_cert_statuses(global::System.Guid u_cert_status_system_id_pk, global::System.String u_cert_status_name, global::System.String u_cert_status_desc)
+        {
+            e_tb_cert_statuses e_tb_cert_statuses = new e_tb_cert_statuses();
+            e_tb_cert_statuses.u_cert_status_system_id_pk = u_cert_status_system_id_pk;
+            e_tb_cert_statuses.u_cert_status_name = u_cert_status_name;
+            e_tb_cert_statuses.u_cert_status_desc = u_cert_status_desc;
+            return e_tb_cert_statuses;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid u_cert_status_system_id_pk
+        {
+            get
+            {
+                return _u_cert_status_system_id_pk;
+            }
+            set
+            {
+                if (_u_cert_status_system_id_pk != value)
+                {
+                    Onu_cert_status_system_id_pkChanging(value);
+                    ReportPropertyChanging("u_cert_status_system_id_pk");
+                    _u_cert_status_system_id_pk = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("u_cert_status_system_id_pk");
+                    Onu_cert_status_system_id_pkChanged();
+                }
+            }
+        }
+        private global::System.Guid _u_cert_status_system_id_pk;
+        partial void Onu_cert_status_system_id_pkChanging(global::System.Guid value);
+        partial void Onu_cert_status_system_id_pkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String u_cert_status_name
+        {
+            get
+            {
+                return _u_cert_status_name;
+            }
+            set
+            {
+                Onu_cert_status_nameChanging(value);
+                ReportPropertyChanging("u_cert_status_name");
+                _u_cert_status_name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("u_cert_status_name");
+                Onu_cert_status_nameChanged();
+            }
+        }
+        private global::System.String _u_cert_status_name;
+        partial void Onu_cert_status_nameChanging(global::System.String value);
+        partial void Onu_cert_status_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String u_cert_status_desc
+        {
+            get
+            {
+                return _u_cert_status_desc;
+            }
+            set
+            {
+                Onu_cert_status_descChanging(value);
+                ReportPropertyChanging("u_cert_status_desc");
+                _u_cert_status_desc = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("u_cert_status_desc");
+                Onu_cert_status_descChanged();
+            }
+        }
+        private global::System.String _u_cert_status_desc;
+        partial void Onu_cert_status_descChanging(global::System.String value);
+        partial void Onu_cert_status_descChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ComplianceFactorsModel", "FK__e_tb_cour__e_cou__789FAC88", "e_tb_courses_assign")]
+        public EntityCollection<e_tb_courses_assign> e_tb_courses_assign
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<e_tb_courses_assign>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__789FAC88", "e_tb_courses_assign");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<e_tb_courses_assign>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__789FAC88", "e_tb_courses_assign", value);
                 }
             }
         }
@@ -14046,6 +15297,82 @@ namespace EntityFrameworkLayer
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<e_tb_enrollment_status>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__7993D0C1", "e_tb_enrollment_status", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ComplianceFactorsModel", "FK__e_tb_cour__e_cou__76B76416", "e_tb_assignment_types")]
+        public e_tb_assignment_types e_tb_assignment_types
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<e_tb_assignment_types>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__76B76416", "e_tb_assignment_types").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<e_tb_assignment_types>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__76B76416", "e_tb_assignment_types").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<e_tb_assignment_types> e_tb_assignment_typesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<e_tb_assignment_types>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__76B76416", "e_tb_assignment_types");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<e_tb_assignment_types>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__76B76416", "e_tb_assignment_types", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ComplianceFactorsModel", "FK__e_tb_cour__e_cou__789FAC88", "e_tb_cert_statuses")]
+        public e_tb_cert_statuses e_tb_cert_statuses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<e_tb_cert_statuses>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__789FAC88", "e_tb_cert_statuses").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<e_tb_cert_statuses>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__789FAC88", "e_tb_cert_statuses").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<e_tb_cert_statuses> e_tb_cert_statusesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<e_tb_cert_statuses>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__789FAC88", "e_tb_cert_statuses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<e_tb_cert_statuses>("ComplianceFactorsModel.FK__e_tb_cour__e_cou__789FAC88", "e_tb_cert_statuses", value);
                 }
             }
         }
@@ -17737,6 +19064,1934 @@ namespace EntityFrameworkLayer
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<u_tb_users_master>("ComplianceFactorsModel.FK__e_tb_enro__e_enr__25876198", "u_tb_users_master", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ComplianceFactorsModel", Name="s_tb_categories")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class s_tb_categories : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new s_tb_categories object.
+        /// </summary>
+        /// <param name="s_category_system_id_pk">Initial value of the s_category_system_id_pk property.</param>
+        public static s_tb_categories Creates_tb_categories(global::System.Guid s_category_system_id_pk)
+        {
+            s_tb_categories s_tb_categories = new s_tb_categories();
+            s_tb_categories.s_category_system_id_pk = s_category_system_id_pk;
+            return s_tb_categories;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid s_category_system_id_pk
+        {
+            get
+            {
+                return _s_category_system_id_pk;
+            }
+            set
+            {
+                if (_s_category_system_id_pk != value)
+                {
+                    Ons_category_system_id_pkChanging(value);
+                    ReportPropertyChanging("s_category_system_id_pk");
+                    _s_category_system_id_pk = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("s_category_system_id_pk");
+                    Ons_category_system_id_pkChanged();
+                }
+            }
+        }
+        private global::System.Guid _s_category_system_id_pk;
+        partial void Ons_category_system_id_pkChanging(global::System.Guid value);
+        partial void Ons_category_system_id_pkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_id
+        {
+            get
+            {
+                return _s_category_id;
+            }
+            set
+            {
+                Ons_category_idChanging(value);
+                ReportPropertyChanging("s_category_id");
+                _s_category_id = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_id");
+                Ons_category_idChanged();
+            }
+        }
+        private global::System.String _s_category_id;
+        partial void Ons_category_idChanging(global::System.String value);
+        partial void Ons_category_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_us_english
+        {
+            get
+            {
+                return _s_category_name_us_english;
+            }
+            set
+            {
+                Ons_category_name_us_englishChanging(value);
+                ReportPropertyChanging("s_category_name_us_english");
+                _s_category_name_us_english = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_us_english");
+                Ons_category_name_us_englishChanged();
+            }
+        }
+        private global::System.String _s_category_name_us_english;
+        partial void Ons_category_name_us_englishChanging(global::System.String value);
+        partial void Ons_category_name_us_englishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_us_english
+        {
+            get
+            {
+                return _s_category_desc_us_english;
+            }
+            set
+            {
+                Ons_category_desc_us_englishChanging(value);
+                ReportPropertyChanging("s_category_desc_us_english");
+                _s_category_desc_us_english = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_us_english");
+                Ons_category_desc_us_englishChanged();
+            }
+        }
+        private global::System.String _s_category_desc_us_english;
+        partial void Ons_category_desc_us_englishChanging(global::System.String value);
+        partial void Ons_category_desc_us_englishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_status_id_fk
+        {
+            get
+            {
+                return _s_category_status_id_fk;
+            }
+            set
+            {
+                Ons_category_status_id_fkChanging(value);
+                ReportPropertyChanging("s_category_status_id_fk");
+                _s_category_status_id_fk = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_status_id_fk");
+                Ons_category_status_id_fkChanged();
+            }
+        }
+        private global::System.String _s_category_status_id_fk;
+        partial void Ons_category_status_id_fkChanging(global::System.String value);
+        partial void Ons_category_status_id_fkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> s_parent_category_id
+        {
+            get
+            {
+                return _s_parent_category_id;
+            }
+            set
+            {
+                Ons_parent_category_idChanging(value);
+                ReportPropertyChanging("s_parent_category_id");
+                _s_parent_category_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("s_parent_category_id");
+                Ons_parent_category_idChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _s_parent_category_id;
+        partial void Ons_parent_category_idChanging(Nullable<global::System.Guid> value);
+        partial void Ons_parent_category_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_uk_english
+        {
+            get
+            {
+                return _s_category_name_uk_english;
+            }
+            set
+            {
+                Ons_category_name_uk_englishChanging(value);
+                ReportPropertyChanging("s_category_name_uk_english");
+                _s_category_name_uk_english = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_uk_english");
+                Ons_category_name_uk_englishChanged();
+            }
+        }
+        private global::System.String _s_category_name_uk_english;
+        partial void Ons_category_name_uk_englishChanging(global::System.String value);
+        partial void Ons_category_name_uk_englishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_uk_english
+        {
+            get
+            {
+                return _s_category_desc_uk_english;
+            }
+            set
+            {
+                Ons_category_desc_uk_englishChanging(value);
+                ReportPropertyChanging("s_category_desc_uk_english");
+                _s_category_desc_uk_english = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_uk_english");
+                Ons_category_desc_uk_englishChanged();
+            }
+        }
+        private global::System.String _s_category_desc_uk_english;
+        partial void Ons_category_desc_uk_englishChanging(global::System.String value);
+        partial void Ons_category_desc_uk_englishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_ca_french
+        {
+            get
+            {
+                return _s_category_name_ca_french;
+            }
+            set
+            {
+                Ons_category_name_ca_frenchChanging(value);
+                ReportPropertyChanging("s_category_name_ca_french");
+                _s_category_name_ca_french = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_ca_french");
+                Ons_category_name_ca_frenchChanged();
+            }
+        }
+        private global::System.String _s_category_name_ca_french;
+        partial void Ons_category_name_ca_frenchChanging(global::System.String value);
+        partial void Ons_category_name_ca_frenchChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_ca_french
+        {
+            get
+            {
+                return _s_category_desc_ca_french;
+            }
+            set
+            {
+                Ons_category_desc_ca_frenchChanging(value);
+                ReportPropertyChanging("s_category_desc_ca_french");
+                _s_category_desc_ca_french = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_ca_french");
+                Ons_category_desc_ca_frenchChanged();
+            }
+        }
+        private global::System.String _s_category_desc_ca_french;
+        partial void Ons_category_desc_ca_frenchChanging(global::System.String value);
+        partial void Ons_category_desc_ca_frenchChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_fr_french
+        {
+            get
+            {
+                return _s_category_name_fr_french;
+            }
+            set
+            {
+                Ons_category_name_fr_frenchChanging(value);
+                ReportPropertyChanging("s_category_name_fr_french");
+                _s_category_name_fr_french = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_fr_french");
+                Ons_category_name_fr_frenchChanged();
+            }
+        }
+        private global::System.String _s_category_name_fr_french;
+        partial void Ons_category_name_fr_frenchChanging(global::System.String value);
+        partial void Ons_category_name_fr_frenchChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_fr_french
+        {
+            get
+            {
+                return _s_category_desc_fr_french;
+            }
+            set
+            {
+                Ons_category_desc_fr_frenchChanging(value);
+                ReportPropertyChanging("s_category_desc_fr_french");
+                _s_category_desc_fr_french = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_fr_french");
+                Ons_category_desc_fr_frenchChanged();
+            }
+        }
+        private global::System.String _s_category_desc_fr_french;
+        partial void Ons_category_desc_fr_frenchChanging(global::System.String value);
+        partial void Ons_category_desc_fr_frenchChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_mx_spanish
+        {
+            get
+            {
+                return _s_category_name_mx_spanish;
+            }
+            set
+            {
+                Ons_category_name_mx_spanishChanging(value);
+                ReportPropertyChanging("s_category_name_mx_spanish");
+                _s_category_name_mx_spanish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_mx_spanish");
+                Ons_category_name_mx_spanishChanged();
+            }
+        }
+        private global::System.String _s_category_name_mx_spanish;
+        partial void Ons_category_name_mx_spanishChanging(global::System.String value);
+        partial void Ons_category_name_mx_spanishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_mx_spanish
+        {
+            get
+            {
+                return _s_category_desc_mx_spanish;
+            }
+            set
+            {
+                Ons_category_desc_mx_spanishChanging(value);
+                ReportPropertyChanging("s_category_desc_mx_spanish");
+                _s_category_desc_mx_spanish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_mx_spanish");
+                Ons_category_desc_mx_spanishChanged();
+            }
+        }
+        private global::System.String _s_category_desc_mx_spanish;
+        partial void Ons_category_desc_mx_spanishChanging(global::System.String value);
+        partial void Ons_category_desc_mx_spanishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_sp_spanish
+        {
+            get
+            {
+                return _s_category_name_sp_spanish;
+            }
+            set
+            {
+                Ons_category_name_sp_spanishChanging(value);
+                ReportPropertyChanging("s_category_name_sp_spanish");
+                _s_category_name_sp_spanish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_sp_spanish");
+                Ons_category_name_sp_spanishChanged();
+            }
+        }
+        private global::System.String _s_category_name_sp_spanish;
+        partial void Ons_category_name_sp_spanishChanging(global::System.String value);
+        partial void Ons_category_name_sp_spanishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_sp_spanish
+        {
+            get
+            {
+                return _s_category_desc_sp_spanish;
+            }
+            set
+            {
+                Ons_category_desc_sp_spanishChanging(value);
+                ReportPropertyChanging("s_category_desc_sp_spanish");
+                _s_category_desc_sp_spanish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_sp_spanish");
+                Ons_category_desc_sp_spanishChanged();
+            }
+        }
+        private global::System.String _s_category_desc_sp_spanish;
+        partial void Ons_category_desc_sp_spanishChanging(global::System.String value);
+        partial void Ons_category_desc_sp_spanishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_portuguese
+        {
+            get
+            {
+                return _s_category_name_portuguese;
+            }
+            set
+            {
+                Ons_category_name_portugueseChanging(value);
+                ReportPropertyChanging("s_category_name_portuguese");
+                _s_category_name_portuguese = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_portuguese");
+                Ons_category_name_portugueseChanged();
+            }
+        }
+        private global::System.String _s_category_name_portuguese;
+        partial void Ons_category_name_portugueseChanging(global::System.String value);
+        partial void Ons_category_name_portugueseChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_portuguese
+        {
+            get
+            {
+                return _s_category_desc_portuguese;
+            }
+            set
+            {
+                Ons_category_desc_portugueseChanging(value);
+                ReportPropertyChanging("s_category_desc_portuguese");
+                _s_category_desc_portuguese = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_portuguese");
+                Ons_category_desc_portugueseChanged();
+            }
+        }
+        private global::System.String _s_category_desc_portuguese;
+        partial void Ons_category_desc_portugueseChanging(global::System.String value);
+        partial void Ons_category_desc_portugueseChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_german
+        {
+            get
+            {
+                return _s_category_name_german;
+            }
+            set
+            {
+                Ons_category_name_germanChanging(value);
+                ReportPropertyChanging("s_category_name_german");
+                _s_category_name_german = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_german");
+                Ons_category_name_germanChanged();
+            }
+        }
+        private global::System.String _s_category_name_german;
+        partial void Ons_category_name_germanChanging(global::System.String value);
+        partial void Ons_category_name_germanChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_german
+        {
+            get
+            {
+                return _s_category_desc_german;
+            }
+            set
+            {
+                Ons_category_desc_germanChanging(value);
+                ReportPropertyChanging("s_category_desc_german");
+                _s_category_desc_german = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_german");
+                Ons_category_desc_germanChanged();
+            }
+        }
+        private global::System.String _s_category_desc_german;
+        partial void Ons_category_desc_germanChanging(global::System.String value);
+        partial void Ons_category_desc_germanChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_japanese
+        {
+            get
+            {
+                return _s_category_name_japanese;
+            }
+            set
+            {
+                Ons_category_name_japaneseChanging(value);
+                ReportPropertyChanging("s_category_name_japanese");
+                _s_category_name_japanese = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_japanese");
+                Ons_category_name_japaneseChanged();
+            }
+        }
+        private global::System.String _s_category_name_japanese;
+        partial void Ons_category_name_japaneseChanging(global::System.String value);
+        partial void Ons_category_name_japaneseChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_japanese
+        {
+            get
+            {
+                return _s_category_desc_japanese;
+            }
+            set
+            {
+                Ons_category_desc_japaneseChanging(value);
+                ReportPropertyChanging("s_category_desc_japanese");
+                _s_category_desc_japanese = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_japanese");
+                Ons_category_desc_japaneseChanged();
+            }
+        }
+        private global::System.String _s_category_desc_japanese;
+        partial void Ons_category_desc_japaneseChanging(global::System.String value);
+        partial void Ons_category_desc_japaneseChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_russian
+        {
+            get
+            {
+                return _s_category_name_russian;
+            }
+            set
+            {
+                Ons_category_name_russianChanging(value);
+                ReportPropertyChanging("s_category_name_russian");
+                _s_category_name_russian = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_russian");
+                Ons_category_name_russianChanged();
+            }
+        }
+        private global::System.String _s_category_name_russian;
+        partial void Ons_category_name_russianChanging(global::System.String value);
+        partial void Ons_category_name_russianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_russian
+        {
+            get
+            {
+                return _s_category_desc_russian;
+            }
+            set
+            {
+                Ons_category_desc_russianChanging(value);
+                ReportPropertyChanging("s_category_desc_russian");
+                _s_category_desc_russian = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_russian");
+                Ons_category_desc_russianChanged();
+            }
+        }
+        private global::System.String _s_category_desc_russian;
+        partial void Ons_category_desc_russianChanging(global::System.String value);
+        partial void Ons_category_desc_russianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_danish
+        {
+            get
+            {
+                return _s_category_name_danish;
+            }
+            set
+            {
+                Ons_category_name_danishChanging(value);
+                ReportPropertyChanging("s_category_name_danish");
+                _s_category_name_danish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_danish");
+                Ons_category_name_danishChanged();
+            }
+        }
+        private global::System.String _s_category_name_danish;
+        partial void Ons_category_name_danishChanging(global::System.String value);
+        partial void Ons_category_name_danishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_danish
+        {
+            get
+            {
+                return _s_category_desc_danish;
+            }
+            set
+            {
+                Ons_category_desc_danishChanging(value);
+                ReportPropertyChanging("s_category_desc_danish");
+                _s_category_desc_danish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_danish");
+                Ons_category_desc_danishChanged();
+            }
+        }
+        private global::System.String _s_category_desc_danish;
+        partial void Ons_category_desc_danishChanging(global::System.String value);
+        partial void Ons_category_desc_danishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_polish
+        {
+            get
+            {
+                return _s_category_name_polish;
+            }
+            set
+            {
+                Ons_category_name_polishChanging(value);
+                ReportPropertyChanging("s_category_name_polish");
+                _s_category_name_polish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_polish");
+                Ons_category_name_polishChanged();
+            }
+        }
+        private global::System.String _s_category_name_polish;
+        partial void Ons_category_name_polishChanging(global::System.String value);
+        partial void Ons_category_name_polishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_polish
+        {
+            get
+            {
+                return _s_category_desc_polish;
+            }
+            set
+            {
+                Ons_category_desc_polishChanging(value);
+                ReportPropertyChanging("s_category_desc_polish");
+                _s_category_desc_polish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_polish");
+                Ons_category_desc_polishChanged();
+            }
+        }
+        private global::System.String _s_category_desc_polish;
+        partial void Ons_category_desc_polishChanging(global::System.String value);
+        partial void Ons_category_desc_polishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_swedish
+        {
+            get
+            {
+                return _s_category_name_swedish;
+            }
+            set
+            {
+                Ons_category_name_swedishChanging(value);
+                ReportPropertyChanging("s_category_name_swedish");
+                _s_category_name_swedish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_swedish");
+                Ons_category_name_swedishChanged();
+            }
+        }
+        private global::System.String _s_category_name_swedish;
+        partial void Ons_category_name_swedishChanging(global::System.String value);
+        partial void Ons_category_name_swedishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_swedish
+        {
+            get
+            {
+                return _s_category_desc_swedish;
+            }
+            set
+            {
+                Ons_category_desc_swedishChanging(value);
+                ReportPropertyChanging("s_category_desc_swedish");
+                _s_category_desc_swedish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_swedish");
+                Ons_category_desc_swedishChanged();
+            }
+        }
+        private global::System.String _s_category_desc_swedish;
+        partial void Ons_category_desc_swedishChanging(global::System.String value);
+        partial void Ons_category_desc_swedishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_finnish
+        {
+            get
+            {
+                return _s_category_name_finnish;
+            }
+            set
+            {
+                Ons_category_name_finnishChanging(value);
+                ReportPropertyChanging("s_category_name_finnish");
+                _s_category_name_finnish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_finnish");
+                Ons_category_name_finnishChanged();
+            }
+        }
+        private global::System.String _s_category_name_finnish;
+        partial void Ons_category_name_finnishChanging(global::System.String value);
+        partial void Ons_category_name_finnishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_finnish
+        {
+            get
+            {
+                return _s_category_desc_finnish;
+            }
+            set
+            {
+                Ons_category_desc_finnishChanging(value);
+                ReportPropertyChanging("s_category_desc_finnish");
+                _s_category_desc_finnish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_finnish");
+                Ons_category_desc_finnishChanged();
+            }
+        }
+        private global::System.String _s_category_desc_finnish;
+        partial void Ons_category_desc_finnishChanging(global::System.String value);
+        partial void Ons_category_desc_finnishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_korean
+        {
+            get
+            {
+                return _s_category_name_korean;
+            }
+            set
+            {
+                Ons_category_name_koreanChanging(value);
+                ReportPropertyChanging("s_category_name_korean");
+                _s_category_name_korean = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_korean");
+                Ons_category_name_koreanChanged();
+            }
+        }
+        private global::System.String _s_category_name_korean;
+        partial void Ons_category_name_koreanChanging(global::System.String value);
+        partial void Ons_category_name_koreanChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_korean
+        {
+            get
+            {
+                return _s_category_desc_korean;
+            }
+            set
+            {
+                Ons_category_desc_koreanChanging(value);
+                ReportPropertyChanging("s_category_desc_korean");
+                _s_category_desc_korean = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_korean");
+                Ons_category_desc_koreanChanged();
+            }
+        }
+        private global::System.String _s_category_desc_korean;
+        partial void Ons_category_desc_koreanChanging(global::System.String value);
+        partial void Ons_category_desc_koreanChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_italian
+        {
+            get
+            {
+                return _s_category_name_italian;
+            }
+            set
+            {
+                Ons_category_name_italianChanging(value);
+                ReportPropertyChanging("s_category_name_italian");
+                _s_category_name_italian = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_italian");
+                Ons_category_name_italianChanged();
+            }
+        }
+        private global::System.String _s_category_name_italian;
+        partial void Ons_category_name_italianChanging(global::System.String value);
+        partial void Ons_category_name_italianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_italian
+        {
+            get
+            {
+                return _s_category_desc_italian;
+            }
+            set
+            {
+                Ons_category_desc_italianChanging(value);
+                ReportPropertyChanging("s_category_desc_italian");
+                _s_category_desc_italian = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_italian");
+                Ons_category_desc_italianChanged();
+            }
+        }
+        private global::System.String _s_category_desc_italian;
+        partial void Ons_category_desc_italianChanging(global::System.String value);
+        partial void Ons_category_desc_italianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_dutch
+        {
+            get
+            {
+                return _s_category_name_dutch;
+            }
+            set
+            {
+                Ons_category_name_dutchChanging(value);
+                ReportPropertyChanging("s_category_name_dutch");
+                _s_category_name_dutch = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_dutch");
+                Ons_category_name_dutchChanged();
+            }
+        }
+        private global::System.String _s_category_name_dutch;
+        partial void Ons_category_name_dutchChanging(global::System.String value);
+        partial void Ons_category_name_dutchChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_dutch
+        {
+            get
+            {
+                return _s_category_desc_dutch;
+            }
+            set
+            {
+                Ons_category_desc_dutchChanging(value);
+                ReportPropertyChanging("s_category_desc_dutch");
+                _s_category_desc_dutch = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_dutch");
+                Ons_category_desc_dutchChanged();
+            }
+        }
+        private global::System.String _s_category_desc_dutch;
+        partial void Ons_category_desc_dutchChanging(global::System.String value);
+        partial void Ons_category_desc_dutchChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_indonesian
+        {
+            get
+            {
+                return _s_category_name_indonesian;
+            }
+            set
+            {
+                Ons_category_name_indonesianChanging(value);
+                ReportPropertyChanging("s_category_name_indonesian");
+                _s_category_name_indonesian = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_indonesian");
+                Ons_category_name_indonesianChanged();
+            }
+        }
+        private global::System.String _s_category_name_indonesian;
+        partial void Ons_category_name_indonesianChanging(global::System.String value);
+        partial void Ons_category_name_indonesianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_indonesian
+        {
+            get
+            {
+                return _s_category_desc_indonesian;
+            }
+            set
+            {
+                Ons_category_desc_indonesianChanging(value);
+                ReportPropertyChanging("s_category_desc_indonesian");
+                _s_category_desc_indonesian = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_indonesian");
+                Ons_category_desc_indonesianChanged();
+            }
+        }
+        private global::System.String _s_category_desc_indonesian;
+        partial void Ons_category_desc_indonesianChanging(global::System.String value);
+        partial void Ons_category_desc_indonesianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_greek
+        {
+            get
+            {
+                return _s_category_name_greek;
+            }
+            set
+            {
+                Ons_category_name_greekChanging(value);
+                ReportPropertyChanging("s_category_name_greek");
+                _s_category_name_greek = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_greek");
+                Ons_category_name_greekChanged();
+            }
+        }
+        private global::System.String _s_category_name_greek;
+        partial void Ons_category_name_greekChanging(global::System.String value);
+        partial void Ons_category_name_greekChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_greek
+        {
+            get
+            {
+                return _s_category_desc_greek;
+            }
+            set
+            {
+                Ons_category_desc_greekChanging(value);
+                ReportPropertyChanging("s_category_desc_greek");
+                _s_category_desc_greek = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_greek");
+                Ons_category_desc_greekChanged();
+            }
+        }
+        private global::System.String _s_category_desc_greek;
+        partial void Ons_category_desc_greekChanging(global::System.String value);
+        partial void Ons_category_desc_greekChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_hungarian
+        {
+            get
+            {
+                return _s_category_name_hungarian;
+            }
+            set
+            {
+                Ons_category_name_hungarianChanging(value);
+                ReportPropertyChanging("s_category_name_hungarian");
+                _s_category_name_hungarian = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_hungarian");
+                Ons_category_name_hungarianChanged();
+            }
+        }
+        private global::System.String _s_category_name_hungarian;
+        partial void Ons_category_name_hungarianChanging(global::System.String value);
+        partial void Ons_category_name_hungarianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_hungarian
+        {
+            get
+            {
+                return _s_category_desc_hungarian;
+            }
+            set
+            {
+                Ons_category_desc_hungarianChanging(value);
+                ReportPropertyChanging("s_category_desc_hungarian");
+                _s_category_desc_hungarian = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_hungarian");
+                Ons_category_desc_hungarianChanged();
+            }
+        }
+        private global::System.String _s_category_desc_hungarian;
+        partial void Ons_category_desc_hungarianChanging(global::System.String value);
+        partial void Ons_category_desc_hungarianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_norwegian
+        {
+            get
+            {
+                return _s_category_name_norwegian;
+            }
+            set
+            {
+                Ons_category_name_norwegianChanging(value);
+                ReportPropertyChanging("s_category_name_norwegian");
+                _s_category_name_norwegian = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_norwegian");
+                Ons_category_name_norwegianChanged();
+            }
+        }
+        private global::System.String _s_category_name_norwegian;
+        partial void Ons_category_name_norwegianChanging(global::System.String value);
+        partial void Ons_category_name_norwegianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_norwegian
+        {
+            get
+            {
+                return _s_category_desc_norwegian;
+            }
+            set
+            {
+                Ons_category_desc_norwegianChanging(value);
+                ReportPropertyChanging("s_category_desc_norwegian");
+                _s_category_desc_norwegian = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_norwegian");
+                Ons_category_desc_norwegianChanged();
+            }
+        }
+        private global::System.String _s_category_desc_norwegian;
+        partial void Ons_category_desc_norwegianChanging(global::System.String value);
+        partial void Ons_category_desc_norwegianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_turkish
+        {
+            get
+            {
+                return _s_category_name_turkish;
+            }
+            set
+            {
+                Ons_category_name_turkishChanging(value);
+                ReportPropertyChanging("s_category_name_turkish");
+                _s_category_name_turkish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_turkish");
+                Ons_category_name_turkishChanged();
+            }
+        }
+        private global::System.String _s_category_name_turkish;
+        partial void Ons_category_name_turkishChanging(global::System.String value);
+        partial void Ons_category_name_turkishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_turkish
+        {
+            get
+            {
+                return _s_category_desc_turkish;
+            }
+            set
+            {
+                Ons_category_desc_turkishChanging(value);
+                ReportPropertyChanging("s_category_desc_turkish");
+                _s_category_desc_turkish = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_turkish");
+                Ons_category_desc_turkishChanged();
+            }
+        }
+        private global::System.String _s_category_desc_turkish;
+        partial void Ons_category_desc_turkishChanging(global::System.String value);
+        partial void Ons_category_desc_turkishChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_arabic_rtl
+        {
+            get
+            {
+                return _s_category_name_arabic_rtl;
+            }
+            set
+            {
+                Ons_category_name_arabic_rtlChanging(value);
+                ReportPropertyChanging("s_category_name_arabic_rtl");
+                _s_category_name_arabic_rtl = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_arabic_rtl");
+                Ons_category_name_arabic_rtlChanged();
+            }
+        }
+        private global::System.String _s_category_name_arabic_rtl;
+        partial void Ons_category_name_arabic_rtlChanging(global::System.String value);
+        partial void Ons_category_name_arabic_rtlChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_arabic_rtl
+        {
+            get
+            {
+                return _s_category_desc_arabic_rtl;
+            }
+            set
+            {
+                Ons_category_desc_arabic_rtlChanging(value);
+                ReportPropertyChanging("s_category_desc_arabic_rtl");
+                _s_category_desc_arabic_rtl = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_arabic_rtl");
+                Ons_category_desc_arabic_rtlChanged();
+            }
+        }
+        private global::System.String _s_category_desc_arabic_rtl;
+        partial void Ons_category_desc_arabic_rtlChanging(global::System.String value);
+        partial void Ons_category_desc_arabic_rtlChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_01
+        {
+            get
+            {
+                return _s_category_name_custom_01;
+            }
+            set
+            {
+                Ons_category_name_custom_01Changing(value);
+                ReportPropertyChanging("s_category_name_custom_01");
+                _s_category_name_custom_01 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_01");
+                Ons_category_name_custom_01Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_01;
+        partial void Ons_category_name_custom_01Changing(global::System.String value);
+        partial void Ons_category_name_custom_01Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_01
+        {
+            get
+            {
+                return _s_category_desc_custom_01;
+            }
+            set
+            {
+                Ons_category_desc_custom_01Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_01");
+                _s_category_desc_custom_01 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_01");
+                Ons_category_desc_custom_01Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_01;
+        partial void Ons_category_desc_custom_01Changing(global::System.String value);
+        partial void Ons_category_desc_custom_01Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_02
+        {
+            get
+            {
+                return _s_category_name_custom_02;
+            }
+            set
+            {
+                Ons_category_name_custom_02Changing(value);
+                ReportPropertyChanging("s_category_name_custom_02");
+                _s_category_name_custom_02 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_02");
+                Ons_category_name_custom_02Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_02;
+        partial void Ons_category_name_custom_02Changing(global::System.String value);
+        partial void Ons_category_name_custom_02Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_02
+        {
+            get
+            {
+                return _s_category_desc_custom_02;
+            }
+            set
+            {
+                Ons_category_desc_custom_02Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_02");
+                _s_category_desc_custom_02 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_02");
+                Ons_category_desc_custom_02Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_02;
+        partial void Ons_category_desc_custom_02Changing(global::System.String value);
+        partial void Ons_category_desc_custom_02Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_03
+        {
+            get
+            {
+                return _s_category_name_custom_03;
+            }
+            set
+            {
+                Ons_category_name_custom_03Changing(value);
+                ReportPropertyChanging("s_category_name_custom_03");
+                _s_category_name_custom_03 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_03");
+                Ons_category_name_custom_03Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_03;
+        partial void Ons_category_name_custom_03Changing(global::System.String value);
+        partial void Ons_category_name_custom_03Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_03
+        {
+            get
+            {
+                return _s_category_desc_custom_03;
+            }
+            set
+            {
+                Ons_category_desc_custom_03Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_03");
+                _s_category_desc_custom_03 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_03");
+                Ons_category_desc_custom_03Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_03;
+        partial void Ons_category_desc_custom_03Changing(global::System.String value);
+        partial void Ons_category_desc_custom_03Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_04
+        {
+            get
+            {
+                return _s_category_name_custom_04;
+            }
+            set
+            {
+                Ons_category_name_custom_04Changing(value);
+                ReportPropertyChanging("s_category_name_custom_04");
+                _s_category_name_custom_04 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_04");
+                Ons_category_name_custom_04Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_04;
+        partial void Ons_category_name_custom_04Changing(global::System.String value);
+        partial void Ons_category_name_custom_04Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_04
+        {
+            get
+            {
+                return _s_category_desc_custom_04;
+            }
+            set
+            {
+                Ons_category_desc_custom_04Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_04");
+                _s_category_desc_custom_04 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_04");
+                Ons_category_desc_custom_04Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_04;
+        partial void Ons_category_desc_custom_04Changing(global::System.String value);
+        partial void Ons_category_desc_custom_04Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_05
+        {
+            get
+            {
+                return _s_category_name_custom_05;
+            }
+            set
+            {
+                Ons_category_name_custom_05Changing(value);
+                ReportPropertyChanging("s_category_name_custom_05");
+                _s_category_name_custom_05 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_05");
+                Ons_category_name_custom_05Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_05;
+        partial void Ons_category_name_custom_05Changing(global::System.String value);
+        partial void Ons_category_name_custom_05Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_05
+        {
+            get
+            {
+                return _s_category_desc_custom_05;
+            }
+            set
+            {
+                Ons_category_desc_custom_05Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_05");
+                _s_category_desc_custom_05 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_05");
+                Ons_category_desc_custom_05Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_05;
+        partial void Ons_category_desc_custom_05Changing(global::System.String value);
+        partial void Ons_category_desc_custom_05Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_06
+        {
+            get
+            {
+                return _s_category_name_custom_06;
+            }
+            set
+            {
+                Ons_category_name_custom_06Changing(value);
+                ReportPropertyChanging("s_category_name_custom_06");
+                _s_category_name_custom_06 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_06");
+                Ons_category_name_custom_06Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_06;
+        partial void Ons_category_name_custom_06Changing(global::System.String value);
+        partial void Ons_category_name_custom_06Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_06
+        {
+            get
+            {
+                return _s_category_desc_custom_06;
+            }
+            set
+            {
+                Ons_category_desc_custom_06Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_06");
+                _s_category_desc_custom_06 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_06");
+                Ons_category_desc_custom_06Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_06;
+        partial void Ons_category_desc_custom_06Changing(global::System.String value);
+        partial void Ons_category_desc_custom_06Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_07
+        {
+            get
+            {
+                return _s_category_name_custom_07;
+            }
+            set
+            {
+                Ons_category_name_custom_07Changing(value);
+                ReportPropertyChanging("s_category_name_custom_07");
+                _s_category_name_custom_07 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_07");
+                Ons_category_name_custom_07Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_07;
+        partial void Ons_category_name_custom_07Changing(global::System.String value);
+        partial void Ons_category_name_custom_07Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_07
+        {
+            get
+            {
+                return _s_category_desc_custom_07;
+            }
+            set
+            {
+                Ons_category_desc_custom_07Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_07");
+                _s_category_desc_custom_07 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_07");
+                Ons_category_desc_custom_07Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_07;
+        partial void Ons_category_desc_custom_07Changing(global::System.String value);
+        partial void Ons_category_desc_custom_07Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_08
+        {
+            get
+            {
+                return _s_category_name_custom_08;
+            }
+            set
+            {
+                Ons_category_name_custom_08Changing(value);
+                ReportPropertyChanging("s_category_name_custom_08");
+                _s_category_name_custom_08 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_08");
+                Ons_category_name_custom_08Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_08;
+        partial void Ons_category_name_custom_08Changing(global::System.String value);
+        partial void Ons_category_name_custom_08Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_08
+        {
+            get
+            {
+                return _s_category_desc_custom_08;
+            }
+            set
+            {
+                Ons_category_desc_custom_08Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_08");
+                _s_category_desc_custom_08 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_08");
+                Ons_category_desc_custom_08Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_08;
+        partial void Ons_category_desc_custom_08Changing(global::System.String value);
+        partial void Ons_category_desc_custom_08Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_09
+        {
+            get
+            {
+                return _s_category_name_custom_09;
+            }
+            set
+            {
+                Ons_category_name_custom_09Changing(value);
+                ReportPropertyChanging("s_category_name_custom_09");
+                _s_category_name_custom_09 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_09");
+                Ons_category_name_custom_09Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_09;
+        partial void Ons_category_name_custom_09Changing(global::System.String value);
+        partial void Ons_category_name_custom_09Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_09
+        {
+            get
+            {
+                return _s_category_desc_custom_09;
+            }
+            set
+            {
+                Ons_category_desc_custom_09Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_09");
+                _s_category_desc_custom_09 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_09");
+                Ons_category_desc_custom_09Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_09;
+        partial void Ons_category_desc_custom_09Changing(global::System.String value);
+        partial void Ons_category_desc_custom_09Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_10
+        {
+            get
+            {
+                return _s_category_name_custom_10;
+            }
+            set
+            {
+                Ons_category_name_custom_10Changing(value);
+                ReportPropertyChanging("s_category_name_custom_10");
+                _s_category_name_custom_10 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_10");
+                Ons_category_name_custom_10Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_10;
+        partial void Ons_category_name_custom_10Changing(global::System.String value);
+        partial void Ons_category_name_custom_10Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_10
+        {
+            get
+            {
+                return _s_category_desc_custom_10;
+            }
+            set
+            {
+                Ons_category_desc_custom_10Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_10");
+                _s_category_desc_custom_10 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_10");
+                Ons_category_desc_custom_10Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_10;
+        partial void Ons_category_desc_custom_10Changing(global::System.String value);
+        partial void Ons_category_desc_custom_10Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_11
+        {
+            get
+            {
+                return _s_category_name_custom_11;
+            }
+            set
+            {
+                Ons_category_name_custom_11Changing(value);
+                ReportPropertyChanging("s_category_name_custom_11");
+                _s_category_name_custom_11 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_11");
+                Ons_category_name_custom_11Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_11;
+        partial void Ons_category_name_custom_11Changing(global::System.String value);
+        partial void Ons_category_name_custom_11Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_11
+        {
+            get
+            {
+                return _s_category_desc_custom_11;
+            }
+            set
+            {
+                Ons_category_desc_custom_11Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_11");
+                _s_category_desc_custom_11 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_11");
+                Ons_category_desc_custom_11Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_11;
+        partial void Ons_category_desc_custom_11Changing(global::System.String value);
+        partial void Ons_category_desc_custom_11Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_12
+        {
+            get
+            {
+                return _s_category_name_custom_12;
+            }
+            set
+            {
+                Ons_category_name_custom_12Changing(value);
+                ReportPropertyChanging("s_category_name_custom_12");
+                _s_category_name_custom_12 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_12");
+                Ons_category_name_custom_12Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_12;
+        partial void Ons_category_name_custom_12Changing(global::System.String value);
+        partial void Ons_category_name_custom_12Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_12
+        {
+            get
+            {
+                return _s_category_desc_custom_12;
+            }
+            set
+            {
+                Ons_category_desc_custom_12Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_12");
+                _s_category_desc_custom_12 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_12");
+                Ons_category_desc_custom_12Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_12;
+        partial void Ons_category_desc_custom_12Changing(global::System.String value);
+        partial void Ons_category_desc_custom_12Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_custom_13
+        {
+            get
+            {
+                return _s_category_name_custom_13;
+            }
+            set
+            {
+                Ons_category_name_custom_13Changing(value);
+                ReportPropertyChanging("s_category_name_custom_13");
+                _s_category_name_custom_13 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_custom_13");
+                Ons_category_name_custom_13Changed();
+            }
+        }
+        private global::System.String _s_category_name_custom_13;
+        partial void Ons_category_name_custom_13Changing(global::System.String value);
+        partial void Ons_category_name_custom_13Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_custom_13
+        {
+            get
+            {
+                return _s_category_desc_custom_13;
+            }
+            set
+            {
+                Ons_category_desc_custom_13Changing(value);
+                ReportPropertyChanging("s_category_desc_custom_13");
+                _s_category_desc_custom_13 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_custom_13");
+                Ons_category_desc_custom_13Changed();
+            }
+        }
+        private global::System.String _s_category_desc_custom_13;
+        partial void Ons_category_desc_custom_13Changing(global::System.String value);
+        partial void Ons_category_desc_custom_13Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_name_simp_chinese
+        {
+            get
+            {
+                return _s_category_name_simp_chinese;
+            }
+            set
+            {
+                Ons_category_name_simp_chineseChanging(value);
+                ReportPropertyChanging("s_category_name_simp_chinese");
+                _s_category_name_simp_chinese = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_name_simp_chinese");
+                Ons_category_name_simp_chineseChanged();
+            }
+        }
+        private global::System.String _s_category_name_simp_chinese;
+        partial void Ons_category_name_simp_chineseChanging(global::System.String value);
+        partial void Ons_category_name_simp_chineseChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String s_category_desc_simp_chinese
+        {
+            get
+            {
+                return _s_category_desc_simp_chinese;
+            }
+            set
+            {
+                Ons_category_desc_simp_chineseChanging(value);
+                ReportPropertyChanging("s_category_desc_simp_chinese");
+                _s_category_desc_simp_chinese = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("s_category_desc_simp_chinese");
+                Ons_category_desc_simp_chineseChanged();
+            }
+        }
+        private global::System.String _s_category_desc_simp_chinese;
+        partial void Ons_category_desc_simp_chineseChanging(global::System.String value);
+        partial void Ons_category_desc_simp_chineseChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ComplianceFactorsModel", "FK__c_tb_curr__c_rel__18C19800", "c_tb_curriculum_category")]
+        public EntityCollection<c_tb_curriculum_category> c_tb_curriculum_category
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<c_tb_curriculum_category>("ComplianceFactorsModel.FK__c_tb_curr__c_rel__18C19800", "c_tb_curriculum_category");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<c_tb_curriculum_category>("ComplianceFactorsModel.FK__c_tb_curr__c_rel__18C19800", "c_tb_curriculum_category", value);
                 }
             }
         }
@@ -25141,6 +28396,111 @@ namespace EntityFrameworkLayer
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ComplianceFactorsModel", Name="u_tb_employee_type")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class u_tb_employee_type : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new u_tb_employee_type object.
+        /// </summary>
+        /// <param name="u_employee_type_id_pk">Initial value of the u_employee_type_id_pk property.</param>
+        /// <param name="u_employee_type_name">Initial value of the u_employee_type_name property.</param>
+        public static u_tb_employee_type Createu_tb_employee_type(global::System.Guid u_employee_type_id_pk, global::System.String u_employee_type_name)
+        {
+            u_tb_employee_type u_tb_employee_type = new u_tb_employee_type();
+            u_tb_employee_type.u_employee_type_id_pk = u_employee_type_id_pk;
+            u_tb_employee_type.u_employee_type_name = u_employee_type_name;
+            return u_tb_employee_type;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid u_employee_type_id_pk
+        {
+            get
+            {
+                return _u_employee_type_id_pk;
+            }
+            set
+            {
+                if (_u_employee_type_id_pk != value)
+                {
+                    Onu_employee_type_id_pkChanging(value);
+                    ReportPropertyChanging("u_employee_type_id_pk");
+                    _u_employee_type_id_pk = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("u_employee_type_id_pk");
+                    Onu_employee_type_id_pkChanged();
+                }
+            }
+        }
+        private global::System.Guid _u_employee_type_id_pk;
+        partial void Onu_employee_type_id_pkChanging(global::System.Guid value);
+        partial void Onu_employee_type_id_pkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String u_employee_type_name
+        {
+            get
+            {
+                return _u_employee_type_name;
+            }
+            set
+            {
+                Onu_employee_type_nameChanging(value);
+                ReportPropertyChanging("u_employee_type_name");
+                _u_employee_type_name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("u_employee_type_name");
+                Onu_employee_type_nameChanged();
+            }
+        }
+        private global::System.String _u_employee_type_name;
+        partial void Onu_employee_type_nameChanging(global::System.String value);
+        partial void Onu_employee_type_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String u_employee_type_desc
+        {
+            get
+            {
+                return _u_employee_type_desc;
+            }
+            set
+            {
+                Onu_employee_type_descChanging(value);
+                ReportPropertyChanging("u_employee_type_desc");
+                _u_employee_type_desc = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("u_employee_type_desc");
+                Onu_employee_type_descChanged();
+            }
+        }
+        private global::System.String _u_employee_type_desc;
+        partial void Onu_employee_type_descChanging(global::System.String value);
+        partial void Onu_employee_type_descChanged();
+
+        #endregion
+    
     }
     
     /// <summary>

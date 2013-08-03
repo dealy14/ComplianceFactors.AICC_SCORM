@@ -43,18 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CF_LMS_1.Designer.cs">
+    <Compile Include="ComplianceFactors_Entities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CF_LMS_1.edmx</DependentUpon>
+      <DependentUpon>ComplianceFactors_Entities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="CF_LMS_1.edmx">
+    <EntityDeploy Include="ComplianceFactors_Entities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CF_LMS_1.Designer.cs</LastGenOutput>
+      <LastGenOutput>ComplianceFactors_Entities.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

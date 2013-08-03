@@ -54,6 +54,7 @@
           </EntitySet>
           <EntitySet Name="a_tb_ui_texts" EntityType="ComplianceFactorsModel.Store.a_tb_ui_texts" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="app_tb_user_in_session" EntityType="ComplianceFactorsModel.Store.app_tb_user_in_session" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="c_tb_categories" EntityType="ComplianceFactorsModel.Store.c_tb_categories" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="c_tb_course_approval" EntityType="ComplianceFactorsModel.Store.c_tb_course_approval" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="c_tb_course_domain" EntityType="ComplianceFactorsModel.Store.c_tb_course_domain" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="c_tb_course_equivalencies" EntityType="ComplianceFactorsModel.Store.c_tb_course_equivalencies" store:Type="Tables" Schema="dbo" />
@@ -61,6 +62,8 @@
           <EntitySet Name="c_tb_course_prerequisite" EntityType="ComplianceFactorsModel.Store.c_tb_course_prerequisite" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="c_tb_course_status" EntityType="ComplianceFactorsModel.Store.c_tb_course_status" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="c_tb_courses_master" EntityType="ComplianceFactorsModel.Store.c_tb_courses_master" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="c_tb_curriculum_approval" EntityType="ComplianceFactorsModel.Store.c_tb_curriculum_approval" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="c_tb_curriculum_category" EntityType="ComplianceFactorsModel.Store.c_tb_curriculum_category" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="c_tb_curriculum_domain" EntityType="ComplianceFactorsModel.Store.c_tb_curriculum_domain" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="c_tb_curriculum_equivalencies" EntityType="ComplianceFactorsModel.Store.c_tb_curriculum_equivalencies" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="c_tb_curriculum_fulfillments" EntityType="ComplianceFactorsModel.Store.c_tb_curriculum_fulfillments" store:Type="Tables" Schema="dbo" />
@@ -78,6 +81,9 @@
           <EntitySet Name="c_tb_delivery_attachments" EntityType="ComplianceFactorsModel.Store.c_tb_delivery_attachments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="c_tb_delivery_type" EntityType="ComplianceFactorsModel.Store.c_tb_delivery_type" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="c_tb_olt_types" EntityType="ComplianceFactorsModel.Store.c_tb_olt_types" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="c_tb_sessions_master" EntityType="ComplianceFactorsModel.Store.c_tb_sessions_master" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="e_tb_assignment_types" EntityType="ComplianceFactorsModel.Store.e_tb_assignment_types" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="e_tb_cert_statuses" EntityType="ComplianceFactorsModel.Store.e_tb_cert_statuses" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="e_tb_courses_assign" EntityType="ComplianceFactorsModel.Store.e_tb_courses_assign" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="e_tb_curricula_assign" EntityType="ComplianceFactorsModel.Store.e_tb_curricula_assign" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="e_tb_curricula_statuses_history" EntityType="ComplianceFactorsModel.Store.e_tb_curricula_statuses_history" store:Type="Tables" Schema="dbo" />
@@ -88,6 +94,7 @@
           <EntitySet Name="e_tb_enrollment_types" EntityType="ComplianceFactorsModel.Store.e_tb_enrollment_types" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="e_tb_enrollments" EntityType="ComplianceFactorsModel.Store.e_tb_enrollments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="e_tb_enrollments_approvals" EntityType="ComplianceFactorsModel.Store.e_tb_enrollments_approvals" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="s_tb_categories" EntityType="ComplianceFactorsModel.Store.s_tb_categories" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="s_tb_curr_statuses" EntityType="ComplianceFactorsModel.Store.s_tb_curr_statuses" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="s_tb_domains" EntityType="ComplianceFactorsModel.Store.s_tb_domains" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="s_tb_grading_schemes" EntityType="ComplianceFactorsModel.Store.s_tb_grading_schemes" store:Type="Tables" Schema="dbo" />
@@ -132,6 +139,7 @@
       [t_tb_transcripts_sessions].[t_transcript_session_active_flag] AS [t_transcript_session_active_flag]
       FROM [dbo].[t_tb_transcripts_sessions] AS [t_tb_transcripts_sessions]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="u_tb_employee_type" EntityType="ComplianceFactorsModel.Store.u_tb_employee_type" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="u_tb_user_status" EntityType="ComplianceFactorsModel.Store.u_tb_user_status" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="u_tb_user_types" EntityType="ComplianceFactorsModel.Store.u_tb_user_types" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="u_tb_users_master" EntityType="ComplianceFactorsModel.Store.u_tb_users_master" store:Type="Tables" Schema="dbo" />
@@ -198,6 +206,10 @@
           <AssociationSet Name="FK__c_tb_curr__c_cur__097F5470" Association="ComplianceFactorsModel.Store.FK__c_tb_curr__c_cur__097F5470">
             <End Role="u_tb_users_master" EntitySet="u_tb_users_master" />
             <End Role="c_tb_curriculum_master" EntitySet="c_tb_curriculum_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK__c_tb_curr__c_cur__17CD73C7" Association="ComplianceFactorsModel.Store.FK__c_tb_curr__c_cur__17CD73C7">
+            <End Role="c_tb_curriculum_master" EntitySet="c_tb_curriculum_master" />
+            <End Role="c_tb_curriculum_category" EntitySet="c_tb_curriculum_category" />
           </AssociationSet>
           <AssociationSet Name="FK__c_tb_curr__c_cur__1D2725C1" Association="ComplianceFactorsModel.Store.FK__c_tb_curr__c_cur__1D2725C1">
             <End Role="c_tb_curriculum_master" EntitySet="c_tb_curriculum_master" />
@@ -287,6 +299,10 @@
             <End Role="c_tb_curriculum_master" EntitySet="c_tb_curriculum_master" />
             <End Role="c_tb_curriculum_domain" EntitySet="c_tb_curriculum_domain" />
           </AssociationSet>
+          <AssociationSet Name="FK__c_tb_curr__c_rel__18C19800" Association="ComplianceFactorsModel.Store.FK__c_tb_curr__c_rel__18C19800">
+            <End Role="s_tb_categories" EntitySet="s_tb_categories" />
+            <End Role="c_tb_curriculum_category" EntitySet="c_tb_curriculum_category" />
+          </AssociationSet>
           <AssociationSet Name="FK__c_tb_curr__c_rel__1E7A7156" Association="ComplianceFactorsModel.Store.FK__c_tb_curr__c_rel__1E7A7156">
             <End Role="s_tb_domains" EntitySet="s_tb_domains" />
             <End Role="c_tb_curriculum_domain" EntitySet="c_tb_curriculum_domain" />
@@ -327,6 +343,10 @@
             <End Role="c_tb_olt_types" EntitySet="c_tb_olt_types" />
             <End Role="c_tb_deliveries_master" EntitySet="c_tb_deliveries_master" />
           </AssociationSet>
+          <AssociationSet Name="FK__c_tb_sess__c_del__4CC05EF3" Association="ComplianceFactorsModel.Store.FK__c_tb_sess__c_del__4CC05EF3">
+            <End Role="c_tb_deliveries_master" EntitySet="c_tb_deliveries_master" />
+            <End Role="c_tb_sessions_master" EntitySet="c_tb_sessions_master" />
+          </AssociationSet>
           <AssociationSet Name="FK__e_tb_cour__e_cou__74CF1BA4" Association="ComplianceFactorsModel.Store.FK__e_tb_cour__e_cou__74CF1BA4">
             <End Role="u_tb_users_master" EntitySet="u_tb_users_master" />
             <End Role="e_tb_courses_assign" EntitySet="e_tb_courses_assign" />
@@ -335,8 +355,16 @@
             <End Role="c_tb_courses_master" EntitySet="c_tb_courses_master" />
             <End Role="e_tb_courses_assign" EntitySet="e_tb_courses_assign" />
           </AssociationSet>
+          <AssociationSet Name="FK__e_tb_cour__e_cou__76B76416" Association="ComplianceFactorsModel.Store.FK__e_tb_cour__e_cou__76B76416">
+            <End Role="e_tb_assignment_types" EntitySet="e_tb_assignment_types" />
+            <End Role="e_tb_courses_assign" EntitySet="e_tb_courses_assign" />
+          </AssociationSet>
           <AssociationSet Name="FK__e_tb_cour__e_cou__77AB884F" Association="ComplianceFactorsModel.Store.FK__e_tb_cour__e_cou__77AB884F">
             <End Role="u_tb_users_master" EntitySet="u_tb_users_master" />
+            <End Role="e_tb_courses_assign" EntitySet="e_tb_courses_assign" />
+          </AssociationSet>
+          <AssociationSet Name="FK__e_tb_cour__e_cou__789FAC88" Association="ComplianceFactorsModel.Store.FK__e_tb_cour__e_cou__789FAC88">
+            <End Role="e_tb_cert_statuses" EntitySet="e_tb_cert_statuses" />
             <End Role="e_tb_courses_assign" EntitySet="e_tb_courses_assign" />
           </AssociationSet>
           <AssociationSet Name="FK__e_tb_cour__e_cou__7993D0C1" Association="ComplianceFactorsModel.Store.FK__e_tb_cour__e_cou__7993D0C1">
@@ -599,6 +627,14 @@
           <Property Name="useragent" Type="varchar" MaxLength="255" />
           <Property Name="user_last_access_time" Type="datetime" />
         </EntityType>
+        <EntityType Name="c_tb_categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="c_tb_course_approval">
           <Key>
             <PropertyRef Name="c_course_approval_id" />
@@ -696,6 +732,22 @@
           <Property Name="c_course_id_pk" Type="nvarchar" MaxLength="50" />
           <Property Name="c_course_cert_date" Type="datetime" />
           <Property Name="c_course_created_by_id_fk" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="c_tb_curriculum_approval">
+          <Key>
+            <PropertyRef Name="c_curriculum_approval_id" />
+          </Key>
+          <Property Name="c_curriculum_approval_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="c_curriculum_approval_name" Type="varchar" MaxLength="100" />
+          <Property Name="c_curriculum_approval_desc" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="c_tb_curriculum_category">
+          <Key>
+            <PropertyRef Name="c_curriculum_system_id_pk" />
+          </Key>
+          <Property Name="c_curriculum_system_id_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="c_related_category_id_fk" Type="uniqueidentifier" />
+          <Property Name="c_curriculum_id_fk" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="c_tb_curriculum_domain">
           <Key>
@@ -961,6 +1013,39 @@
           <Property Name="c_olt_type_name" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="c_olt_type_desc" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="c_tb_sessions_master">
+          <Key>
+            <PropertyRef Name="c_session_system_id_pk" />
+          </Key>
+          <Property Name="c_session_system_id_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="c_session_id_pk" Type="varchar" MaxLength="50" />
+          <Property Name="c_delivery_id_fk" Type="uniqueidentifier" />
+          <Property Name="c_session_title" Type="nvarchar" MaxLength="100" />
+          <Property Name="c_sessions_desc" Type="varchar(max)" />
+          <Property Name="c_session_start_date" Type="date" />
+          <Property Name="c_session_end_date" Type="date" />
+          <Property Name="c_session_start_time" Type="datetime" />
+          <Property Name="c_sessions_end_time" Type="datetime" />
+          <Property Name="c_session_duration" Type="datetime" />
+          <Property Name="c_session_location_id_fk" Type="uniqueidentifier" />
+          <Property Name="c_session_facility_id_fk" Type="uniqueidentifier" />
+          <Property Name="c_sessions_room_id_fk" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="e_tb_assignment_types">
+          <Key>
+            <PropertyRef Name="e_assign_type_system_id_pk" />
+          </Key>
+          <Property Name="e_assign_type_system_id_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="e_assign_type_name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="e_tb_cert_statuses">
+          <Key>
+            <PropertyRef Name="u_cert_status_system_id_pk" />
+          </Key>
+          <Property Name="u_cert_status_system_id_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="u_cert_status_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="u_cert_status_desc" Type="nvarchar" Nullable="false" MaxLength="255" />
+        </EntityType>
         <EntityType Name="e_tb_courses_assign">
           <Key>
             <PropertyRef Name="e_course_assign_system_id_pk" />
@@ -1123,6 +1208,89 @@
           <Property Name="e_enroll_approver_3_decision_date" Type="date" />
           <Property Name="e_enroll_enroll_approval_status_id_fk" Type="uniqueidentifier" Nullable="false" />
           <Property Name="e_enroll_approval_final_decision_date" Type="date" />
+        </EntityType>
+        <EntityType Name="s_tb_categories">
+          <Key>
+            <PropertyRef Name="s_category_system_id_pk" />
+          </Key>
+          <Property Name="s_category_system_id_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="s_category_id" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_name_us_english" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_us_english" Type="varchar(max)" />
+          <Property Name="s_category_status_id_fk" Type="nvarchar" MaxLength="255" />
+          <Property Name="s_parent_category_id" Type="uniqueidentifier" />
+          <Property Name="s_category_name_uk_english" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_uk_english" Type="varchar(max)" />
+          <Property Name="s_category_name_ca_french" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_ca_french" Type="varchar(max)" />
+          <Property Name="s_category_name_fr_french" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_fr_french" Type="varchar(max)" />
+          <Property Name="s_category_name_mx_spanish" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_mx_spanish" Type="varchar(max)" />
+          <Property Name="s_category_name_sp_spanish" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_sp_spanish" Type="varchar(max)" />
+          <Property Name="s_category_name_portuguese" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_portuguese" Type="varchar(max)" />
+          <Property Name="s_category_name_german" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_german" Type="varchar(max)" />
+          <Property Name="s_category_name_japanese" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_japanese" Type="varchar(max)" />
+          <Property Name="s_category_name_russian" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_russian" Type="varchar(max)" />
+          <Property Name="s_category_name_danish" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_danish" Type="varchar(max)" />
+          <Property Name="s_category_name_polish" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_polish" Type="varchar(max)" />
+          <Property Name="s_category_name_swedish" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_swedish" Type="varchar(max)" />
+          <Property Name="s_category_name_finnish" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_finnish" Type="varchar(max)" />
+          <Property Name="s_category_name_korean" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_korean" Type="varchar(max)" />
+          <Property Name="s_category_name_italian" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_italian" Type="varchar(max)" />
+          <Property Name="s_category_name_dutch" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_dutch" Type="varchar(max)" />
+          <Property Name="s_category_name_indonesian" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_indonesian" Type="varchar(max)" />
+          <Property Name="s_category_name_greek" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_greek" Type="varchar(max)" />
+          <Property Name="s_category_name_hungarian" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_hungarian" Type="varchar(max)" />
+          <Property Name="s_category_name_norwegian" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_norwegian" Type="varchar(max)" />
+          <Property Name="s_category_name_turkish" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_turkish" Type="varchar(max)" />
+          <Property Name="s_category_name_arabic_rtl" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_arabic_rtl" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_01" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_01" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_02" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_02" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_03" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_03" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_04" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_04" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_05" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_05" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_06" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_06" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_07" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_07" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_08" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_08" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_09" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_09" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_10" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_10" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_11" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_11" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_12" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_12" Type="varchar(max)" />
+          <Property Name="s_category_name_custom_13" Type="varchar" MaxLength="50" />
+          <Property Name="s_category_desc_custom_13" Type="varchar(max)" />
+          <Property Name="s_category_name_simp_chinese" Type="nvarchar" MaxLength="100" />
+          <Property Name="s_category_desc_simp_chinese" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="s_tb_curr_statuses">
           <Key>
@@ -1460,6 +1628,14 @@
           <Property Name="t_transcript_session_status_id_fk" Type="uniqueidentifier" />
           <Property Name="t_transcript_session_active_flag" Type="bit" />
         </EntityType>
+        <EntityType Name="u_tb_employee_type">
+          <Key>
+            <PropertyRef Name="u_employee_type_id_pk" />
+          </Key>
+          <Property Name="u_employee_type_id_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="u_employee_type_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="u_employee_type_desc" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="u_tb_user_status">
           <Key>
             <PropertyRef Name="u_status_id_pk" />
@@ -1794,6 +1970,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__c_tb_curr__c_cur__17CD73C7">
+          <End Role="c_tb_curriculum_master" Type="ComplianceFactorsModel.Store.c_tb_curriculum_master" Multiplicity="0..1" />
+          <End Role="c_tb_curriculum_category" Type="ComplianceFactorsModel.Store.c_tb_curriculum_category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_tb_curriculum_master">
+              <PropertyRef Name="c_curriculum_system_id_pk" />
+            </Principal>
+            <Dependent Role="c_tb_curriculum_category">
+              <PropertyRef Name="c_curriculum_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__c_tb_curr__c_cur__1D2725C1">
           <End Role="c_tb_curriculum_master" Type="ComplianceFactorsModel.Store.c_tb_curriculum_master" Multiplicity="1" />
           <End Role="c_tb_curriculum_recert_paths" Type="ComplianceFactorsModel.Store.c_tb_curriculum_recert_paths" Multiplicity="*" />
@@ -2058,6 +2246,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__c_tb_curr__c_rel__18C19800">
+          <End Role="s_tb_categories" Type="ComplianceFactorsModel.Store.s_tb_categories" Multiplicity="0..1" />
+          <End Role="c_tb_curriculum_category" Type="ComplianceFactorsModel.Store.c_tb_curriculum_category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="s_tb_categories">
+              <PropertyRef Name="s_category_system_id_pk" />
+            </Principal>
+            <Dependent Role="c_tb_curriculum_category">
+              <PropertyRef Name="c_related_category_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__c_tb_curr__c_rel__1E7A7156">
           <End Role="s_tb_domains" Type="ComplianceFactorsModel.Store.s_tb_domains" Multiplicity="0..1" />
           <End Role="c_tb_curriculum_domain" Type="ComplianceFactorsModel.Store.c_tb_curriculum_domain" Multiplicity="*" />
@@ -2178,6 +2378,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__c_tb_sess__c_del__4CC05EF3">
+          <End Role="c_tb_deliveries_master" Type="ComplianceFactorsModel.Store.c_tb_deliveries_master" Multiplicity="0..1" />
+          <End Role="c_tb_sessions_master" Type="ComplianceFactorsModel.Store.c_tb_sessions_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_tb_deliveries_master">
+              <PropertyRef Name="c_delivery_system_id_pk" />
+            </Principal>
+            <Dependent Role="c_tb_sessions_master">
+              <PropertyRef Name="c_delivery_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__e_tb_cour__e_cou__74CF1BA4">
           <End Role="u_tb_users_master" Type="ComplianceFactorsModel.Store.u_tb_users_master" Multiplicity="1" />
           <End Role="e_tb_courses_assign" Type="ComplianceFactorsModel.Store.e_tb_courses_assign" Multiplicity="*" />
@@ -2202,6 +2414,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__e_tb_cour__e_cou__76B76416">
+          <End Role="e_tb_assignment_types" Type="ComplianceFactorsModel.Store.e_tb_assignment_types" Multiplicity="1" />
+          <End Role="e_tb_courses_assign" Type="ComplianceFactorsModel.Store.e_tb_courses_assign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="e_tb_assignment_types">
+              <PropertyRef Name="e_assign_type_system_id_pk" />
+            </Principal>
+            <Dependent Role="e_tb_courses_assign">
+              <PropertyRef Name="e_course_assign_type_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__e_tb_cour__e_cou__77AB884F">
           <End Role="u_tb_users_master" Type="ComplianceFactorsModel.Store.u_tb_users_master" Multiplicity="1" />
           <End Role="e_tb_courses_assign" Type="ComplianceFactorsModel.Store.e_tb_courses_assign" Multiplicity="*" />
@@ -2211,6 +2435,18 @@
             </Principal>
             <Dependent Role="e_tb_courses_assign">
               <PropertyRef Name="e_course_assign_by_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__e_tb_cour__e_cou__789FAC88">
+          <End Role="e_tb_cert_statuses" Type="ComplianceFactorsModel.Store.e_tb_cert_statuses" Multiplicity="0..1" />
+          <End Role="e_tb_courses_assign" Type="ComplianceFactorsModel.Store.e_tb_courses_assign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="e_tb_cert_statuses">
+              <PropertyRef Name="u_cert_status_system_id_pk" />
+            </Principal>
+            <Dependent Role="e_tb_courses_assign">
+              <PropertyRef Name="e_course_assign_recert_status_id_fk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2610,6 +2846,127 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="c_get_grading_scheme" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="s_locale" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="c_sp_update_curriculum_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="c_curriculum_system_id_pk" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="e_sp_assign_course" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="e_assign_course" Type="xml" Mode="In" />
+          <Parameter Name="e_course_assign_by_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_course_assign_required_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_course_assign_target_due_date" Type="date" Mode="In" />
+          <Parameter Name="e_course_assign_recert_due_date" Type="date" Mode="In" />
+          <Parameter Name="e_course_assign_percent_complete" Type="int" Mode="In" />
+          <Parameter Name="e_course_assign_active_flag" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="e_sp_assign_curricula" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="e_curriculum_assign_user_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_curriculum_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_required_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_curriculum_assign_target_due_date" Type="date" Mode="In" />
+          <Parameter Name="e_curriculum_assign_recert_due_date" Type="date" Mode="In" />
+          <Parameter Name="e_curriculum_assign_recert_status_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_status_id_fk" Type="nvarchar" Mode="In" />
+          <Parameter Name="e_curriculum_assign_percent_complete" Type="int" Mode="In" />
+          <Parameter Name="e_curriculum_assign_active_flag" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="e_sp_insert_enrollment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="e_enroll_user_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_enroll_course_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_enroll_delivery_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_enroll_required_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_approval_required_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_type_name" Type="varchar" Mode="In" />
+          <Parameter Name="e_enroll_approval_status_name" Type="varchar" Mode="In" />
+          <Parameter Name="e_enroll_status_name" Type="varchar" Mode="In" />
+          <Parameter Name="e_check_enroll" Type="bit" Mode="In" />
+          <Parameter Name="e_check_course_approval" Type="bit" Mode="In" />
+          <Parameter Name="e_check_delivery_approval" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_target_due_date" Type="date" Mode="In" />
+          <Parameter Name="e_enroll_level_1_req_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_approver_1_type" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_approver_1_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_enroll_approver_1_decision_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_approver_1_decision_date" Type="date" Mode="In" />
+          <Parameter Name="e_enroll_level_2_req_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_approver_2_type" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_approver_2_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_enroll_approver_2_decision_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_approver_2_decision_date" Type="date" Mode="In" />
+          <Parameter Name="e_enroll_level_3_req_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_approver_3_type" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_approver_3_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_enroll_approver_3_decision_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_enroll_approver_3_decision_date" Type="date" Mode="In" />
+          <Parameter Name="e_enroll_approval_final_decision_date" Type="date" Mode="In" />
+          <Parameter Name="e_enroll_manger_id_fk" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="e_sp_insert_reenrollment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="e_enroll_user_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_enroll_course_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_enroll_delivery_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_enroll_type_name" Type="varchar" Mode="In" />
+          <Parameter Name="e_enroll_status_name" Type="varchar" Mode="In" />
+          <Parameter Name="e_enroll_target_due_date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="e_sp_insert_status_history" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="e_curriculum_assign_system_id_pk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_user_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_curriculum_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_date_time" Type="datetime" Mode="In" />
+          <Parameter Name="e_curriculum_assign_required_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_curriculum_assign_original_target_due_date" Type="date" Mode="In" />
+          <Parameter Name="e_curriculum_assign_status_change_date_time" Type="date" Mode="In" />
+          <Parameter Name="e_curriculum_assign_after_status_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_cert_date" Type="date" Mode="In" />
+          <Parameter Name="e_curriculum_assign_recert_due_date" Type="date" Mode="In" />
+          <Parameter Name="e_curriculum_assign_recert_status_change_type_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_recert_status_change_user_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_before_status_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_percent_complete" Type="int" Mode="In" />
+          <Parameter Name="e_curriculum_assign_active_flag" Type="bit" Mode="In" />
+          <Parameter Name="e_curriculum_status_change_notes" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="e_sp_update_curriculum_statuses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="e_currriculum_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_user_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_target_due_date" Type="datetime" Mode="In" />
+          <Parameter Name="e_curriculum_assign_status_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_recert_status_change_type_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="e_curriculum_assign_recert_status_change_user_id_fk" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetDeliveryType" ReturnType="nvarchar(max)" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="c_course_id_fk" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetDueDate" ReturnType="datetime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="course_id_pk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="c_course_recurrence_date" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GetLocalDateTime" ReturnType="nvarchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UTCDate" Type="datetime" Mode="In" />
+          <Parameter Name="u_time_zone_id_pk" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="s_sp_audit_insert_log" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GUID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="a_audit_log_id_pk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="a_user_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="a_user_type_fk" Type="nvarchar" Mode="In" />
+          <Parameter Name="a_user_details" Type="varchar(max)" Mode="In" />
+          <Parameter Name="a_action_desc" Type="varchar(max)" Mode="In" />
+          <Parameter Name="a_ip_address" Type="varchar" Mode="In" />
+          <Parameter Name="a_device_used" Type="varchar" Mode="In" />
+          <Parameter Name="a_values" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="s_sp_get_course_completed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="u_user_id_pk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="c_course_system_id_pk" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="s_sp_update_curriculum_percentage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="c_curriculum_id_fk" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="c_curriculum_user_id_pk" Type="uniqueidentifier" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -3001,6 +3358,34 @@
             <End Role="u_tb_users_master" EntitySet="u_tb_users_master" />
             <End Role="t_tb_transcripts_sessions" EntitySet="t_tb_transcripts_sessions" />
           </AssociationSet>
+          <EntitySet Name="c_tb_categories" EntityType="ComplianceFactorsModel.c_tb_categories" />
+          <EntitySet Name="c_tb_curriculum_approval" EntityType="ComplianceFactorsModel.c_tb_curriculum_approval" />
+          <EntitySet Name="c_tb_curriculum_category" EntityType="ComplianceFactorsModel.c_tb_curriculum_category" />
+          <EntitySet Name="c_tb_sessions_master" EntityType="ComplianceFactorsModel.c_tb_sessions_master" />
+          <EntitySet Name="e_tb_assignment_types" EntityType="ComplianceFactorsModel.e_tb_assignment_types" />
+          <EntitySet Name="e_tb_cert_statuses" EntityType="ComplianceFactorsModel.e_tb_cert_statuses" />
+          <EntitySet Name="s_tb_categories" EntityType="ComplianceFactorsModel.s_tb_categories" />
+          <EntitySet Name="u_tb_employee_type" EntityType="ComplianceFactorsModel.u_tb_employee_type" />
+          <AssociationSet Name="FK__c_tb_curr__c_cur__17CD73C7" Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__17CD73C7">
+            <End Role="c_tb_curriculum_master" EntitySet="c_tb_curriculum_master" />
+            <End Role="c_tb_curriculum_category" EntitySet="c_tb_curriculum_category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__c_tb_curr__c_rel__18C19800" Association="ComplianceFactorsModel.FK__c_tb_curr__c_rel__18C19800">
+            <End Role="s_tb_categories" EntitySet="s_tb_categories" />
+            <End Role="c_tb_curriculum_category" EntitySet="c_tb_curriculum_category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__c_tb_sess__c_del__4CC05EF3" Association="ComplianceFactorsModel.FK__c_tb_sess__c_del__4CC05EF3">
+            <End Role="c_tb_deliveries_master" EntitySet="c_tb_deliveries_master" />
+            <End Role="c_tb_sessions_master" EntitySet="c_tb_sessions_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK__e_tb_cour__e_cou__76B76416" Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__76B76416">
+            <End Role="e_tb_assignment_types" EntitySet="e_tb_assignment_types" />
+            <End Role="e_tb_courses_assign" EntitySet="e_tb_courses_assign" />
+          </AssociationSet>
+          <AssociationSet Name="FK__e_tb_cour__e_cou__789FAC88" Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__789FAC88">
+            <End Role="e_tb_cert_statuses" EntitySet="e_tb_cert_statuses" />
+            <End Role="e_tb_courses_assign" EntitySet="e_tb_courses_assign" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="c_tb_course_approval">
           <Key>
@@ -3202,6 +3587,7 @@
           <NavigationProperty Name="t_tb_transcripts" Relationship="ComplianceFactorsModel.FK__t_tb_tran__t_tra__64EDB996" FromRole="c_tb_deliveries_master" ToRole="t_tb_transcripts" />
           <NavigationProperty Name="c_tb_olt_types" Relationship="ComplianceFactorsModel.FK__c_tb_deli__c_olt__37C5420D" FromRole="c_tb_deliveries_master" ToRole="c_tb_olt_types" />
           <NavigationProperty Name="t_tb_transcripts_sessions" Relationship="ComplianceFactorsModel.FK__t_tb_tran__t_tra__6C8EDB5E" FromRole="c_tb_deliveries_master" ToRole="t_tb_transcripts_sessions" />
+          <NavigationProperty Name="c_tb_sessions_master" Relationship="ComplianceFactorsModel.FK__c_tb_sess__c_del__4CC05EF3" FromRole="c_tb_deliveries_master" ToRole="c_tb_sessions_master" />
         </EntityType>
         <EntityType Name="c_tb_delivery_attachments">
           <Key>
@@ -3949,6 +4335,7 @@
           <NavigationProperty Name="u_tb_users_master2" Relationship="ComplianceFactorsModel.FK__c_tb_curr__c_cur__62307D25" FromRole="c_tb_curriculum_master" ToRole="u_tb_users_master" />
           <NavigationProperty Name="c_tb_curriculum_prerequisite1" Relationship="ComplianceFactorsModel.FK__c_tb_curr__c_rel__2CC890AD" FromRole="c_tb_curriculum_master" ToRole="c_tb_curriculum_prerequisite" />
           <NavigationProperty Name="e_tb_curricula_statuses_history" Relationship="ComplianceFactorsModel.FK__e_tb_curr__e_cur__5B644F5C" FromRole="c_tb_curriculum_master" ToRole="e_tb_curricula_statuses_history" />
+          <NavigationProperty Name="c_tb_curriculum_category" Relationship="ComplianceFactorsModel.FK__c_tb_curr__c_cur__17CD73C7" FromRole="c_tb_curriculum_master" ToRole="c_tb_curriculum_category" />
         </EntityType>
         <EntityType Name="c_tb_curriculum_path_courses">
           <Key>
@@ -4862,6 +5249,8 @@
           <NavigationProperty Name="u_tb_users_master" Relationship="ComplianceFactorsModel.FK__e_tb_cour__e_cou__74CF1BA4" FromRole="e_tb_courses_assign" ToRole="u_tb_users_master" />
           <NavigationProperty Name="u_tb_users_master1" Relationship="ComplianceFactorsModel.FK__e_tb_cour__e_cou__77AB884F" FromRole="e_tb_courses_assign" ToRole="u_tb_users_master" />
           <NavigationProperty Name="e_tb_enrollment_status" Relationship="ComplianceFactorsModel.FK__e_tb_cour__e_cou__7993D0C1" FromRole="e_tb_courses_assign" ToRole="e_tb_enrollment_status" />
+          <NavigationProperty Name="e_tb_assignment_types" Relationship="ComplianceFactorsModel.FK__e_tb_cour__e_cou__76B76416" FromRole="e_tb_courses_assign" ToRole="e_tb_assignment_types" />
+          <NavigationProperty Name="e_tb_cert_statuses" Relationship="ComplianceFactorsModel.FK__e_tb_cour__e_cou__789FAC88" FromRole="e_tb_courses_assign" ToRole="e_tb_cert_statuses" />
         </EntityType>
         <EntityType Name="e_tb_curricula_assign">
           <Key>
@@ -5293,6 +5682,220 @@
             </Principal>
             <Dependent Role="t_tb_transcripts_sessions">
               <PropertyRef Name="t_transcript_session_user_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="c_tb_categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Type="Guid" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="c_tb_curriculum_approval">
+          <Key>
+            <PropertyRef Name="c_curriculum_approval_id" />
+          </Key>
+          <Property Type="Guid" Name="c_curriculum_approval_id" Nullable="false" />
+          <Property Type="String" Name="c_curriculum_approval_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="c_curriculum_approval_desc" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="c_tb_curriculum_category">
+          <Key>
+            <PropertyRef Name="c_curriculum_system_id_pk" />
+          </Key>
+          <Property Type="Guid" Name="c_curriculum_system_id_pk" Nullable="false" />
+          <Property Type="Guid" Name="c_related_category_id_fk" />
+          <Property Type="Guid" Name="c_curriculum_id_fk" />
+          <NavigationProperty Name="c_tb_curriculum_master" Relationship="ComplianceFactorsModel.FK__c_tb_curr__c_cur__17CD73C7" FromRole="c_tb_curriculum_category" ToRole="c_tb_curriculum_master" />
+          <NavigationProperty Name="s_tb_categories" Relationship="ComplianceFactorsModel.FK__c_tb_curr__c_rel__18C19800" FromRole="c_tb_curriculum_category" ToRole="s_tb_categories" />
+        </EntityType>
+        <EntityType Name="c_tb_sessions_master">
+          <Key>
+            <PropertyRef Name="c_session_system_id_pk" />
+          </Key>
+          <Property Type="Guid" Name="c_session_system_id_pk" Nullable="false" />
+          <Property Type="String" Name="c_session_id_pk" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Guid" Name="c_delivery_id_fk" />
+          <Property Type="String" Name="c_session_title" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="c_sessions_desc" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="c_session_start_date" />
+          <Property Type="DateTime" Name="c_session_end_date" />
+          <Property Type="DateTime" Name="c_session_start_time" />
+          <Property Type="DateTime" Name="c_sessions_end_time" />
+          <Property Type="DateTime" Name="c_session_duration" />
+          <Property Type="Guid" Name="c_session_location_id_fk" />
+          <Property Type="Guid" Name="c_session_facility_id_fk" />
+          <Property Type="Guid" Name="c_sessions_room_id_fk" />
+          <NavigationProperty Name="c_tb_deliveries_master" Relationship="ComplianceFactorsModel.FK__c_tb_sess__c_del__4CC05EF3" FromRole="c_tb_sessions_master" ToRole="c_tb_deliveries_master" />
+        </EntityType>
+        <EntityType Name="e_tb_assignment_types">
+          <Key>
+            <PropertyRef Name="e_assign_type_system_id_pk" />
+          </Key>
+          <Property Type="Guid" Name="e_assign_type_system_id_pk" Nullable="false" />
+          <Property Type="String" Name="e_assign_type_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="e_tb_courses_assign" Relationship="ComplianceFactorsModel.FK__e_tb_cour__e_cou__76B76416" FromRole="e_tb_assignment_types" ToRole="e_tb_courses_assign" />
+        </EntityType>
+        <EntityType Name="e_tb_cert_statuses">
+          <Key>
+            <PropertyRef Name="u_cert_status_system_id_pk" />
+          </Key>
+          <Property Type="Guid" Name="u_cert_status_system_id_pk" Nullable="false" />
+          <Property Type="String" Name="u_cert_status_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="u_cert_status_desc" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="e_tb_courses_assign" Relationship="ComplianceFactorsModel.FK__e_tb_cour__e_cou__789FAC88" FromRole="e_tb_cert_statuses" ToRole="e_tb_courses_assign" />
+        </EntityType>
+        <EntityType Name="s_tb_categories">
+          <Key>
+            <PropertyRef Name="s_category_system_id_pk" />
+          </Key>
+          <Property Type="Guid" Name="s_category_system_id_pk" Nullable="false" />
+          <Property Type="String" Name="s_category_id" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_us_english" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_us_english" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_status_id_fk" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="s_parent_category_id" />
+          <Property Type="String" Name="s_category_name_uk_english" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_uk_english" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_ca_french" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_ca_french" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_fr_french" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_fr_french" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_mx_spanish" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_mx_spanish" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_sp_spanish" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_sp_spanish" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_portuguese" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_portuguese" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_german" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_german" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_japanese" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_japanese" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_russian" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_russian" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_danish" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_danish" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_polish" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_polish" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_swedish" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_swedish" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_finnish" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_finnish" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_korean" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_korean" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_italian" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_italian" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_dutch" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_dutch" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_indonesian" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_indonesian" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_greek" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_greek" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_hungarian" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_hungarian" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_norwegian" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_norwegian" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_turkish" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_turkish" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_arabic_rtl" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_arabic_rtl" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_01" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_01" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_02" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_02" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_03" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_03" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_04" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_04" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_05" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_05" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_06" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_06" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_07" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_07" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_08" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_08" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_09" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_09" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_10" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_10" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_11" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_11" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_12" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_12" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_custom_13" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_desc_custom_13" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="s_category_name_simp_chinese" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="s_category_desc_simp_chinese" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="c_tb_curriculum_category" Relationship="ComplianceFactorsModel.FK__c_tb_curr__c_rel__18C19800" FromRole="s_tb_categories" ToRole="c_tb_curriculum_category" />
+        </EntityType>
+        <EntityType Name="u_tb_employee_type">
+          <Key>
+            <PropertyRef Name="u_employee_type_id_pk" />
+          </Key>
+          <Property Type="Guid" Name="u_employee_type_id_pk" Nullable="false" />
+          <Property Type="String" Name="u_employee_type_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="u_employee_type_desc" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__c_tb_curr__c_cur__17CD73C7">
+          <End Type="ComplianceFactorsModel.c_tb_curriculum_master" Role="c_tb_curriculum_master" Multiplicity="0..1" />
+          <End Type="ComplianceFactorsModel.c_tb_curriculum_category" Role="c_tb_curriculum_category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_tb_curriculum_master">
+              <PropertyRef Name="c_curriculum_system_id_pk" />
+            </Principal>
+            <Dependent Role="c_tb_curriculum_category">
+              <PropertyRef Name="c_curriculum_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__c_tb_curr__c_rel__18C19800">
+          <End Type="ComplianceFactorsModel.s_tb_categories" Role="s_tb_categories" Multiplicity="0..1" />
+          <End Type="ComplianceFactorsModel.c_tb_curriculum_category" Role="c_tb_curriculum_category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="s_tb_categories">
+              <PropertyRef Name="s_category_system_id_pk" />
+            </Principal>
+            <Dependent Role="c_tb_curriculum_category">
+              <PropertyRef Name="c_related_category_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__c_tb_sess__c_del__4CC05EF3">
+          <End Type="ComplianceFactorsModel.c_tb_deliveries_master" Role="c_tb_deliveries_master" Multiplicity="0..1" />
+          <End Type="ComplianceFactorsModel.c_tb_sessions_master" Role="c_tb_sessions_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_tb_deliveries_master">
+              <PropertyRef Name="c_delivery_system_id_pk" />
+            </Principal>
+            <Dependent Role="c_tb_sessions_master">
+              <PropertyRef Name="c_delivery_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__e_tb_cour__e_cou__76B76416">
+          <End Type="ComplianceFactorsModel.e_tb_assignment_types" Role="e_tb_assignment_types" Multiplicity="1" />
+          <End Type="ComplianceFactorsModel.e_tb_courses_assign" Role="e_tb_courses_assign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="e_tb_assignment_types">
+              <PropertyRef Name="e_assign_type_system_id_pk" />
+            </Principal>
+            <Dependent Role="e_tb_courses_assign">
+              <PropertyRef Name="e_course_assign_type_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__e_tb_cour__e_cou__789FAC88">
+          <End Type="ComplianceFactorsModel.e_tb_cert_statuses" Role="e_tb_cert_statuses" Multiplicity="0..1" />
+          <End Type="ComplianceFactorsModel.e_tb_courses_assign" Role="e_tb_courses_assign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="e_tb_cert_statuses">
+              <PropertyRef Name="u_cert_status_system_id_pk" />
+            </Principal>
+            <Dependent Role="e_tb_courses_assign">
+              <PropertyRef Name="e_course_assign_recert_status_id_fk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6404,6 +7007,162 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="c_tb_categories">
+            <EntityTypeMapping TypeName="ComplianceFactorsModel.c_tb_categories">
+              <MappingFragment StoreEntitySet="c_tb_categories">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_tb_curriculum_approval">
+            <EntityTypeMapping TypeName="ComplianceFactorsModel.c_tb_curriculum_approval">
+              <MappingFragment StoreEntitySet="c_tb_curriculum_approval">
+                <ScalarProperty Name="c_curriculum_approval_desc" ColumnName="c_curriculum_approval_desc" />
+                <ScalarProperty Name="c_curriculum_approval_name" ColumnName="c_curriculum_approval_name" />
+                <ScalarProperty Name="c_curriculum_approval_id" ColumnName="c_curriculum_approval_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_tb_curriculum_category">
+            <EntityTypeMapping TypeName="ComplianceFactorsModel.c_tb_curriculum_category">
+              <MappingFragment StoreEntitySet="c_tb_curriculum_category">
+                <ScalarProperty Name="c_curriculum_id_fk" ColumnName="c_curriculum_id_fk" />
+                <ScalarProperty Name="c_related_category_id_fk" ColumnName="c_related_category_id_fk" />
+                <ScalarProperty Name="c_curriculum_system_id_pk" ColumnName="c_curriculum_system_id_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="c_tb_sessions_master">
+            <EntityTypeMapping TypeName="ComplianceFactorsModel.c_tb_sessions_master">
+              <MappingFragment StoreEntitySet="c_tb_sessions_master">
+                <ScalarProperty Name="c_sessions_room_id_fk" ColumnName="c_sessions_room_id_fk" />
+                <ScalarProperty Name="c_session_facility_id_fk" ColumnName="c_session_facility_id_fk" />
+                <ScalarProperty Name="c_session_location_id_fk" ColumnName="c_session_location_id_fk" />
+                <ScalarProperty Name="c_session_duration" ColumnName="c_session_duration" />
+                <ScalarProperty Name="c_sessions_end_time" ColumnName="c_sessions_end_time" />
+                <ScalarProperty Name="c_session_start_time" ColumnName="c_session_start_time" />
+                <ScalarProperty Name="c_session_end_date" ColumnName="c_session_end_date" />
+                <ScalarProperty Name="c_session_start_date" ColumnName="c_session_start_date" />
+                <ScalarProperty Name="c_sessions_desc" ColumnName="c_sessions_desc" />
+                <ScalarProperty Name="c_session_title" ColumnName="c_session_title" />
+                <ScalarProperty Name="c_delivery_id_fk" ColumnName="c_delivery_id_fk" />
+                <ScalarProperty Name="c_session_id_pk" ColumnName="c_session_id_pk" />
+                <ScalarProperty Name="c_session_system_id_pk" ColumnName="c_session_system_id_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="e_tb_assignment_types">
+            <EntityTypeMapping TypeName="ComplianceFactorsModel.e_tb_assignment_types">
+              <MappingFragment StoreEntitySet="e_tb_assignment_types">
+                <ScalarProperty Name="e_assign_type_name" ColumnName="e_assign_type_name" />
+                <ScalarProperty Name="e_assign_type_system_id_pk" ColumnName="e_assign_type_system_id_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="e_tb_cert_statuses">
+            <EntityTypeMapping TypeName="ComplianceFactorsModel.e_tb_cert_statuses">
+              <MappingFragment StoreEntitySet="e_tb_cert_statuses">
+                <ScalarProperty Name="u_cert_status_desc" ColumnName="u_cert_status_desc" />
+                <ScalarProperty Name="u_cert_status_name" ColumnName="u_cert_status_name" />
+                <ScalarProperty Name="u_cert_status_system_id_pk" ColumnName="u_cert_status_system_id_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="s_tb_categories">
+            <EntityTypeMapping TypeName="ComplianceFactorsModel.s_tb_categories">
+              <MappingFragment StoreEntitySet="s_tb_categories">
+                <ScalarProperty Name="s_category_desc_simp_chinese" ColumnName="s_category_desc_simp_chinese" />
+                <ScalarProperty Name="s_category_name_simp_chinese" ColumnName="s_category_name_simp_chinese" />
+                <ScalarProperty Name="s_category_desc_custom_13" ColumnName="s_category_desc_custom_13" />
+                <ScalarProperty Name="s_category_name_custom_13" ColumnName="s_category_name_custom_13" />
+                <ScalarProperty Name="s_category_desc_custom_12" ColumnName="s_category_desc_custom_12" />
+                <ScalarProperty Name="s_category_name_custom_12" ColumnName="s_category_name_custom_12" />
+                <ScalarProperty Name="s_category_desc_custom_11" ColumnName="s_category_desc_custom_11" />
+                <ScalarProperty Name="s_category_name_custom_11" ColumnName="s_category_name_custom_11" />
+                <ScalarProperty Name="s_category_desc_custom_10" ColumnName="s_category_desc_custom_10" />
+                <ScalarProperty Name="s_category_name_custom_10" ColumnName="s_category_name_custom_10" />
+                <ScalarProperty Name="s_category_desc_custom_09" ColumnName="s_category_desc_custom_09" />
+                <ScalarProperty Name="s_category_name_custom_09" ColumnName="s_category_name_custom_09" />
+                <ScalarProperty Name="s_category_desc_custom_08" ColumnName="s_category_desc_custom_08" />
+                <ScalarProperty Name="s_category_name_custom_08" ColumnName="s_category_name_custom_08" />
+                <ScalarProperty Name="s_category_desc_custom_07" ColumnName="s_category_desc_custom_07" />
+                <ScalarProperty Name="s_category_name_custom_07" ColumnName="s_category_name_custom_07" />
+                <ScalarProperty Name="s_category_desc_custom_06" ColumnName="s_category_desc_custom_06" />
+                <ScalarProperty Name="s_category_name_custom_06" ColumnName="s_category_name_custom_06" />
+                <ScalarProperty Name="s_category_desc_custom_05" ColumnName="s_category_desc_custom_05" />
+                <ScalarProperty Name="s_category_name_custom_05" ColumnName="s_category_name_custom_05" />
+                <ScalarProperty Name="s_category_desc_custom_04" ColumnName="s_category_desc_custom_04" />
+                <ScalarProperty Name="s_category_name_custom_04" ColumnName="s_category_name_custom_04" />
+                <ScalarProperty Name="s_category_desc_custom_03" ColumnName="s_category_desc_custom_03" />
+                <ScalarProperty Name="s_category_name_custom_03" ColumnName="s_category_name_custom_03" />
+                <ScalarProperty Name="s_category_desc_custom_02" ColumnName="s_category_desc_custom_02" />
+                <ScalarProperty Name="s_category_name_custom_02" ColumnName="s_category_name_custom_02" />
+                <ScalarProperty Name="s_category_desc_custom_01" ColumnName="s_category_desc_custom_01" />
+                <ScalarProperty Name="s_category_name_custom_01" ColumnName="s_category_name_custom_01" />
+                <ScalarProperty Name="s_category_desc_arabic_rtl" ColumnName="s_category_desc_arabic_rtl" />
+                <ScalarProperty Name="s_category_name_arabic_rtl" ColumnName="s_category_name_arabic_rtl" />
+                <ScalarProperty Name="s_category_desc_turkish" ColumnName="s_category_desc_turkish" />
+                <ScalarProperty Name="s_category_name_turkish" ColumnName="s_category_name_turkish" />
+                <ScalarProperty Name="s_category_desc_norwegian" ColumnName="s_category_desc_norwegian" />
+                <ScalarProperty Name="s_category_name_norwegian" ColumnName="s_category_name_norwegian" />
+                <ScalarProperty Name="s_category_desc_hungarian" ColumnName="s_category_desc_hungarian" />
+                <ScalarProperty Name="s_category_name_hungarian" ColumnName="s_category_name_hungarian" />
+                <ScalarProperty Name="s_category_desc_greek" ColumnName="s_category_desc_greek" />
+                <ScalarProperty Name="s_category_name_greek" ColumnName="s_category_name_greek" />
+                <ScalarProperty Name="s_category_desc_indonesian" ColumnName="s_category_desc_indonesian" />
+                <ScalarProperty Name="s_category_name_indonesian" ColumnName="s_category_name_indonesian" />
+                <ScalarProperty Name="s_category_desc_dutch" ColumnName="s_category_desc_dutch" />
+                <ScalarProperty Name="s_category_name_dutch" ColumnName="s_category_name_dutch" />
+                <ScalarProperty Name="s_category_desc_italian" ColumnName="s_category_desc_italian" />
+                <ScalarProperty Name="s_category_name_italian" ColumnName="s_category_name_italian" />
+                <ScalarProperty Name="s_category_desc_korean" ColumnName="s_category_desc_korean" />
+                <ScalarProperty Name="s_category_name_korean" ColumnName="s_category_name_korean" />
+                <ScalarProperty Name="s_category_desc_finnish" ColumnName="s_category_desc_finnish" />
+                <ScalarProperty Name="s_category_name_finnish" ColumnName="s_category_name_finnish" />
+                <ScalarProperty Name="s_category_desc_swedish" ColumnName="s_category_desc_swedish" />
+                <ScalarProperty Name="s_category_name_swedish" ColumnName="s_category_name_swedish" />
+                <ScalarProperty Name="s_category_desc_polish" ColumnName="s_category_desc_polish" />
+                <ScalarProperty Name="s_category_name_polish" ColumnName="s_category_name_polish" />
+                <ScalarProperty Name="s_category_desc_danish" ColumnName="s_category_desc_danish" />
+                <ScalarProperty Name="s_category_name_danish" ColumnName="s_category_name_danish" />
+                <ScalarProperty Name="s_category_desc_russian" ColumnName="s_category_desc_russian" />
+                <ScalarProperty Name="s_category_name_russian" ColumnName="s_category_name_russian" />
+                <ScalarProperty Name="s_category_desc_japanese" ColumnName="s_category_desc_japanese" />
+                <ScalarProperty Name="s_category_name_japanese" ColumnName="s_category_name_japanese" />
+                <ScalarProperty Name="s_category_desc_german" ColumnName="s_category_desc_german" />
+                <ScalarProperty Name="s_category_name_german" ColumnName="s_category_name_german" />
+                <ScalarProperty Name="s_category_desc_portuguese" ColumnName="s_category_desc_portuguese" />
+                <ScalarProperty Name="s_category_name_portuguese" ColumnName="s_category_name_portuguese" />
+                <ScalarProperty Name="s_category_desc_sp_spanish" ColumnName="s_category_desc_sp_spanish" />
+                <ScalarProperty Name="s_category_name_sp_spanish" ColumnName="s_category_name_sp_spanish" />
+                <ScalarProperty Name="s_category_desc_mx_spanish" ColumnName="s_category_desc_mx_spanish" />
+                <ScalarProperty Name="s_category_name_mx_spanish" ColumnName="s_category_name_mx_spanish" />
+                <ScalarProperty Name="s_category_desc_fr_french" ColumnName="s_category_desc_fr_french" />
+                <ScalarProperty Name="s_category_name_fr_french" ColumnName="s_category_name_fr_french" />
+                <ScalarProperty Name="s_category_desc_ca_french" ColumnName="s_category_desc_ca_french" />
+                <ScalarProperty Name="s_category_name_ca_french" ColumnName="s_category_name_ca_french" />
+                <ScalarProperty Name="s_category_desc_uk_english" ColumnName="s_category_desc_uk_english" />
+                <ScalarProperty Name="s_category_name_uk_english" ColumnName="s_category_name_uk_english" />
+                <ScalarProperty Name="s_parent_category_id" ColumnName="s_parent_category_id" />
+                <ScalarProperty Name="s_category_status_id_fk" ColumnName="s_category_status_id_fk" />
+                <ScalarProperty Name="s_category_desc_us_english" ColumnName="s_category_desc_us_english" />
+                <ScalarProperty Name="s_category_name_us_english" ColumnName="s_category_name_us_english" />
+                <ScalarProperty Name="s_category_id" ColumnName="s_category_id" />
+                <ScalarProperty Name="s_category_system_id_pk" ColumnName="s_category_system_id_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="u_tb_employee_type">
+            <EntityTypeMapping TypeName="ComplianceFactorsModel.u_tb_employee_type">
+              <MappingFragment StoreEntitySet="u_tb_employee_type">
+                <ScalarProperty Name="u_employee_type_desc" ColumnName="u_employee_type_desc" />
+                <ScalarProperty Name="u_employee_type_name" ColumnName="u_employee_type_name" />
+                <ScalarProperty Name="u_employee_type_id_pk" ColumnName="u_employee_type_id_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -6424,7 +7183,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Model1" ZoomLevel="30">
+      <Diagram Name="Model1" ZoomLevel="20">
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_approval" Width="2" PointX="6.625" PointY="1" Height="1.59568359375" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_domain" Width="2" PointX="8.5" PointY="9.5" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_course_equivalencies" Width="2.125" PointX="8.5" PointY="12.125" Height="2.1725878906249996" IsExpanded="true" />
@@ -6446,10 +7205,14 @@
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__0A338187" ManuallyRouted="false">
           <ConnectorPoint PointX="7.625" PointY="13.672806804812437" />
+          <ConnectorPoint PointX="8.0416666666666661" PointY="13.672806804812437" />
+          <ConnectorPoint PointX="8.2083333333333339" PointY="13.672806804812437" />
           <ConnectorPoint PointX="8.5" PointY="13.672806804812437" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_rel__0B27A5C0" ManuallyRouted="false">
           <ConnectorPoint PointX="7.625" PointY="12.836403402406219" />
+          <ConnectorPoint PointX="8.0416666666666661" PointY="12.836403402406219" />
+          <ConnectorPoint PointX="8.2083333333333339" PointY="12.836403402406219" />
           <ConnectorPoint PointX="8.5" PointY="12.836403402406219" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__0C1BC9F9" ManuallyRouted="false">
@@ -6469,54 +7232,56 @@
           <ConnectorPoint PointX="8.375" PointY="18.561009628281919" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__11D4A34F" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="14.426728791161093" />
-          <ConnectorPoint PointX="4.604166666666667" PointY="14.426728791161093" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="14.426728791161093" />
-          <ConnectorPoint PointX="5" PointY="14.426728791161093" />
+          <ConnectorPoint PointX="4.125" PointY="14.370049521824264" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="14.370049521824262" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="14.370049521824264" />
+          <ConnectorPoint PointX="5" PointY="14.370049521824264" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__2077C861" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="11.713364395580546" />
-          <ConnectorPoint PointX="4.604166666666667" PointY="11.713364395580546" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="11.713364395580546" />
-          <ConnectorPoint PointX="5" PointY="11.713364395580546" />
+          <ConnectorPoint PointX="4.125" PointY="11.685024760912132" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="11.68502476091213" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="11.685024760912132" />
+          <ConnectorPoint PointX="5" PointY="11.685024760912132" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__216BEC9A" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="19.626740504974862" />
-          <ConnectorPoint PointX="4.604166666666667" PointY="19.626740504974862" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="19.626740504974862" />
-          <ConnectorPoint PointX="5" PointY="19.626740504974862" />
+          <ConnectorPoint PointX="4.125" PointY="19.682775288740189" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="19.682775288740189" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="19.682775288740189" />
+          <ConnectorPoint PointX="5" PointY="19.682775288740189" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_cou__7760A435" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="17.026734648067979" />
-          <ConnectorPoint PointX="4.604166666666667" PointY="17.026734648067979" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="17.026734648067979" />
-          <ConnectorPoint PointX="5" PointY="17.026734648067979" />
+          <ConnectorPoint PointX="4.125" PointY="17.026412405282226" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="17.026412405282226" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="17.026412405282226" />
+          <ConnectorPoint PointX="5" PointY="17.026412405282226" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_deli__c_cou__320C68B7" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.625" PointY="14.648793945312498" />
-          <ConnectorPoint PointX="11.104166666666666" PointY="14.648793945312498" />
-          <ConnectorPoint PointX="11.270833333333334" PointY="14.648793945312498" />
-          <ConnectorPoint PointX="11.5" PointY="14.648793945312498" />
+          <ConnectorPoint PointX="7.625" PointY="14.6487939453125" />
+          <ConnectorPoint PointX="8.0416666666666661" PointY="14.6487939453125" />
+          <ConnectorPoint PointX="8.2083333333333339" PointY="14.6487939453125" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="14.648793945312498" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="14.6487939453125" />
+          <ConnectorPoint PointX="11.5" PointY="14.6487939453125" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_deli__c_del__34E8D562" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="7.805560302734369" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="7.8055603027343681" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="7.805560302734369" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="7.8055603027343681" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="7.805560302734369" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="7.8055603027343681" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="7.805560302734369" />
-          <ConnectorPoint PointX="11.5" PointY="7.805560302734369" />
+          <ConnectorPoint PointX="4.125" PointY="8.5222686948649162" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="8.5222686948649145" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="8.5222686948649162" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="8.5222686948649162" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="8.5222686948649162" />
+          <ConnectorPoint PointX="5.8463526666666672" PointY="8.5222686948649162" />
+          <ConnectorPoint PointX="6.0130193333333333" PointY="8.5222686948649162" />
+          <ConnectorPoint PointX="11.5" PointY="8.5222686948649162" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_deli__c_del__35DCF99B" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="8.2561508610026664" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="8.2561508610026664" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="8.2561508610026664" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="8.2561508610026664" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="8.2561508610026664" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="8.2561508610026664" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="8.2561508610026664" />
-          <ConnectorPoint PointX="11.5" PointY="8.2561508610026664" />
+          <ConnectorPoint PointX="4.125" PointY="8.147884021911624" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="8.1478840219116222" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="8.147884021911624" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="8.147884021911624" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="8.147884021911624" />
+          <ConnectorPoint PointX="5.8463526666666672" PointY="8.147884021911624" />
+          <ConnectorPoint PointX="6.0130193333333333" PointY="8.147884021911624" />
+          <ConnectorPoint PointX="11.5" PointY="8.147884021911624" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_deli__c_del__592635D8" ManuallyRouted="false">
           <ConnectorPoint PointX="14.25" PointY="7.4901432291666659" />
@@ -6529,60 +7294,85 @@
         <EntityTypeShape EntityType="ComplianceFactorsModel.e_tb_enrollments" Width="2.5" PointX="19.875" PointY="11.875" Height="6.4032194010416674" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.e_tb_enrollments_approvals" Width="2.75" PointX="23.75" PointY="11.875" Height="6.4032194010416674" />
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__082C08DB" >
-          <ConnectorPoint PointX="7.625" PointY="21.32658129846444" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="21.32658129846444" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="21.32658129846444" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="21.32658129846444" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="21.32658129846444" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="21.32658129846444" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="21.32658129846444" />
-          <ConnectorPoint PointX="16.5" PointY="21.32658129846444" />
+          <ConnectorPoint PointX="6.0263648125000007" PointY="22.066468098958339" />
+          <ConnectorPoint PointX="6.0263648125000007" PointY="22.485341796874991" />
+          <ConnectorPoint PointX="6.2408844166666677" PointY="22.485341796874991" />
+          <ConnectorPoint PointX="6.4075510833333338" PointY="22.485341796874991" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="22.485341796874991" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="22.485341796874991" />
+          <ConnectorPoint PointX="12.791666666666666" PointY="22.485341796874991" />
+          <ConnectorPoint PointX="12.958333333333334" PointY="22.485341796874991" />
+          <ConnectorPoint PointX="15.604166666666666" PointY="22.485341796874991" />
+          <ConnectorPoint PointX="15.770833333333334" PointY="22.485341796874991" />
+          <ConnectorPoint PointX="16.041666666666668" PointY="22.485341796874991" />
+          <ConnectorPoint PointX="16.208333333333332" PointY="22.485341796874991" />
+          <ConnectorPoint PointX="16.5" PointY="22.485341796874991" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__267B85D1" ManuallyRouted="false" >
-          <ConnectorPoint PointX="7.625" PointY="20.735341796875" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="20.735341796875" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="20.735341796875" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="20.735341796875" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="20.735341796875" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="20.735341796875" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="20.735341796875" />
-          <ConnectorPoint PointX="20.634437213541666" PointY="20.735341796875" />
-          <ConnectorPoint PointX="20.801103880208331" PointY="20.735341796875" />
-          <ConnectorPoint PointX="26.15625" PointY="20.735341796875" />
-          <ConnectorPoint PointX="26.15625" PointY="18.278219401041667" />
+          <ConnectorPoint PointX="6.921877" PointY="9.125" />
+          <ConnectorPoint PointX="6.921877" PointY="8.9375" />
+          <ConnectorPoint PointX="11.25" PointY="8.9375" />
+          <ConnectorPoint PointX="11.25" PointY="19.172180989583332" />
+          <ConnectorPoint PointX="13.041666666666666" PointY="19.172180989583332" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="19.172180989583332" />
+          <ConnectorPoint PointX="14.666666666666666" PointY="19.172180989583332" />
+          <ConnectorPoint PointX="15.083333333333334" PointY="19.172180989583332" />
+          <ConnectorPoint PointX="15.125" PointY="19.172180989583332" />
+          <ConnectorPoint PointX="15.125" PointY="14.625" />
+          <ConnectorPoint PointX="18.166666666666668" PointY="14.625" />
+          <ConnectorPoint PointX="18.333333333333332" PointY="14.625" />
+          <ConnectorPoint PointX="19.625" PointY="14.625" />
+          <ConnectorPoint PointX="19.625" PointY="11.625" />
+          <ConnectorPoint PointX="21.041666666666668" PointY="11.625" />
+          <ConnectorPoint PointX="21.208333333333332" PointY="11.625" />
+          <ConnectorPoint PointX="23.375" PointY="11.625" />
+          <ConnectorPoint PointX="23.375" PointY="13.444552850260422" />
+          <ConnectorPoint PointX="23.75" PointY="13.444552850260422" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__7EA29EA1" >
-          <ConnectorPoint PointX="7.625" PointY="20.425686799438552" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="20.425686799438552" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="20.425686799438552" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="20.425686799438552" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="20.425686799438552" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="20.425686799438552" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="20.425686799438552" />
-          <ConnectorPoint PointX="20.634437213541666" PointY="20.425686799438552" />
-          <ConnectorPoint PointX="20.801103880208331" PointY="20.425686799438552" />
-          <ConnectorPoint PointX="21.5776377734375" PointY="20.425686799438552" />
-          <ConnectorPoint PointX="21.5776377734375" PointY="20.008932291666667" />
+          <ConnectorPoint PointX="7.625" PointY="18.388883022135413" />
+          <ConnectorPoint PointX="8.125" PointY="18.388883022135413" />
+          <ConnectorPoint PointX="8.125" PointY="17.422587890624996" />
+          <ConnectorPoint PointX="11" PointY="17.422587890624996" />
+          <ConnectorPoint PointX="11" PointY="19.297180989583332" />
+          <ConnectorPoint PointX="11.104166666666666" PointY="19.297180989583332" />
+          <ConnectorPoint PointX="11.270833333333334" PointY="19.297180989583332" />
+          <ConnectorPoint PointX="13.041666666666666" PointY="19.297180989583332" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="19.297180989583332" />
+          <ConnectorPoint PointX="14.666666666666666" PointY="19.297180989583332" />
+          <ConnectorPoint PointX="15.083333333333334" PointY="19.297180989583332" />
+          <ConnectorPoint PointX="15.25" PointY="19.297180989583332" />
+          <ConnectorPoint PointX="15.25" PointY="20.258932291666667" />
+          <ConnectorPoint PointX="15.604166666666666" PointY="20.258932291666667" />
+          <ConnectorPoint PointX="15.770833333333334" PointY="20.258932291666667" />
+          <ConnectorPoint PointX="20.596106803385418" PointY="20.258932291666667" />
+          <ConnectorPoint PointX="20.762773470052082" PointY="20.258932291666667" />
+          <ConnectorPoint PointX="21.558472068359372" PointY="20.258932291666667" />
+          <ConnectorPoint PointX="21.558472068359372" PointY="20.008932291666667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__09202D14" >
-          <ConnectorPoint PointX="13.09375" PointY="18.729879557291667" />
-          <ConnectorPoint PointX="13.09375" PointY="22.087307313539551" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="22.087307313539551" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="22.087307313539551" />
-          <ConnectorPoint PointX="16.5" PointY="22.087307313539551" />
+          <ConnectorPoint PointX="13.125" PointY="18.922180989583332" />
+          <ConnectorPoint PointX="13.125" PointY="22.454089296874997" />
+          <ConnectorPoint PointX="15.604166666666666" PointY="22.454089296874997" />
+          <ConnectorPoint PointX="15.770833333333334" PointY="22.454089296874997" />
+          <ConnectorPoint PointX="16.041666666666668" PointY="22.454089296874997" />
+          <ConnectorPoint PointX="16.208333333333332" PointY="22.454089296874997" />
+          <ConnectorPoint PointX="16.5" PointY="22.454089296874997" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__276FAA0A" >
-          <ConnectorPoint PointX="14.25" PointY="8.7075276874400824" />
-          <ConnectorPoint PointX="25.327149171875003" PointY="8.7075276874400824" />
-          <ConnectorPoint PointX="25.327149171875003" PointY="11.875" />
+          <ConnectorPoint PointX="14.25" PointY="8.7032022864433571" />
+          <ConnectorPoint PointX="25.398437125" PointY="8.7032022864433571" />
+          <ConnectorPoint PointX="25.398437125" PointY="11.875" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__7F96C2DA" >
-          <ConnectorPoint PointX="14.25" PointY="15.910200866270449" />
-          <ConnectorPoint PointX="17.041666666666668" PointY="15.910200866270449" />
-          <ConnectorPoint PointX="17.208333333333332" PointY="15.910200866270449" />
-          <ConnectorPoint PointX="18.885416666666668" PointY="15.910200866270449" />
-          <ConnectorPoint PointX="19.052083333333332" PointY="15.910200866270449" />
-          <ConnectorPoint PointX="19.875" PointY="15.910200866270449" />
+          <ConnectorPoint PointX="14.25" PointY="14.242503255208334" />
+          <ConnectorPoint PointX="14.541666666666666" PointY="14.242503255208334" />
+          <ConnectorPoint PointX="14.708333333333334" PointY="14.242503255208334" />
+          <ConnectorPoint PointX="18.166666666666668" PointY="14.242503255208334" />
+          <ConnectorPoint PointX="18.333333333333332" PointY="14.242503255208334" />
+          <ConnectorPoint PointX="19.479166666666668" PointY="14.242503255208334" />
+          <ConnectorPoint PointX="19.708333333333332" PointY="14.242503255208334" />
+          <ConnectorPoint PointX="19.875" PointY="14.242503255208334" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__017F0B4C" >
           <ConnectorPoint PointX="21.125" PointY="10.662985026041667" />
@@ -6594,29 +7384,36 @@
           <ConnectorPoint PointX="24.765624250000002" PointY="11.875" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__0A14514D" >
-          <ConnectorPoint PointX="4.125" PointY="22.451070963541671" />
-          <ConnectorPoint PointX="4.604166666666667" PointY="22.451070963541671" />
-          <ConnectorPoint PointX="4.770833333333333" PointY="22.451070963541671" />
-          <ConnectorPoint PointX="5.6451785416666684" PointY="22.451070963541671" />
-          <ConnectorPoint PointX="5.8118452083333345" PointY="22.451070963541671" />
-          <ConnectorPoint PointX="6.2408844166666677" PointY="22.451070963541671" />
-          <ConnectorPoint PointX="6.4075510833333338" PointY="22.451070963541671" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="22.451070963541671" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="22.451070963541671" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="22.451070963541671" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="22.451070963541671" />
-          <ConnectorPoint PointX="16.5" PointY="22.451070963541671" />
+          <ConnectorPoint PointX="1.8437489999999994" PointY="2.125" />
+          <ConnectorPoint PointX="1.8437489999999994" PointY="1.875" />
+          <ConnectorPoint PointX="4.75" PointY="1.875" />
+          <ConnectorPoint PointX="4.75" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="5.6451785416666684" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="5.8118452083333345" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="5.9430314791666676" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="6.1096981458333337" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="6.2408844166666677" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="6.4075510833333338" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="12.875" PointY="22.316468098958339" />
+          <ConnectorPoint PointX="12.875" PointY="22.595683593749982" />
+          <ConnectorPoint PointX="15.604166666666666" PointY="22.595683593749982" />
+          <ConnectorPoint PointX="15.770833333333334" PointY="22.595683593749982" />
+          <ConnectorPoint PointX="16.125" PointY="22.595683593749982" />
+          <ConnectorPoint PointX="16.125" PointY="21.633292648437504" />
+          <ConnectorPoint PointX="16.5" PointY="21.633292648437504" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__02732F85" >
-          <ConnectorPoint PointX="29.5" PointY="21.12202686935035" />
-          <ConnectorPoint PointX="29.208333333333332" PointY="21.12202686935035" />
-          <ConnectorPoint PointX="29.041666666666668" PointY="21.12202686935035" />
-          <ConnectorPoint PointX="28.711295271809895" PointY="21.12202686935035" />
-          <ConnectorPoint PointX="28.544628605143231" PointY="21.12202686935035" />
-          <ConnectorPoint PointX="26.958333333333332" PointY="21.12202686935035" />
-          <ConnectorPoint PointX="26.791666666666668" PointY="21.12202686935035" />
-          <ConnectorPoint PointX="20.717770546875" PointY="21.12202686935035" />
-          <ConnectorPoint PointX="20.717770546875" PointY="20.008932291666667" />
+          <ConnectorPoint PointX="29.5" PointY="21.095630947695984" />
+          <ConnectorPoint PointX="27.458335833333333" PointY="21.095630947695984" />
+          <ConnectorPoint PointX="27.291669166666669" PointY="21.095630947695984" />
+          <ConnectorPoint PointX="26.958333333333332" PointY="21.095630947695984" />
+          <ConnectorPoint PointX="26.791666666666668" PointY="21.095630947695984" />
+          <ConnectorPoint PointX="26.770830833333331" PointY="21.095630947695984" />
+          <ConnectorPoint PointX="26.604164166666667" PointY="21.095630947695984" />
+          <ConnectorPoint PointX="20.67944013671875" PointY="21.095630947695984" />
+          <ConnectorPoint PointX="20.67944013671875" PointY="20.008932291666667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__008AE713" >
           <ConnectorPoint PointX="23.625" PointY="19.504466145833334" />
@@ -6629,38 +7426,44 @@
           <ConnectorPoint PointX="23.75" PointY="13.913557615966793" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__7DAE7A68" >
-          <ConnectorPoint PointX="1.8437489999999994" PointY="2.125" />
-          <ConnectorPoint PointX="1.8437489999999994" PointY="1.875" />
-          <ConnectorPoint PointX="4.75" PointY="1.875" />
-          <ConnectorPoint PointX="4.75" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="5.6451785416666684" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="5.8118452083333345" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="6.2408844166666677" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="6.4075510833333338" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="11.25" PointY="22.316468098958339" />
-          <ConnectorPoint PointX="11.25" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="18.885416666666668" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="19.052083333333332" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="19.5" PointY="18.979879557291667" />
-          <ConnectorPoint PointX="19.5" PointY="17.990818578968607" />
-          <ConnectorPoint PointX="19.875" PointY="17.990818578968607" />
+          <ConnectorPoint PointX="2.5468755" PointY="2.125" />
+          <ConnectorPoint PointX="2.5468755" PointY="1.84375" />
+          <ConnectorPoint PointX="4.625" PointY="1.84375" />
+          <ConnectorPoint PointX="4.625" PointY="22.332093098958339" />
+          <ConnectorPoint PointX="5.6451785416666684" PointY="22.332093098958339" />
+          <ConnectorPoint PointX="5.8118452083333345" PointY="22.332093098958339" />
+          <ConnectorPoint PointX="5.9430314791666676" PointY="22.332093098958339" />
+          <ConnectorPoint PointX="6.1096981458333337" PointY="22.332093098958339" />
+          <ConnectorPoint PointX="6.2408844166666677" PointY="22.332093098958339" />
+          <ConnectorPoint PointX="6.4075510833333338" PointY="22.332093098958339" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="22.332093098958339" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="22.332093098958339" />
+          <ConnectorPoint PointX="10.625" PointY="22.332093098958339" />
+          <ConnectorPoint PointX="10.625" PointY="19.422180989583332" />
+          <ConnectorPoint PointX="11.104166666666666" PointY="19.422180989583332" />
+          <ConnectorPoint PointX="11.270833333333334" PointY="19.422180989583332" />
+          <ConnectorPoint PointX="13.041666666666666" PointY="19.422180989583332" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="19.422180989583332" />
+          <ConnectorPoint PointX="14.666666666666666" PointY="19.422180989583332" />
+          <ConnectorPoint PointX="14.958333333333334" PointY="19.422180989583332" />
+          <ConnectorPoint PointX="15" PointY="19.422180989583332" />
+          <ConnectorPoint PointX="15" PointY="16.912985026041667" />
+          <ConnectorPoint PointX="15.041666666666666" PointY="16.912985026041667" />
+          <ConnectorPoint PointX="15.208333333333334" PointY="16.912985026041667" />
+          <ConnectorPoint PointX="19.5" PointY="16.912985026041667" />
+          <ConnectorPoint PointX="19.5" PointY="17.316965645833335" />
+          <ConnectorPoint PointX="19.875" PointY="17.316965645833335" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_enro__e_enr__25876198" >
-          <ConnectorPoint PointX="4.125" PointY="3.0815559029810125" />
-          <ConnectorPoint PointX="4.291666666666667" PointY="3.081555902981012" />
-          <ConnectorPoint PointX="4.458333333333333" PointY="3.0815559029810125" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="3.081555902981012" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="3.0815559029810125" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="3.081555902981012" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="3.0815559029810125" />
-          <ConnectorPoint PointX="26.225589546875" PointY="3.0815559029810125" />
-          <ConnectorPoint PointX="26.225589546875" PointY="11.875" />
+          <ConnectorPoint PointX="4.125" PointY="3.0624056006095692" />
+          <ConnectorPoint PointX="4.291666666666667" PointY="3.0624056006095688" />
+          <ConnectorPoint PointX="4.458333333333333" PointY="3.0624056006095692" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="3.0624056006095683" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="3.0624056006095692" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="3.0624056006095688" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="3.0624056006095692" />
+          <ConnectorPoint PointX="26.03125" PointY="3.0624056006095692" />
+          <ConnectorPoint PointX="26.03125" PointY="11.875" />
         </AssociationConnector>
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_curriculum_domain" Width="2.25" PointX="0.625" PointY="40.5" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_curriculum_equivalencies" Width="2.125" PointX="6.875" PointY="32.75" Height="2.1725878906250031" />
@@ -6686,10 +7489,12 @@
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__4C4C28FE" >
           <ConnectorPoint PointX="6.3242177500000007" PointY="22.066468098958339" />
-          <ConnectorPoint PointX="6.3242177500000007" PointY="22.75" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="22.75" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="22.75" />
-          <ConnectorPoint PointX="9.375" PointY="22.75" />
+          <ConnectorPoint PointX="6.3242177500000007" PointY="22.8437505" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="22.8437505" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="22.8437505" />
+          <ConnectorPoint PointX="8.9166666666666661" PointY="22.8437505" />
+          <ConnectorPoint PointX="9.0833333333333339" PointY="22.8437505" />
+          <ConnectorPoint PointX="9.375" PointY="22.8437505" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__63F9955D" >
           <ConnectorPoint PointX="5.7285118750000015" PointY="22.066468098958339" />
@@ -6700,8 +7505,8 @@
           <ConnectorPoint PointX="10.520833333333334" PointY="26.605458984375005" />
           <ConnectorPoint PointX="13.291666666666666" PointY="26.605458984375005" />
           <ConnectorPoint PointX="13.458333333333334" PointY="26.605458984375005" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="26.605458984375005" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="15.604166666666666" PointY="26.605458984375005" />
+          <ConnectorPoint PointX="15.770833333333334" PointY="26.605458984375005" />
           <ConnectorPoint PointX="17.875" PointY="26.605458984375005" />
           <ConnectorPoint PointX="17.875" PointY="24.75" />
           <ConnectorPoint PointX="25.5" PointY="24.75" />
@@ -6710,85 +7515,87 @@
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_dom__1D864D1D" >
           <ConnectorPoint PointX="3.5" PointY="41.490143229166669" />
-          <ConnectorPoint PointX="3.2708308333333336" PointY="41.490143229166669" />
-          <ConnectorPoint PointX="3.1041641666666666" PointY="41.490143229166669" />
+          <ConnectorPoint PointX="3.0833284895833324" PointY="41.490143229166669" />
+          <ConnectorPoint PointX="2.9166618229166654" PointY="41.490143229166669" />
           <ConnectorPoint PointX="2.875" PointY="41.490143229166669" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__318D45CA" >
-          <ConnectorPoint PointX="6.25" PointY="33.836293945312505" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="33.836293945312505" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="33.836293945312505" />
-          <ConnectorPoint PointX="6.875" PointY="33.836293945312505" />
+          <ConnectorPoint PointX="6.25" PointY="34.139117431640628" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="34.139117431640628" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="34.139117431640628" />
+          <ConnectorPoint PointX="6.875" PointY="34.139117431640628" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_rel__32816A03" >
-          <ConnectorPoint PointX="6.25" PointY="33.230646972656253" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="33.230646972656253" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="33.230646972656253" />
-          <ConnectorPoint PointX="6.875" PointY="33.230646972656253" />
+          <ConnectorPoint PointX="6.25" PointY="33.382058715820314" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="33.382058715820314" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="33.382058715820314" />
+          <ConnectorPoint PointX="6.875" PointY="33.382058715820314" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__37461F20" >
           <ConnectorPoint PointX="5.5468740000000016" PointY="32.125" />
           <ConnectorPoint PointX="5.5468740000000016" PointY="31.183736979166667" />
-          <ConnectorPoint PointX="6.5520833333333339" PointY="31.183736979166667" />
-          <ConnectorPoint PointX="6.8697916666666661" PointY="31.183736979166667" />
+          <ConnectorPoint PointX="6.541666666666667" PointY="31.183736979166667" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="31.183736979166667" />
           <ConnectorPoint PointX="7" PointY="31.183736979166667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_rel__383A4359" >
-          <ConnectorPoint PointX="4.8437480000000015" PointY="32.125" />
-          <ConnectorPoint PointX="4.8437480000000015" PointY="31.214989479166661" />
-          <ConnectorPoint PointX="5.111977666666669" PointY="31.214989479166661" />
-          <ConnectorPoint PointX="5.278644333333335" PointY="31.214989479166661" />
-          <ConnectorPoint PointX="6.5520833333333339" PointY="31.214989479166661" />
-          <ConnectorPoint PointX="6.8697916666666661" PointY="31.214989479166661" />
+          <ConnectorPoint PointX="5.8984370000000013" PointY="32.125" />
+          <ConnectorPoint PointX="5.8984370000000013" PointY="31.214989479166661" />
+          <ConnectorPoint PointX="6.541666666666667" PointY="31.214989479166661" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="31.214989479166661" />
           <ConnectorPoint PointX="7" PointY="31.214989479166661" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__088B3037" >
-          <ConnectorPoint PointX="2.9999937499999985" PointY="31.027486979166667" />
-          <ConnectorPoint PointX="2.9999937499999985" PointY="43.804627278645832" />
-          <ConnectorPoint PointX="3.5" PointY="43.804627278645832" />
+          <ConnectorPoint PointX="2.9999951562499989" PointY="31.027486979166667" />
+          <ConnectorPoint PointX="2.9999951562499989" PointY="43.900777994791675" />
+          <ConnectorPoint PointX="3.5" PointY="43.900777994791675" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__097F5470" >
-          <ConnectorPoint PointX="3.1249924999999985" PointY="31.027486979166667" />
-          <ConnectorPoint PointX="3.1249924999999985" PointY="39.216072532552076" />
-          <ConnectorPoint PointX="3.5" PointY="39.216072532552076" />
+          <ConnectorPoint PointX="0.53125" PointY="31.027486979166667" />
+          <ConnectorPoint PointX="0.53125" PointY="39.264150390624991" />
+          <ConnectorPoint PointX="1.2916666666666667" PointY="39.264150390624991" />
+          <ConnectorPoint PointX="1.4583333333333333" PointY="39.264150390624991" />
+          <ConnectorPoint PointX="2.9166618229166654" PointY="39.264150390624991" />
+          <ConnectorPoint PointX="3.0833284895833324" PointY="39.264150390624991" />
+          <ConnectorPoint PointX="3.5" PointY="39.264150390624991" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__1D2725C1" >
-          <ConnectorPoint PointX="6.25" PointY="40.384348958333334" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="40.384348958333334" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="40.384348958333334" />
-          <ConnectorPoint PointX="7.625" PointY="40.384348958333334" />
+          <ConnectorPoint PointX="6.25" PointY="40.855436197916667" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="40.855436197916667" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="40.855436197916667" />
+          <ConnectorPoint PointX="7.625" PointY="40.855436197916667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__1E1B49FA" >
-          <ConnectorPoint PointX="6.25" PointY="39.442174479166667" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="39.442174479166667" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="39.442174479166667" />
-          <ConnectorPoint PointX="7.625" PointY="39.442174479166667" />
+          <ConnectorPoint PointX="6.25" PointY="39.677718098958337" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="39.677718098958337" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="39.677718098958337" />
+          <ConnectorPoint PointX="7.625" PointY="39.677718098958337" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__22DFFF17" >
-          <ConnectorPoint PointX="6.25" PointY="43.049947916666667" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="43.049947916666667" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="43.049947916666667" />
-          <ConnectorPoint PointX="8.6041666666666661" PointY="43.049947916666667" />
-          <ConnectorPoint PointX="8.7708333333333339" PointY="43.049947916666667" />
-          <ConnectorPoint PointX="10.625" PointY="43.049947916666667" />
+          <ConnectorPoint PointX="6.25" PointY="43.292135416666667" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="43.292135416666667" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="43.292135416666667" />
+          <ConnectorPoint PointX="8.6041666666666661" PointY="43.292135416666667" />
+          <ConnectorPoint PointX="8.7708333333333339" PointY="43.292135416666667" />
+          <ConnectorPoint PointX="10.625" PointY="43.292135416666667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__24C84789" >
-          <ConnectorPoint PointX="6.25" PointY="42.565572916666667" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="42.565572916666667" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="42.565572916666667" />
-          <ConnectorPoint PointX="8.6041666666666661" PointY="42.565572916666667" />
-          <ConnectorPoint PointX="8.7708333333333339" PointY="42.565572916666667" />
-          <ConnectorPoint PointX="10.625" PointY="42.565572916666667" />
+          <ConnectorPoint PointX="6.25" PointY="42.686666666666667" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="42.686666666666667" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="42.686666666666667" />
+          <ConnectorPoint PointX="8.6041666666666661" PointY="42.686666666666667" />
+          <ConnectorPoint PointX="8.7708333333333339" PointY="42.686666666666667" />
+          <ConnectorPoint PointX="10.625" PointY="42.686666666666667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__2A8120DF" >
-          <ConnectorPoint PointX="6.25" PointY="44.720734049479162" />
-          <ConnectorPoint PointX="6.625" PointY="44.720734049479162" />
+          <ConnectorPoint PointX="6.25" PointY="44.816884765625005" />
+          <ConnectorPoint PointX="6.625" PointY="44.816884765625005" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__2BD46C74" >
-          <ConnectorPoint PointX="6.25" PointY="36.961293945312505" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="36.961293945312505" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="36.961293945312505" />
-          <ConnectorPoint PointX="6.875" PointY="36.961293945312505" />
+          <ConnectorPoint PointX="6.25" PointY="37.264117431640628" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="37.264117431640628" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="37.264117431640628" />
+          <ConnectorPoint PointX="6.875" PointY="37.264117431640628" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__3EF22DE0" >
           <ConnectorPoint PointX="6.25" PointY="32.40625" />
@@ -6800,56 +7607,48 @@
           <ConnectorPoint PointX="6.25" PointY="35.398793945312505" />
           <ConnectorPoint PointX="6.7031250000000009" PointY="35.398793945312505" />
           <ConnectorPoint PointX="6.869791666666667" PointY="35.398793945312505" />
+          <ConnectorPoint PointX="7.291666666666667" PointY="35.398793945312505" />
+          <ConnectorPoint PointX="7.458333333333333" PointY="35.398793945312505" />
           <ConnectorPoint PointX="14.0625" PointY="35.398793945312505" />
           <ConnectorPoint PointX="14.0625" PointY="34.634095052083325" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__496FBC53" >
-          <ConnectorPoint PointX="5.195311000000002" PointY="32.125" />
-          <ConnectorPoint PointX="5.195311000000002" PointY="23.054423828125003" />
-          <ConnectorPoint PointX="5.6451785416666684" PointY="23.054423828125003" />
-          <ConnectorPoint PointX="5.8118452083333345" PointY="23.054423828125003" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="23.054423828125003" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="23.054423828125003" />
-          <ConnectorPoint PointX="7.875" PointY="23.054423828125003" />
-          <ConnectorPoint PointX="7.875" PointY="22.875" />
-          <ConnectorPoint PointX="9" PointY="22.875" />
-          <ConnectorPoint PointX="9" PointY="24.317047026041664" />
-          <ConnectorPoint PointX="9.375" PointY="24.317047026041664" />
+          <ConnectorPoint PointX="5.0859345000000005" PointY="32.125" />
+          <ConnectorPoint PointX="5.0859345000000005" PointY="22.625" />
+          <ConnectorPoint PointX="5.6451785416666684" PointY="22.625" />
+          <ConnectorPoint PointX="5.8118452083333345" PointY="22.625" />
+          <ConnectorPoint PointX="6.2408844166666677" PointY="22.625" />
+          <ConnectorPoint PointX="6.4075510833333338" PointY="22.625" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="22.625" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="22.625" />
+          <ConnectorPoint PointX="9" PointY="22.625" />
+          <ConnectorPoint PointX="9" PointY="24.192047526041662" />
+          <ConnectorPoint PointX="9.375" PointY="24.192047526041662" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__62307D25" >
-          <ConnectorPoint PointX="0.53125" PointY="31.027486979166667" />
-          <ConnectorPoint PointX="0.53125" PointY="33.457274800766172" />
-          <ConnectorPoint PointX="0.74479166666666663" PointY="33.457274800766172" />
-          <ConnectorPoint PointX="0.91145833333333337" PointY="33.457274800766172" />
-          <ConnectorPoint PointX="1.0729166666666667" PointY="33.457274800766172" />
-          <ConnectorPoint PointX="1.2395833333333333" PointY="33.457274800766172" />
-          <ConnectorPoint PointX="1.4283854166666667" PointY="33.457274800766172" />
-          <ConnectorPoint PointX="1.5950520833333333" PointY="33.457274800766172" />
-          <ConnectorPoint PointX="1.7838541666666667" PointY="33.457274800766172" />
-          <ConnectorPoint PointX="1.9505208333333333" PointY="33.457274800766172" />
-          <ConnectorPoint PointX="2.916660416666665" PointY="33.457274800766172" />
-          <ConnectorPoint PointX="3.2083258333333324" PointY="33.457274800766172" />
-          <ConnectorPoint PointX="3.5" PointY="33.457274800766172" />
+          <ConnectorPoint PointX="3.2499975781250003" PointY="31.027486979166667" />
+          <ConnectorPoint PointX="3.2499975781250003" PointY="33.09375" />
+          <ConnectorPoint PointX="3.5" PointY="33.09375" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_rel__2CC890AD" >
-          <ConnectorPoint PointX="6.25" PointY="36.355646972656253" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="36.355646972656253" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="36.355646972656253" />
-          <ConnectorPoint PointX="6.875" PointY="36.355646972656253" />
+          <ConnectorPoint PointX="6.25" PointY="36.507058715820314" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="36.507058715820314" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="36.507058715820314" />
+          <ConnectorPoint PointX="6.875" PointY="36.507058715820314" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_curr__e_cur__5B644F5C" >
           <ConnectorPoint PointX="6.2500000000000018" PointY="32.125" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="31.75" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="26.831342714843757" />
-          <ConnectorPoint PointX="6.7031250000000009" PointY="26.831342714843757" />
-          <ConnectorPoint PointX="6.869791666666667" PointY="26.831342714843757" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="26.831342714843757" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="26.831342714843757" />
-          <ConnectorPoint PointX="13.291666666666666" PointY="26.831342714843757" />
-          <ConnectorPoint PointX="13.458333333333334" PointY="26.831342714843757" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="26.831342714843757" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="26.831342714843757" />
-          <ConnectorPoint PointX="18.125" PointY="26.831342714843757" />
+          <ConnectorPoint PointX="6.625" PointY="31.75" />
+          <ConnectorPoint PointX="6.625" PointY="27.079190240885428" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="27.079190240885428" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="27.079190240885428" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="27.079190240885428" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="27.079190240885428" />
+          <ConnectorPoint PointX="13.291666666666666" PointY="27.079190240885428" />
+          <ConnectorPoint PointX="13.458333333333334" PointY="27.079190240885428" />
+          <ConnectorPoint PointX="15.604166666666666" PointY="27.079190240885428" />
+          <ConnectorPoint PointX="15.770833333333334" PointY="27.079190240885428" />
+          <ConnectorPoint PointX="18.125" PointY="27.079190240885428" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__4A63E08C" >
           <ConnectorPoint PointX="10.4375" PointY="31.5" />
@@ -6882,52 +7681,58 @@
           <ConnectorPoint PointX="10.625" PointY="40.754674479166667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_deli__c_del__666BEDB4" >
-          <ConnectorPoint PointX="14.875" PointY="40.875" />
-          <ConnectorPoint PointX="14.875" PointY="17.283991279489328" />
-          <ConnectorPoint PointX="14.25" PointY="17.283991279489328" />
+          <ConnectorPoint PointX="15.6875" PointY="40.875" />
+          <ConnectorPoint PointX="15.6875" PointY="19.845683593749982" />
+          <ConnectorPoint PointX="15.333333333333334" PointY="19.845683593749982" />
+          <ConnectorPoint PointX="15.166666666666666" PointY="19.845683593749982" />
+          <ConnectorPoint PointX="14.75" PointY="19.845683593749982" />
+          <ConnectorPoint PointX="14.75" PointY="16.613594122395824" />
+          <ConnectorPoint PointX="14.708333333333334" PointY="16.613594122395824" />
+          <ConnectorPoint PointX="14.541666666666666" PointY="16.613594122395824" />
+          <ConnectorPoint PointX="14.25" PointY="16.613594122395824" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__64EDB996" ManuallyRouted="false" >
-          <ConnectorPoint PointX="14.25" PointY="8.7763241145833266" />
-          <ConnectorPoint PointX="25.243815838541671" PointY="8.7763241145833266" />
-          <ConnectorPoint PointX="25.410482505208336" PointY="8.7763241145833266" />
-          <ConnectorPoint PointX="26.142256213541668" PointY="8.7763241145833266" />
-          <ConnectorPoint PointX="26.308922880208332" PointY="8.7763241145833266" />
-          <ConnectorPoint PointX="26.746984986979168" PointY="8.7763241145833266" />
-          <ConnectorPoint PointX="26.913651653645832" PointY="8.7763241145833266" />
-          <ConnectorPoint PointX="27.160641640625002" PointY="8.7763241145833266" />
-          <ConnectorPoint PointX="27.160641640625002" PointY="23.625" />
+          <ConnectorPoint PointX="14.25" PointY="8.59174187238835" />
+          <ConnectorPoint PointX="25.947916666666668" PointY="8.59174187238835" />
+          <ConnectorPoint PointX="26.114583333333332" PointY="8.59174187238835" />
+          <ConnectorPoint PointX="26.604164166666667" PointY="8.59174187238835" />
+          <ConnectorPoint PointX="26.770830833333331" PointY="8.59174187238835" />
+          <ConnectorPoint PointX="26.791666666666668" PointY="8.59174187238835" />
+          <ConnectorPoint PointX="26.958333333333332" PointY="8.59174187238835" />
+          <ConnectorPoint PointX="27.3750025" PointY="8.59174187238835" />
+          <ConnectorPoint PointX="27.3750025" PointY="23.625" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_curr__e_cur__597C06EA" >
-          <ConnectorPoint PointX="4.125" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="4.604166666666667" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="4.770833333333333" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="5.111977666666669" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="5.278644333333335" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="6.5520833333333339" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="6.8697916666666661" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="13.291666666666666" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="13.458333333333334" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="27.611520559895837" />
-          <ConnectorPoint PointX="18.125" PointY="27.611520559895837" />
+          <ConnectorPoint PointX="4.125" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="4.604166666666667" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="4.770833333333333" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="5.0026011666666674" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="5.1692678333333335" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="6.541666666666667" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="13.291666666666666" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="13.458333333333334" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="15.604166666666666" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="15.770833333333334" PointY="27.615426497395838" />
+          <ConnectorPoint PointX="18.125" PointY="27.615426497395838" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_curr__e_cur__5A702B23" >
-          <ConnectorPoint PointX="4.125" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="4.604166666666667" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="4.770833333333333" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="5.111977666666669" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="5.278644333333335" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="6.5520833333333339" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="6.8697916666666661" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="13.291666666666666" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="13.458333333333334" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="28.399510279947918" />
-          <ConnectorPoint PointX="18.125" PointY="28.399510279947918" />
+          <ConnectorPoint PointX="4.125" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="4.604166666666667" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="4.770833333333333" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="5.0026011666666674" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="5.1692678333333335" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="6.541666666666667" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="13.291666666666666" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="13.458333333333334" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="15.604166666666666" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="15.770833333333334" PointY="28.401463248697919" />
+          <ConnectorPoint PointX="18.125" PointY="28.401463248697919" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_curr__e_cur__5D4C97CE" >
           <ConnectorPoint PointX="22" PointY="32.875" />
@@ -6954,29 +7759,29 @@
           <ConnectorPoint PointX="13.25" PointY="52.451650390625" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__63057124" >
-          <ConnectorPoint PointX="4.125" PointY="3.490832002726127" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="3.4908320027261266" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="3.490832002726127" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="3.4908320027261266" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="3.490832002726127" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="3.4908320027261266" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="3.490832002726127" />
-          <ConnectorPoint PointX="26.142256213541668" PointY="3.4908320027261266" />
-          <ConnectorPoint PointX="26.308922880208332" PointY="3.490832002726127" />
-          <ConnectorPoint PointX="26.791666666666668" PointY="3.4908320027261266" />
-          <ConnectorPoint PointX="26.958333333333332" PointY="3.490832002726127" />
-          <ConnectorPoint PointX="29.125" PointY="3.490832002726127" />
-          <ConnectorPoint PointX="29.125" PointY="23.625" />
+          <ConnectorPoint PointX="4.125" PointY="3.3873131442590885" />
+          <ConnectorPoint PointX="4.291666666666667" PointY="3.387313144259088" />
+          <ConnectorPoint PointX="4.458333333333333" PointY="3.3873131442590885" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="3.3873131442590876" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="3.3873131442590885" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="3.387313144259088" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="3.3873131442590885" />
+          <ConnectorPoint PointX="5.8463526666666672" PointY="3.387313144259088" />
+          <ConnectorPoint PointX="6.0130193333333333" PointY="3.3873131442590885" />
+          <ConnectorPoint PointX="25.947916666666668" PointY="3.387313144259088" />
+          <ConnectorPoint PointX="26.114583333333332" PointY="3.3873131442590885" />
+          <ConnectorPoint PointX="26.6874975" PointY="3.3873131442590885" />
+          <ConnectorPoint PointX="26.6874975" PointY="23.625" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__67CA2641" >
-          <ConnectorPoint PointX="4.125" PointY="2.8386172483655692" />
-          <ConnectorPoint PointX="4.291666666666667" PointY="2.8386172483655687" />
-          <ConnectorPoint PointX="4.458333333333333" PointY="2.8386172483655692" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="2.8386172483655687" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="2.8386172483655692" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="2.8386172483655687" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="2.8386172483655692" />
-          <ConnectorPoint PointX="26.875" PointY="2.8386172483655692" />
+          <ConnectorPoint PointX="4.125" PointY="2.8290420971797356" />
+          <ConnectorPoint PointX="4.291666666666667" PointY="2.8290420971797352" />
+          <ConnectorPoint PointX="4.458333333333333" PointY="2.8290420971797356" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="2.8290420971797348" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="2.8290420971797356" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="2.8290420971797352" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="2.8290420971797356" />
+          <ConnectorPoint PointX="26.875" PointY="2.8290420971797356" />
           <ConnectorPoint PointX="26.875" PointY="23.625" />
         </AssociationConnector>
         <EntityTypeShape EntityType="ComplianceFactorsModel.a_tb_audit_log" Width="1.5" PointX="7.375" PointY="4.125" Height="3.326396484374996" />
@@ -6993,21 +7798,21 @@
         <EntityTypeShape EntityType="ComplianceFactorsModel.s_tb_ui_texts" Width="1.5" PointX="17.875" PointY="3.75" Height="1.9802864583333246" />
         <EntityTypeShape EntityType="ComplianceFactorsModel.t_tb_transcripts_sessions" Width="1.5" PointX="17.5" PointY="9.25" Height="4.6725065104166674" />
         <AssociationConnector Association="ComplianceFactorsModel.FK__a_tb_audi__a_use__038683F8" >
-          <ConnectorPoint PointX="4.125" PointY="5.788198242187498" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="5.7881982421874971" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="5.788198242187498" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="5.7881982421874971" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="5.788198242187498" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="5.7881982421874971" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="5.788198242187498" />
-          <ConnectorPoint PointX="7.375" PointY="5.788198242187498" />
+          <ConnectorPoint PointX="4.125" PointY="5.9804996744791659" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="5.980499674479165" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="5.9804996744791659" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="5.980499674479165" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="5.9804996744791659" />
+          <ConnectorPoint PointX="5.8463526666666672" PointY="5.980499674479165" />
+          <ConnectorPoint PointX="6.0130193333333333" PointY="5.9804996744791659" />
+          <ConnectorPoint PointX="7.375" PointY="5.9804996744791659" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__app_tb_us__useri__056ECC6A" >
           <ConnectorPoint PointX="4.125" PointY="24.595896809895834" />
           <ConnectorPoint PointX="4.604166666666667" PointY="24.595896809895834" />
           <ConnectorPoint PointX="4.770833333333333" PointY="24.595896809895834" />
-          <ConnectorPoint PointX="5.111977666666669" PointY="24.595896809895834" />
-          <ConnectorPoint PointX="5.278644333333335" PointY="24.595896809895834" />
+          <ConnectorPoint PointX="5.0026011666666674" PointY="24.595896809895834" />
+          <ConnectorPoint PointX="5.1692678333333335" PointY="24.595896809895834" />
           <ConnectorPoint PointX="5.6451785416666684" PointY="24.595896809895834" />
           <ConnectorPoint PointX="5.8118452083333345" PointY="24.595896809895834" />
           <ConnectorPoint PointX="6.7031250000000009" PointY="24.595896809895834" />
@@ -7017,37 +7822,45 @@
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_cour__c_rel__17E28260" >
           <ConnectorPoint PointX="1.51171875" PointY="34.125" />
           <ConnectorPoint PointX="1.51171875" PointY="31.277486979166667" />
-          <ConnectorPoint PointX="1.7838541666666667" PointY="31.277486979166667" />
-          <ConnectorPoint PointX="1.9505208333333333" PointY="31.277486979166667" />
-          <ConnectorPoint PointX="2.916660416666665" PointY="31.277486979166667" />
-          <ConnectorPoint PointX="3.2083258333333324" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="1.7975260416666667" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="1.9641927083333333" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="2.9166618229166654" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="3.0833284895833324" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="3.1666642447916669" PointY="31.277486979166667" />
+          <ConnectorPoint PointX="3.3333309114583338" PointY="31.277486979166667" />
           <ConnectorPoint PointX="4.6875" PointY="31.277486979166667" />
           <ConnectorPoint PointX="4.6875" PointY="8.875" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="8.875" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="8.875" />
+          <ConnectorPoint PointX="5.8463526666666672" PointY="8.875" />
+          <ConnectorPoint PointX="6.0130193333333333" PointY="8.875" />
           <ConnectorPoint PointX="8.125" PointY="8.875" />
-          <ConnectorPoint PointX="8.125" PointY="11.016466843749992" />
-          <ConnectorPoint PointX="8.5" PointY="11.016466843749992" />
+          <ConnectorPoint PointX="8.125" PointY="10.869261940104163" />
+          <ConnectorPoint PointX="8.5" PointY="10.869261940104163" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__75C33FDD" >
-          <ConnectorPoint PointX="6.15625" PointY="9.125" />
-          <ConnectorPoint PointX="6.15625" PointY="3.2861939528535697" />
-          <ConnectorPoint PointX="26.142256213541668" PointY="3.2861939528535693" />
-          <ConnectorPoint PointX="26.308922880208332" PointY="3.2861939528535697" />
-          <ConnectorPoint PointX="26.791666666666668" PointY="3.2861939528535693" />
-          <ConnectorPoint PointX="26.958333333333332" PointY="3.2861939528535697" />
-          <ConnectorPoint PointX="30.125" PointY="3.2861939528535697" />
+          <ConnectorPoint PointX="5.929686" PointY="9.125" />
+          <ConnectorPoint PointX="5.929686" PointY="3.2248593724343291" />
+          <ConnectorPoint PointX="25.947916666666668" PointY="3.2248593724343286" />
+          <ConnectorPoint PointX="26.114583333333332" PointY="3.2248593724343291" />
+          <ConnectorPoint PointX="26.791666666666668" PointY="3.2248593724343286" />
+          <ConnectorPoint PointX="26.958333333333332" PointY="3.2248593724343291" />
+          <ConnectorPoint PointX="30.125" PointY="3.2248593724343291" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__6B9AB725" >
-          <ConnectorPoint PointX="7.625" PointY="20.236634845031837" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="20.236634845031837" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="20.236634845031837" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="20.236634845031837" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="20.236634845031837" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="20.236634845031837" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="20.236634845031837" />
-          <ConnectorPoint PointX="18.96875" PointY="20.236634845031837" />
-          <ConnectorPoint PointX="18.96875" PointY="13.922506510416667" />
+          <ConnectorPoint PointX="7.625" PointY="12.727775442708339" />
+          <ConnectorPoint PointX="8.125" PointY="12.727775442708339" />
+          <ConnectorPoint PointX="8.125" PointY="14.75" />
+          <ConnectorPoint PointX="11.1875" PointY="14.75" />
+          <ConnectorPoint PointX="11.1875" PointY="19.547180989583332" />
+          <ConnectorPoint PointX="13.041666666666666" PointY="19.547180989583332" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="19.547180989583332" />
+          <ConnectorPoint PointX="14.666666666666666" PointY="19.547180989583332" />
+          <ConnectorPoint PointX="14.833333333333334" PointY="19.547180989583332" />
+          <ConnectorPoint PointX="14.875" PointY="19.547180989583332" />
+          <ConnectorPoint PointX="14.875" PointY="14.75" />
+          <ConnectorPoint PointX="15.041666666666666" PointY="14.75" />
+          <ConnectorPoint PointX="15.208333333333334" PointY="14.75" />
+          <ConnectorPoint PointX="18.25" PointY="14.75" />
+          <ConnectorPoint PointX="18.25" PointY="13.922506510416667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_rel__1E7A7156" >
           <ConnectorPoint PointX="1.375" PointY="38.028300781249982" />
@@ -7058,51 +7871,51 @@
           <ConnectorPoint PointX="14.25" PointY="5.0814925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__6C8EDB5E" >
-          <ConnectorPoint PointX="14.25" PointY="11.586253255208334" />
-          <ConnectorPoint PointX="17.041666666666668" PointY="11.586253255208334" />
-          <ConnectorPoint PointX="17.208333333333332" PointY="11.586253255208334" />
-          <ConnectorPoint PointX="17.5" PointY="11.586253255208334" />
+          <ConnectorPoint PointX="14.25" PointY="9.46875" />
+          <ConnectorPoint PointX="17.5" PointY="9.46875" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__74CF1BA4" >
-          <ConnectorPoint PointX="4.125" PointY="3.6516660013630635" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="3.6516660013630631" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="3.6516660013630635" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="3.6516660013630631" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="3.6516660013630635" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="3.6516660013630631" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="3.6516660013630635" />
-          <ConnectorPoint PointX="26.142256213541668" PointY="3.6516660013630631" />
-          <ConnectorPoint PointX="26.308922880208332" PointY="3.6516660013630635" />
-          <ConnectorPoint PointX="26.791666666666668" PointY="3.6516660013630631" />
-          <ConnectorPoint PointX="26.958333333333332" PointY="3.6516660013630635" />
-          <ConnectorPoint PointX="29.041666666666668" PointY="3.6516660013630631" />
-          <ConnectorPoint PointX="29.208333333333332" PointY="3.6516660013630635" />
-          <ConnectorPoint PointX="29.666666666666668" PointY="3.6516660013630631" />
-          <ConnectorPoint PointX="29.833333333333332" PointY="3.6516660013630635" />
-          <ConnectorPoint PointX="30.125" PointY="3.6516660013630635" />
+          <ConnectorPoint PointX="4.125" PointY="3.65625" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="3.6562499999999991" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="3.65625" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="3.6562499999999996" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="3.65625" />
+          <ConnectorPoint PointX="5.8463526666666672" PointY="3.6562499999999996" />
+          <ConnectorPoint PointX="6.0130193333333333" PointY="3.65625" />
+          <ConnectorPoint PointX="25.947916666666668" PointY="3.6562499999999996" />
+          <ConnectorPoint PointX="26.114583333333332" PointY="3.65625" />
+          <ConnectorPoint PointX="26.604164166666667" PointY="3.6562499999999996" />
+          <ConnectorPoint PointX="26.770830833333331" PointY="3.65625" />
+          <ConnectorPoint PointX="26.791666666666668" PointY="3.6562499999999996" />
+          <ConnectorPoint PointX="26.958333333333332" PointY="3.65625" />
+          <ConnectorPoint PointX="29.666666666666668" PointY="3.6562499999999996" />
+          <ConnectorPoint PointX="29.833333333333332" PointY="3.65625" />
+          <ConnectorPoint PointX="30.125" PointY="3.65625" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__77AB884F" >
-          <ConnectorPoint PointX="3.2500020000000007" PointY="2.125" />
-          <ConnectorPoint PointX="3.2500020000000007" PointY="1.859375" />
+          <ConnectorPoint PointX="3.3671897500000005" PointY="2.125" />
+          <ConnectorPoint PointX="3.3671897500000005" PointY="1.859375" />
           <ConnectorPoint PointX="4.375" PointY="1.859375" />
           <ConnectorPoint PointX="4.375" PointY="3.5" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="3.4999999999999996" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="3.4999999999999991" />
           <ConnectorPoint PointX="4.833333333333333" PointY="3.5" />
           <ConnectorPoint PointX="4.916666666666667" PointY="3.4999999999999996" />
           <ConnectorPoint PointX="5.083333333333333" PointY="3.5" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="3.4999999999999996" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="3.5" />
-          <ConnectorPoint PointX="26.142256213541668" PointY="3.4999999999999996" />
-          <ConnectorPoint PointX="26.308922880208332" PointY="3.5" />
+          <ConnectorPoint PointX="5.8463526666666672" PointY="3.4999999999999996" />
+          <ConnectorPoint PointX="6.0130193333333333" PointY="3.5" />
+          <ConnectorPoint PointX="25.947916666666668" PointY="3.4999999999999996" />
+          <ConnectorPoint PointX="26.114583333333332" PointY="3.5" />
+          <ConnectorPoint PointX="26.604164166666667" PointY="3.4999999999999996" />
+          <ConnectorPoint PointX="26.770830833333331" PointY="3.5" />
           <ConnectorPoint PointX="26.791666666666668" PointY="3.4999999999999996" />
           <ConnectorPoint PointX="26.958333333333332" PointY="3.5" />
           <ConnectorPoint PointX="29.75" PointY="3.5" />
-          <ConnectorPoint PointX="29.75" PointY="5.3760368235982448" />
-          <ConnectorPoint PointX="30.125" PointY="5.3760368235982448" />
+          <ConnectorPoint PointX="29.75" PointY="5.5706302552083269" />
+          <ConnectorPoint PointX="30.125" PointY="5.5706302552083269" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__7993D0C1" >
           <ConnectorPoint PointX="30.875" PointY="19.5" />
-          <ConnectorPoint PointX="30.875" PointY="7.0379036458333246" />
+          <ConnectorPoint PointX="30.875" PointY="7.4225065104166656" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_curr__e_cur__5C587395" >
           <ConnectorPoint PointX="19.140625" PointY="32" />
@@ -7125,21 +7938,86 @@
           <ConnectorPoint PointX="1.15625" PointY="31.027486979166667" />
         </AssociationConnector>
         <AssociationConnector Association="ComplianceFactorsModel.FK__t_tb_tran__t_tra__6AA692EC" >
-          <ConnectorPoint PointX="2.5468755" PointY="2.125" />
-          <ConnectorPoint PointX="2.5468755" PointY="1.84375" />
-          <ConnectorPoint PointX="5" PointY="1.84375" />
+          <ConnectorPoint PointX="1.1406224999999988" PointY="2.125" />
+          <ConnectorPoint PointX="1.1406224999999988" PointY="1.828125" />
+          <ConnectorPoint PointX="5" PointY="1.828125" />
           <ConnectorPoint PointX="5" PointY="8.859375" />
-          <ConnectorPoint PointX="6.072916666666667" PointY="8.859375" />
-          <ConnectorPoint PointX="6.239583333333333" PointY="8.859375" />
-          <ConnectorPoint PointX="11.1875" PointY="8.859375" />
-          <ConnectorPoint PointX="11.1875" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="13.010416666666666" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="13.177083333333334" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="14.791666666666666" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="14.958333333333334" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="17.125" PointY="18.995504557291667" />
-          <ConnectorPoint PointX="17.125" PointY="10.386874627604115" />
-          <ConnectorPoint PointX="17.5" PointY="10.386874627604115" />
+          <ConnectorPoint PointX="5.8463526666666672" PointY="8.859375" />
+          <ConnectorPoint PointX="6.0130193333333333" PointY="8.859375" />
+          <ConnectorPoint PointX="11.125" PointY="8.859375" />
+          <ConnectorPoint PointX="11.125" PointY="19.234680989583332" />
+          <ConnectorPoint PointX="13.041666666666666" PointY="19.234680989583332" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="19.234680989583332" />
+          <ConnectorPoint PointX="14.625" PointY="19.234680989583332" />
+          <ConnectorPoint PointX="14.625" PointY="9.625" />
+          <ConnectorPoint PointX="17.125" PointY="9.625" />
+          <ConnectorPoint PointX="17.125" PointY="11.726880255208329" />
+          <ConnectorPoint PointX="17.5" PointY="11.726880255208329" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_categories" Width="1.5" PointX="15.375" PointY="17.75" Height="1.5956835937499818" />
+        <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_curriculum_approval" Width="1.5" PointX="11.375" PointY="19.75" Height="1.5956835937499818" />
+        <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_curriculum_category" Width="1.5" PointX="34.625" PointY="22.5" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="ComplianceFactorsModel.c_tb_sessions_master" Width="1.5" PointX="15" PointY="9.75" Height="3.710999348958353" />
+        <EntityTypeShape EntityType="ComplianceFactorsModel.e_tb_assignment_types" Width="1.5" PointX="27.875" PointY="4.25" Height="1.5956835937499818" />
+        <EntityTypeShape EntityType="ComplianceFactorsModel.e_tb_cert_statuses" Width="1.5" PointX="15.375" PointY="14.875" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ComplianceFactorsModel.s_tb_categories" Width="1.5" PointX="32.375" PointY="1.625" Height="16.210592447916667" />
+        <EntityTypeShape EntityType="ComplianceFactorsModel.u_tb_employee_type" Width="1.5" PointX="13.375" PointY="20.75" Height="1.5956835937499818" />
+        <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_cur__17CD73C7" >
+          <ConnectorPoint PointX="6.25" PointY="32.609376500000053" />
+          <ConnectorPoint PointX="6.7031250000000009" PointY="32.609376500000053" />
+          <ConnectorPoint PointX="6.869791666666667" PointY="32.609376500000053" />
+          <ConnectorPoint PointX="7.375" PointY="32.609376500000053" />
+          <ConnectorPoint PointX="7.375" PointY="38.375" />
+          <ConnectorPoint PointX="15.604166666666666" PointY="38.375" />
+          <ConnectorPoint PointX="15.770833333333334" PointY="38.375" />
+          <ConnectorPoint PointX="18.125" PointY="38.375" />
+          <ConnectorPoint PointX="18.125" PointY="30.75" />
+          <ConnectorPoint PointX="19.057291666666668" PointY="30.75" />
+          <ConnectorPoint PointX="19.223958333333332" PointY="30.75" />
+          <ConnectorPoint PointX="19.986979166666668" PointY="30.75" />
+          <ConnectorPoint PointX="20.153645833333332" PointY="30.75" />
+          <ConnectorPoint PointX="21.541666666666668" PointY="30.75" />
+          <ConnectorPoint PointX="21.708333333333332" PointY="30.75" />
+          <ConnectorPoint PointX="35.375" PointY="30.75" />
+          <ConnectorPoint PointX="35.375" PointY="24.480286458333325" />
+        </AssociationConnector>
+        <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_curr__c_rel__18C19800" >
+          <ConnectorPoint PointX="33.125" PointY="17.835592447916667" />
+          <ConnectorPoint PointX="33.125" PointY="23.490143229166662" />
+          <ConnectorPoint PointX="34.625" PointY="23.490143229166662" />
+        </AssociationConnector>
+        <AssociationConnector Association="ComplianceFactorsModel.FK__c_tb_sess__c_del__4CC05EF3" >
+          <ConnectorPoint PointX="14.25" PointY="11.605499674479177" />
+          <ConnectorPoint PointX="14.541666666666666" PointY="11.605499674479177" />
+          <ConnectorPoint PointX="14.708333333333334" PointY="11.605499674479177" />
+          <ConnectorPoint PointX="15" PointY="11.605499674479177" />
+        </AssociationConnector>
+        <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__76B76416" >
+          <ConnectorPoint PointX="29.375" PointY="4.8478151276041634" />
+          <ConnectorPoint PointX="29.666666666666668" PointY="4.8478151276041626" />
+          <ConnectorPoint PointX="29.833333333333332" PointY="4.8478151276041634" />
+          <ConnectorPoint PointX="30.125" PointY="4.8478151276041634" />
+        </AssociationConnector>
+        <AssociationConnector Association="ComplianceFactorsModel.FK__e_tb_cour__e_cou__789FAC88" >
+          <ConnectorPoint PointX="16.875" PointY="15.768992513020834" />
+          <ConnectorPoint PointX="19.5625" PointY="15.768992513020834" />
+          <ConnectorPoint PointX="19.5625" PointY="11.609375" />
+          <ConnectorPoint PointX="21.041666666666668" PointY="11.609375" />
+          <ConnectorPoint PointX="21.208333333333332" PointY="11.609375" />
+          <ConnectorPoint PointX="24.68229091666667" PointY="11.609375" />
+          <ConnectorPoint PointX="24.848957583333334" PointY="11.609375" />
+          <ConnectorPoint PointX="25.315103791666669" PointY="11.609375" />
+          <ConnectorPoint PointX="25.481770458333333" PointY="11.609375" />
+          <ConnectorPoint PointX="25.947916666666668" PointY="11.609375" />
+          <ConnectorPoint PointX="26.114583333333332" PointY="11.609375" />
+          <ConnectorPoint PointX="26.604164166666667" PointY="11.609375" />
+          <ConnectorPoint PointX="26.770830833333331" PointY="11.609375" />
+          <ConnectorPoint PointX="26.791666666666668" PointY="11.609375" />
+          <ConnectorPoint PointX="26.958333333333332" PointY="11.609375" />
+          <ConnectorPoint PointX="27.291669166666669" PointY="11.609375" />
+          <ConnectorPoint PointX="27.458335833333333" PointY="11.609375" />
+          <ConnectorPoint PointX="30.468747999999998" PointY="11.609375" />
+          <ConnectorPoint PointX="30.468747999999998" PointY="7.4225065104166656" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

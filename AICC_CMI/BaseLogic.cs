@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Objects;
 using System.Linq;
-using System.Text;
-using System.Data.Entity;
-using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
 using EntityFrameworkLayer;
 
 namespace AICC_CMI
@@ -330,26 +326,20 @@ namespace AICC_CMI
 
                     var course = enroll.c_tb_courses_master;
 
-                    // B. Check for recurrence
-                    //          if (hasRecurrence(enroll.c_tb_courses_master.c_course_system_id_pk))
+                    // B. Check for course recurrence
                     if (course.c_course_recurrence_every != null && course.c_course_recurrence_every != 0)
                     {
                         // Course has recurrence, so calc next due date and create new enrollment record
-
+                        
+                        
                         DateTime new_date = CalcRecurrenceDate(course.c_course_recurrence_date_option,
-                                                      (DateTime) course.c_course_recurrence_date,
+                                                      (DateTime)course.c_course_recurrence_date,
                                                       (DateTime)enroll.u_tb_users_master.u_hris_hire_date,
                                                       (DateTime)enroll.e_enroll_approval_date,
+                            // TODO: Should be <e_tb_courses_assign.e_course_assign_date_time>, but no obvious way to get assignment record
                                                       (int)course.c_course_recurrence_every,
                                                       course.c_course_recurrence_period
                             );
-
-                        /*
-                            case "assignment":
-                                // TODO: Check this value! Approval or Assignment?
-                                start_date = (DateTime)enroll.e_enroll_approval_date;
-                                break;
-                         */
                         // new_date = [X] [days/months/years] from [start_date]
                         
                         // Create new enrollment record
@@ -357,34 +347,16 @@ namespace AICC_CMI
                                                 enroll.e_enroll_delivery_id_fk, new_date, (bool)enroll.e_enroll_required_flag);
                     }
 
-                    // C.  Curriculum update logic (e_tb_curricula_assign)
-                    //  Does course and user have curriculum assigned?
-                    //   If so, update curriculum status and % complete
-                    //   If 100% complete, (1) create curriculum history record
-                    //      e_tb_curricula_assign -> e_curriculum_assign_user_id_fk
-                    //      e_tb_curricula_statuses_history -> records 100% completion of a curriculum 
-                    updateAssignedCurricula(user_id: enroll.e_enroll_user_id_fk, course_id: enroll.e_enroll_course_id_fk);
+                    // C.  Curriculum update and recurrence logic (e_tb_curricula_assign)
 
-                    //if (hasCurriculumAssigned(enroll.u_tb_users_master.u_user_id_pk, course.c_course_system_id_pk))
-                    //    updateCurriculumStatus();
-
-
-                    //var curricula_assign = context.e_tb_curricula_assign;
-
+                    updateAssignedCurricula(user_id: enroll.e_enroll_user_id_fk, course_id: enroll.e_enroll_course_id_fk,
+                                            delivery_id: enroll.e_enroll_delivery_id_fk);
 
                 }
             }
         }
+        
         /*
-         * So the logic is to check if the course is part of a curriculum (lookup Course ID in “c_tb_curriculum_path_courses”) 
-         *      c_tb_curriculum_path_courses.c_curriculua_path_course_id_fk (course id fk)
-         *      Returns 0:n records ---> SET of curricula ids.
-         * 
-         * and if the curriculum is assigned to the user (lookup User ID in “e_tb_curricula_assign - this needs to check for 
-         * multiple curricula???? as the courses can be in more than one).
-         *      e_tb_curricula_assign.e_curriculum_assign_user_id_fk (user id fk)
-         *      Select * from e_tb_curricula_assign where uid = user_id and curriculum_id IN (set of curricula ids)
-
            So if it is in 1 or more curricula assign to the user, the Status of the curriculum or curricula needs to be updated 
          * and the course reassigned with the new due date(s) if it is recurring.
          * 
@@ -392,63 +364,112 @@ namespace AICC_CMI
          *      target due date: e_tb_curricula_assign.e_curriculum_assign_target_due_date
          */
         
-        
         // Determine whether curriculum is assigned to user/course; if so, update accordingly
-        private void updateAssignedCurricula(Guid user_id, Guid course_id)
+        private void updateAssignedCurricula(Guid user_id, Guid course_id, Guid delivery_id)
         {
-            // find a curriculum assignment based on uid and cid
-            bool ret = false;
+            Guid curriculum_status_assigned = new Guid("77dc2499-2fef-4952-97f2-d6f04fa001e2");
+            Guid curriculum_status_inprogress = new Guid("38d9f4e2-7f7a-4130-8fff-0e26cc892109");
+            Guid curriculum_status_acquired = new Guid("b0c6cd90-7fe3-4af3-80df-2040c09e5b05");
+   
             //course_id = Guid.Parse("d18e9bc8-4cca-4770-8bb7-010504e341d5");
             //user_id = Guid.Parse("48433026-7d99-4cc1-ade7-09b23b1bc5ef");
 
-            /*
-             * select * FROM e_tb_curricula_assign 
-                where 
-                  e_curriculum_assign_curriculum_id_fk in 
-                    (select distinct c_curricula_id_fk from c_tb_curriculum_path_courses 
-                          where c_curricula_path_course_id_fk = N'd18e9bc8-4cca-4770-8bb7-010504e341d5')
-                  and
-                   e_curriculum_assign_user_id_fk = N'48433026-7d99-4cc1-ade7-09b23b1bc5ef';
-             */
-
             using (var ctx = new ComplianceFactorsEntities())
             {
-
-                //var curriculum_path_courses = ctx.c_tb_curriculum_path_courses.;
-                string queryString =
-                    @"select VALUE e_tb_curricula_assign FROM e_tb_curricula_assign where e_tb_curricula_assign.e_curriculum_assign_curriculum_id_fk in 
+                //  Does course and user have curriculum assigned?
+                const string query_string = @"select VALUE e_tb_curricula_assign FROM e_tb_curricula_assign 
+                                                where e_tb_curricula_assign.e_curriculum_assign_curriculum_id_fk in 
                                                 set(select VALUE (c_tb_curriculum_path_courses.c_curricula_id_fk) from c_tb_curriculum_path_courses 
                                                     where c_tb_curriculum_path_courses.c_curricula_path_course_id_fk = @courseid) 
                                                 and e_tb_curricula_assign.e_curriculum_assign_user_id_fk = @userid";
 
                 ObjectQuery<e_tb_curricula_assign> assignedCurricula =
-                    ctx.CreateQuery<e_tb_curricula_assign>(queryString, new ObjectParameter[]
+                    ctx.CreateQuery<e_tb_curricula_assign>(query_string, new ObjectParameter[]
                         {
                             new ObjectParameter("courseid", course_id),
                             new ObjectParameter("userid", user_id)
                         });
-
+                
                 // Iterate through matching curricula 
-                foreach (e_tb_curricula_assign curriculum in assignedCurricula)
+                foreach (e_tb_curricula_assign curriculum in assignedCurricula.ToList())
                 {
- /*                   Console.WriteLine("pk: {0}, uid: {1}, curr_id: {2}, assign_date: {3}",
-                                      curriculum.e_curriculum_assign_system_id_pk,
-                                      curriculum.e_curriculum_assign_user_id_fk,
-                                      curriculum.e_curriculum_assign_curriculum_id_fk,
-                                      curriculum.e_curriculum_assign_date_time);
-*/                }
+                    // If progress == 0%, then change e_curricula_assign_status_id_fk from 'assigned' to 'in progress'
+                    if (0 == curriculum.e_curriculum_assign_percent_complete)
+                    {
+                        curriculum.e_curriculum_assign_status_id_fk = curriculum_status_inprogress;
+                        curriculum.e_curriculum_assign_status_change_date = DateTime.Now;    
+                    }
+
+                    Guid? current_status = curriculum.e_curriculum_assign_status_id_fk;
+                    Guid curriculum_id = curriculum.e_curriculum_assign_curriculum_id_fk;
+
+                    // Determine number of courses for this curriculum path
+                    int num_courses_in_curriculum = (from courses in ctx.c_tb_curriculum_path_courses
+                                                     where
+                                                         courses.c_curricula_id_fk == curriculum_id
+                                                     select courses).Count();
+                    // Extrapolate # courses completed based on current % completed
+                    double courses_completed = Math.Round(((double)curriculum.e_curriculum_assign_percent_complete * 0.01) 
+                                                    * num_courses_in_curriculum);
+                    // Add 1 to the number of courses completed
+                    int percent_complete = (int) ((courses_completed + 1)
+                                                  /(double) num_courses_in_curriculum*100);
+
+                    curriculum.e_curriculum_assign_percent_complete = percent_complete;
+
+                    // Is curriculum complete? If yes => Curriculum 'Acquired'
+                    if (100 == percent_complete)
+                    {
+                        curriculum.e_curriculum_assign_status_id_fk = curriculum_status_acquired;
+                        curriculum.e_curriculum_assign_status_change_date = DateTime.Now;
+
+                        insertCurriculumStatusHistoryRecord(user_id: user_id,
+                                                            curriculum_id: curriculum_id,
+                                                            original_assignment_date:
+                                                                curriculum.e_curriculum_assign_date_time,
+                                                            required: curriculum.e_curriculum_assign_required_flag,
+                                                            original_target_due_date:
+                                                                curriculum.e_curriculum_assign_target_due_date,
+                                                            new_status: curriculum_status_acquired,
+                                                            previous_status: current_status,
+                                                            percent_complete: percent_complete
+                            );
+                        ctx.SaveChanges();
+
+                        // TODO: Generate and send 'Curriculum Acquired' notification
+
+                        // Check for curriculum recurrence -- but only if there was no course-specific recurrence
+                        if (!courseHasRecurrence(course_id) &&
+                            curriculumHasRecurrence(curriculum_id:
+                                                        curriculum.e_curriculum_assign_curriculum_id_fk))
+                        {
+                            var curr = (from c in ctx.c_tb_curriculum_master
+                                        where c.c_curriculum_system_id_pk == curriculum_id
+                                        select c).FirstOrDefault();
+                            DateTime hire_date = getHireDate(user_id);
+
+                            // Re-assign the course to employee using curriculum recurrence criteria
+                            DateTime new_date = CalcRecurrenceDate(curr.c_curriculum_recurance_date_option,
+                                                          (DateTime)curr.c_curriculum_recurance_date,
+                                                          (DateTime)hire_date,
+                                                          (DateTime)curriculum.e_curriculum_assign_date_time,
+                                                          (int)curr.c_curriculum_recurrance_every,
+                                                          curr.c_curriculum_recurrance_period
+                                );
+
+                            // Create new enrollment record
+                            insertEnrollmentRecord(curriculum.e_curriculum_assign_user_id_fk, course_id,
+                                                   delivery_id, new_date,
+                                                   curriculum.e_curriculum_assign_required_flag != null &&
+                                                   (bool) curriculum.e_curriculum_assign_required_flag);
+                        }
+                    }
+                    ctx.SaveChanges();    
+                }
             }
-
         }
 
-/*        private void updateCurriculumStatus()
-        {
-            throw new NotImplementedException();
-        }
- */
-        
-        private Guid insertCurriculaStatusHistoryRecord(Guid user_id, Guid curriculum_id, DateTime original_assignment_date, 
-                bool required, DateTime original_target_due_date, Guid new_status, Guid previous_status, int percent_complete)
+        private Guid insertCurriculumStatusHistoryRecord(Guid user_id, Guid curriculum_id, DateTime original_assignment_date, bool? required, DateTime? original_target_due_date, Guid new_status, Guid? previous_status, int percent_complete)
         {
             Guid player_status_change_type_id = new Guid("3083c38c-a8be-4e08-abe3-e768ffa3d6a1");
             Guid new_pk_id = Guid.NewGuid();
@@ -468,8 +489,8 @@ namespace AICC_CMI
                     e_curriculum_assign_status_change_date_time = DateTime.Now,
                     e_curriculum_assign_percent_complete = percent_complete,
                     e_curriculum_assign_required_flag = required,
-                    e_curriculum_assign_cert_date = DateTime.Now,       // TODO: calculate new date
-                    e_curriculum_assign_recert_due_date = DateTime.Now  // TODO: calculate new date
+                    //e_curriculum_assign_cert_date = DateTime.Now,       // TODO: calculate new date
+                    //e_curriculum_assign_recert_due_date = DateTime.Now  // TODO: calculate new date
                 };
                 ctx.e_tb_curricula_statuses_history.AddObject(rec);
                 ctx.SaveChanges();
@@ -493,7 +514,6 @@ namespace AICC_CMI
                     start_date = hire_date;
                     break;
                 case "assignment":
-                    // TODO: Check this value! Approval or Assignment?
                     start_date = assign_date;
                     break;
                 case "completion":
@@ -598,6 +618,23 @@ namespace AICC_CMI
 
             return ret;
         }
+
+        private DateTime getHireDate(Guid user_id)
+        {
+            DateTime hire_date = new DateTime();
+
+            using (var ctx = new ComplianceFactorsEntities())
+            {
+                var r = ctx.u_tb_users_master.FirstOrDefault(i => i.u_user_id_pk == user_id);
+
+                if (r != null)
+                {
+                    if (r.u_hris_hire_date != null)
+                        hire_date = (DateTime) r.u_hris_hire_date;
+                }
+            }
+            return hire_date;
+        } 
 
         private Guid insertAuditRecord(Guid user_id, string action_description, string values, Guid affected_object_id, 
                                         string affected_object_table, string ip_address)
