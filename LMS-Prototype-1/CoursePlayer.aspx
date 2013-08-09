@@ -515,7 +515,10 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 //success: function (data) { alert(data); },
-                error: function (xhr, msg) { alert(msg + '\n' + xhr.responseText); },
+                error: function(xhr, msg) {
+                    $(".main").append("<div style='position: relative; z-index: 999;background-color: white;'>" + xhr.responseText + "<p>{'cmi_dto':" + data + "}" + "</div>");
+                    // alert(msg + '\n' + xhr.responseText);
+                },
                 failure: function (errMsg) {
                     alert(errMsg);
                 },

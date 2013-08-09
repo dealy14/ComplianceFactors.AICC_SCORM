@@ -1084,7 +1084,7 @@ namespace AICC_CMI
 
             string lesson_mode = GetLessonMode(json_values);
 
-            if (tmp != null)
+            if (!String.IsNullOrEmpty(tmp))
             {
                 // only first char significant ('n','c')
                 tmp = tmp.Substring(0, 1);
@@ -1123,7 +1123,7 @@ namespace AICC_CMI
             double? ret = null;
             string tmp = null;
             json_values.TryGetValue(key, out tmp);
-            if (tmp != null)
+            if (!String.IsNullOrEmpty(tmp))
             {
                 double d;
                 bool res = Double.TryParse(tmp, out d);
@@ -1166,7 +1166,7 @@ namespace AICC_CMI
             string exit = null;
             json_values.TryGetValue("cmi.core.exit", out exit);
 
-            if (null != exit)
+            if (!String.IsNullOrEmpty(exit))
             {
                 exit = exit.Substring(0, 1).ToLower();
                 if (valid_exits.ContainsKey(exit))
