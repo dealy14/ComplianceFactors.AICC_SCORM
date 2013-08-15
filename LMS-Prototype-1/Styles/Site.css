@@ -139,6 +139,9 @@ first child of the left and right table columns */
     line-height: normal;
 }
 
+.aspNetHidden {
+    display: none;
+}
 
 /* TAB MENU   
 ----------------------------------------------------------*/

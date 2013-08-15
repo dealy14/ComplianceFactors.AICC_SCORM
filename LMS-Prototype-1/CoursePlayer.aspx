@@ -4,7 +4,7 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 
 <style type="text/css"> 
-html {overflow: visible;} 
+html {overflow: hidden;} 
 html, body, div, iframe #content {margin: 0px; padding: 0px; height: 100%; border: none;} 
 iframe #content {display: block; width: 100%; min-height: 600px ; border: none; overflow-y: visible; overflow-x: visible;} 
 </style> 
