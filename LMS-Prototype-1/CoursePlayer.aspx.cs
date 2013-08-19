@@ -19,7 +19,7 @@ namespace LMS_Prototype_1
                     lesson_mode, lesson_location, credit, 
                     lesson_status, vExit, vEntry, launch_data, suspend_data,
                     total_time, score_raw, score_max, score_min, mastery_score;
-        protected string aicc_url, aicc_sid, content_url;
+        protected string aicc_url, aicc_sid, content_url, course_title;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,6 +44,8 @@ namespace LMS_Prototype_1
                 }
 
                 content_url = enroll.c_tb_deliveries_master.c_olt_launch_url;
+
+                course_title = enroll.c_tb_courses_master.c_course_title;
 
                 student_id = enroll.e_enroll_user_id_fk.ToString();
                 student_name = enroll.u_tb_users_master.u_last_name + ", " 

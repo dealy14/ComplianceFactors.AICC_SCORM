@@ -10,6 +10,10 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
 </style> 
 
 <script type="text/javascript" >
+    $(document).ready(function() {
+        document.title = '<%= course_title %>';
+    });
+    
     //
     // AICC-SCORM API Implementation
     //
@@ -112,7 +116,7 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
             'cmi.student_preference.text_location': { 'defaultvalue': '', 'format': CMIString256, 'mod': 'rw', 'writeerror': '405' },
             'cmi.student_preference.text_size': { 'defaultvalue': '', 'format': CMIString256, 'mod': 'rw', 'writeerror': '405' },
             'cmi.student_preference.video': { 'defaultvalue': '', 'format': CMIString256, 'mod': 'rw', 'writeerror': '405' },
-            //'cmi.student_preference.windows.n.':{'defaultvalue':'', 'pattern':CMIIndex, 'format': CMIString256, 'mod': 'rw', 'writeerror': '405' },
+            'cmi.student_preference.windows_1':{'defaultvalue':'', 'format': CMIString256, 'mod': 'rw', 'writeerror': '405' },
             'cmi.interactions._children': { 'defaultvalue': interactions_children, 'mod': 'r', 'writeerror': '402' },
             'cmi.interactions._count': { 'defaultvalue': '0', 'mod': 'r', 'writeerror': '402' },
             'cmi.interactions.n.id': { 'pattern': CMIIndex, 'format': CMIIdentifier, 'mod': 'w', 'readerror': '404', 'writeerror': '405' },
