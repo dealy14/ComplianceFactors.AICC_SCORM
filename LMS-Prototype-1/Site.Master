@@ -1,5 +1,5 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="LMS_Prototype_1.SiteMaster" %>
-<!DOCYTPE html>
+﻿<%@ Master Language="C#" AutoEventWireup="true" 
+CodeBehind="Site.master.cs" Inherits="LMS_Prototype_1.SiteMaster" %><!DOCYTPE html>
 <html lang="en">
 <head runat="server">
     <title>ComplianceFactors</title>
