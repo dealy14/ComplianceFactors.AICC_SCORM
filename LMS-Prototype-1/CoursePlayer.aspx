@@ -552,8 +552,10 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
     var API = new AICC_SCORM_API();
 
     // Handle browser close/window unload --> trigger saving of data to server
-    $(window).unload(function () {
-
+    window.onbeforeunload = function () { handleWindowClose(); };
+    $(window).unload(function () { handleWindowClose(); });
+    
+    function handleWindowClose(){
         if (API.initialized) { //check to see if API is initialized (implies it was used, rather than HACP)
 
             API.finalize();
@@ -564,7 +566,10 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
             var dto = JSON.stringify(API.cmi);
             API.PostData(JSON.stringify(dto), false);
         }
-    });
+        window.opener.location.href = window.opener.location.protocol + '//' +
+                                window.opener.location.host + window.opener.location.pathname +
+                                window.opener.location.search;
+    }
 </script>
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
