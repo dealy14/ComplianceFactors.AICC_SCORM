@@ -11,7 +11,7 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
 
 <script type="text/javascript" >
     $(document).ready(function() {
-        document.title = '<%= course_title %>';
+        document.title = '<%= course_title %> - ComplianceFactors, Inc.';
     });
     
     //
@@ -59,7 +59,9 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
 
         // SCORM-AICC data model
         var datamodel = {
-            'cmi.enrollment_id': { 'defaultvalue': '<%= enrollment_id %>', 'mod': 'r', 'writeerror': '403' }, // added for enrollment identification when posting to server
+            // added for enrollment identification when posting to server
+            'cmi.enrollment_id': { 'defaultvalue': '<%= enrollment_id %>', 'mod': 'r', 'writeerror': '403' }, 
+            // added to indicate whether session is terminated (JS API only; not used with AICC/HACP)
             'cmi.terminate': { 'defaultvalue': 'false', 'mod': 'r', 'writeerror': '403' },
             'cmi._children': { 'defaultvalue': cmi_children, 'mod': 'r', 'writeerror': '402' },
             'cmi._version': { 'defaultvalue': '3.4', 'mod': 'r', 'writeerror': '402' },
