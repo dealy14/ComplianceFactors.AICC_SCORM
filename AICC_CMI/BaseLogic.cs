@@ -217,6 +217,9 @@ namespace AICC_CMI
                     {
                         case "cmi.core.lesson_status":
                             enroll.e_enroll_lesson_status = (string)pair.Value;
+                            if ((string)pair.Value == "incomplete"){
+                                enroll.e_enroll_status_id_fk = Guid.Parse("655f1d57-1a6e-498f-b341-33c8c04ab430"); // Incomplete
+                            }
                             break;
                         case "cmi.core.credit":
                             enroll.e_enroll_credit = (bool)pair.Value;

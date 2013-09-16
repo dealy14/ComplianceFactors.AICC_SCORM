@@ -1,14 +1,11 @@
 ﻿<%@ Page Title="Course Player" Language="C#" MasterPageFile="Site.master" AutoEventWireup="true"
     CodeBehind="CoursePlayer.aspx.cs" Inherits="LMS_Prototype_1._CoursePlayer" %>
-
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
-
 <style type="text/css"> 
-html {overflow: hidden;} 
-html, body, div, iframe #content {margin: 0px; padding: 0px; height: 100%; border: none;} 
-iframe #content {display: block; width: 100%; min-height: 600px ; border: none; overflow-y: visible; overflow-x: visible;} 
+    html {overflow: hidden;} 
+    html, body, div, iframe #content {margin: 0px; padding: 0px; height: 100%; border: none;} 
+    iframe #content {display: block; width: 100%; min-height: 600px ; border: none; overflow-y: visible; overflow-x: visible;} 
 </style> 
-
 <script type="text/javascript" >
     $(document).ready(function() {
         document.title = '<%= course_title %> - ComplianceFactors, Inc.';
@@ -501,15 +498,12 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
                 //datastring = CollectData(data,'cmi');
             }
 
-
             // update total_time, regardless of whether the session is finished...
             cmi.core.total_time = TotalTime();
 
             var dto = JSON.stringify(cmi);
 
             PostData(JSON.stringify(dto), true);
-
-
         }
 
         function PostData(data, asynch) {
@@ -560,11 +554,14 @@ iframe #content {display: block; width: 100%; min-height: 600px ; border: none; 
 
             API.finalize();
 
-            // update total_time, regardless of whether the session is finished...
+            // update total_time, regardless of' whether the session is finished...
             API.cmi.core.total_time = API.TotalTime();
 
             var dto = JSON.stringify(API.cmi);
             API.PostData(JSON.stringify(dto), false);
+
+            // make sure this is not fired twice (i.e. if onbeforeunload worked and this is called from unload)
+            API.initialized = false;
         }
         window.opener.location.href = window.opener.location.protocol + '//' +
                                 window.opener.location.host + window.opener.location.pathname +

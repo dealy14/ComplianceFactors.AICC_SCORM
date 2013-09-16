@@ -27,6 +27,8 @@ namespace LMS_Prototype_1
             //enrollment_id = "49e8ae11-ecfa-4c08-8bd9-bba9a8521414";
             //string student_id, student_name, lesson_location, credit, lesson_status, vExit, vEntry;
 
+            var status_incomplete = Guid.Parse("655f1d57-1a6e-498f-b341-33c8c04ab430"); //Incomplete
+
             // AICC HACP URL Parse
             aicc_url = this.Request["aicc_url"];
             aicc_sid = this.Request["aicc_sid"];
@@ -64,8 +66,16 @@ namespace LMS_Prototype_1
                 if (enroll.e_enroll_lesson_status == "not attempted")
                 {
                     lesson_status = "incomplete";
+                    enroll.e_enroll_status_id_fk = status_incomplete;
+                    context.SaveChanges();
                 }
                 
+                // temp: for backwards compatibility of test data
+                if (enroll.e_enroll_lesson_status == "incomplete")
+                {
+                    enroll.e_enroll_status_id_fk = status_incomplete;
+                    context.SaveChanges();
+                }
 
                 vExit = enroll.e_enroll_exit;
                 if (vExit == "time-out" || vExit == "logout" || String.IsNullOrEmpty(vExit))
