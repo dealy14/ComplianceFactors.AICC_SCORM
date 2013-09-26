@@ -61,6 +61,9 @@ namespace LMS_Prototype_1
                 if (String.IsNullOrEmpty(enroll.e_enroll_lesson_status))
                 { 
                     lesson_status = "not attempted";
+                    enroll.e_enroll_lesson_status = "not attempted";
+                    enroll.e_enroll_status_id_fk = status_incomplete;
+                    context.SaveChanges();
                 }
                 // set status to 'incomplete'
                 if (enroll.e_enroll_lesson_status == "not attempted")
@@ -103,7 +106,7 @@ namespace LMS_Prototype_1
                 lesson_mode = (enroll.e_enroll_lesson_mode ?? "normal"); //for now...
                 total_time = TimeSpan.FromSeconds((double)(enroll.e_enroll_time_spent ?? 0)).ToString(@"hh\:mm\:ss");
             
-                //context.SaveChanges();
+                context.SaveChanges();
             }
 
         }
