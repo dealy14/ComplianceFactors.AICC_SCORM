@@ -60,6 +60,7 @@
             'cmi.enrollment_id': { 'defaultvalue': '<%= enrollment_id %>', 'mod': 'r', 'writeerror': '403' }, 
             // added to indicate whether session is terminated (JS API only; not used with AICC/HACP)
             'cmi.terminate': { 'defaultvalue': 'false', 'mod': 'r', 'writeerror': '403' },
+            'cmi.initialized': { 'defaultvalue': 'false', 'mod': 'r', 'writeerror': '403' },
             'cmi._children': { 'defaultvalue': cmi_children, 'mod': 'r', 'writeerror': '402' },
             'cmi._version': { 'defaultvalue': '3.4', 'mod': 'r', 'writeerror': '402' },
             'cmi.core._children': { 'defaultvalue': core_children, 'mod': 'r', 'writeerror': '402' },
@@ -163,44 +164,23 @@
         //
         // API Methods definition
         //
-        var Initialized = false;
 
         function LMSInitialize(param) {
+            console.log("--> enter LMSInitialize");
             errorCode = "0";
             if (param == "") {
-                if (!Initialized) {
-                    Initialized = true;
+                if (cmi.initialized == "false") {
+                    cmi.initialized = "true";
                     errorCode = "0";
                     return "true";
-                } else {
-                    errorCode = "101";
-                }
-            } else {
-                errorCode = "201";
-            }
-            return "false";
-        }
-
-        function LMSFinish(param) {
-            errorCode = "0";
-            if (param == "") {
-                if (Initialized) {
-                    Initialized = false;
-                    cmi.terminate = "true";
-                    result = StoreData(cmi, true);
-                    return "true";
-                } else {
-                    errorCode = "301";
-                }
-            } else {
-                errorCode = "201";
-            }
+                } else {errorCode = "101";}
+            } else {errorCode = "201";}
             return "false";
         }
 
         function LMSGetValue(element) {
             errorCode = "0";
-            if (Initialized) {
+            if (cmi.initialized == "true") {
                 if (element != "") {
                     expression = new RegExp(CMIIndex, 'g');
                     elementmodel = String(element).replace(expression, '.n.');
@@ -210,51 +190,35 @@
                             elementIndexes = element.split('.');
                             subelement = 'cmi';
                             i = 1;
-                            while ((i < elementIndexes.length) && (typeof eval(subelement) != "undefined")) {
-                                subelement += '.' + elementIndexes[i++];
-                            }
+                            while ((i < elementIndexes.length) && (typeof eval(subelement) != "undefined")) {subelement += '.' + elementIndexes[i++];}
+                            
                             if (subelement == element) {
                                 errorCode = "0";
                                 return eval(element);
-                            } else {
-                                errorCode = "0";
-                            }
-                        } else {
-                            errorCode = eval('datamodel["' + elementmodel + '"].readerror');
-                        }
+                            } else {errorCode = "0";}
+                        } else {errorCode = eval('datamodel["' + elementmodel + '"].readerror');}
                     } else {
                         childrenstr = '._children';
                         countstr = '._count';
                         if (elementmodel.substr(elementmodel.length - childrenstr.length, elementmodel.length) == childrenstr) {
                             parentmodel = elementmodel.substr(0, elementmodel.length - childrenstr.length);
-                            if ((typeof eval('datamodel["' + parentmodel + '"]')) != "undefined") {
-                                errorCode = "202";
-                            } else {
-                                errorCode = "201";
-                            }
+                            if ((typeof eval('datamodel["' + parentmodel + '"]')) != "undefined") {errorCode = "202";}
+                            else {errorCode = "201";}
                         } else if (elementmodel.substr(elementmodel.length - countstr.length, elementmodel.length) == countstr) {
                             parentmodel = elementmodel.substr(0, elementmodel.length - countstr.length);
-                            if ((typeof eval('datamodel["' + parentmodel + '"]')) != "undefined") {
-                                errorCode = "203";
-                            } else {
-                                errorCode = "201";
-                            }
-                        } else {
-                            errorCode = "201";
-                        }
+                            if ((typeof eval('datamodel["' + parentmodel + '"]')) != "undefined") {errorCode = "203";}
+                            else {errorCode = "201";}
+                        } else {errorCode = "201";}
                     }
-                } else {
-                    errorCode = "201";
-                }
-            } else {
-                errorCode = "301";
-            }
+                } else {errorCode = "201";}
+            } else {errorCode = "301";}
             return "";
         }
 
         function LMSSetValue(element, value) {
+            console.log("--> enter LMSSetValue => {" + element + ": " + value + "}");
             errorCode = "0";
-            if (Initialized) {
+            if (cmi.initialized == "true") {
                 if (element != "") {
                     expression = new RegExp(CMIIndex, 'g');
                     elementmodel = String(element).replace(expression, '.n.');
@@ -315,55 +279,23 @@
                                             eval(element + '="' + value + '";');
                                             errorCode = "0";
                                             return "true";
-                                        } else {
-                                            errorCode = eval('datamodel["' + elementmodel + '"].writeerror');
-                                        }
+                                        } else {errorCode = eval('datamodel["' + elementmodel + '"].writeerror');}
                                     } else {
-                                        if (element == 'cmi.comments') {
-                                            eval(element + '+="' + value + '";');
-                                        } else {
-                                            eval(element + '="' + value + '";');
-                                        }
+                                        if (element == 'cmi.comments') {eval(element + '+="' + value + '";');}
+                                        else {eval(element + '="' + value + '";');}
                                         errorCode = "0";
                                         return "true";
                                     }
                                 }
-                            } else {
-                                errorCode = eval('datamodel["' + elementmodel + '"].writeerror');
-                            }
-                        } else {
-                            errorCode = eval('datamodel["' + elementmodel + '"].writeerror');
-                        }
-                    } else {
-                        errorCode = "201"
-                    }
-                } else {
-                    errorCode = "201";
-                }
-            } else {
-                errorCode = "301";
-            }
+                            } else {errorCode = eval('datamodel["' + elementmodel + '"].writeerror');}
+                        } else {errorCode = eval('datamodel["' + elementmodel + '"].writeerror');}
+                    } else {errorCode = "201";}
+                } else {errorCode = "201";}
+            } else {errorCode = "301";}
             return "false";
         }
 
-        function LMSCommit(param) {
-            errorCode = "0";
-            if (param == "") {
-                if (Initialized) {
-                    result = StoreData(cmi, false);
-                    return "true";
-                } else {
-                    errorCode = "301";
-                }
-            } else {
-                errorCode = "201";
-            }
-            return "false";
-        }
-
-        function LMSGetLastError() {
-            return errorCode;
-        }
+        function LMSGetLastError() {return errorCode;}
 
         function LMSGetErrorString(param) {
             if (param != "") {
@@ -386,58 +318,25 @@
         }
 
         function LMSGetDiagnostic(param) {
-            if (param == "") {
-                param = errorCode;
-            }
+            if (param == "") {param = errorCode;}
             return param;
         }
 
         function AddTime(first, second) {
-            var sFirst = first.split(":");
-            var sSecond = second.split(":");
-            var cFirst = sFirst[2].split(".");
-            var cSecond = sSecond[2].split(".");
-            var change = 0;
-
+            var sFirst = first.split(":");var sSecond = second.split(":");var cFirst = sFirst[2].split(".");var cSecond = sSecond[2].split(".");var change = 0;
             FirstCents = 0;  //Cents
-            if (cFirst.length > 1) {
-                FirstCents = parseInt(cFirst[1], 10);
-            }
+            if (cFirst.length > 1) {FirstCents = parseInt(cFirst[1], 10);}
             SecondCents = 0;
-            if (cSecond.length > 1) {
-                SecondCents = parseInt(cSecond[1], 10);
-            }
-            var cents = FirstCents + SecondCents;
-            change = Math.floor(cents / 100);
-            cents = cents - (change * 100);
-            if (Math.floor(cents) < 10) {
-                cents = "0" + cents.toString();
-            }
-
+            if (cSecond.length > 1) {SecondCents = parseInt(cSecond[1], 10);}
+            var cents = FirstCents + SecondCents;change = Math.floor(cents / 100);cents = cents - (change * 100);
+            if (Math.floor(cents) < 10) {cents = "0" + cents.toString();}
             var secs = parseInt(cFirst[0], 10) + parseInt(cSecond[0], 10) + change;  //Seconds
-            change = Math.floor(secs / 60);
-            secs = secs - (change * 60);
-            if (Math.floor(secs) < 10) {
-                secs = "0" + secs.toString();
-            }
-
+            change = Math.floor(secs / 60);secs = secs - (change * 60);if (Math.floor(secs) < 10) {secs = "0" + secs.toString();}
             mins = parseInt(sFirst[1], 10) + parseInt(sSecond[1], 10) + change;   //Minutes
-            change = Math.floor(mins / 60);
-            mins = mins - (change * 60);
-            if (mins < 10) {
-                mins = "0" + mins.toString();
-            }
-
+            change = Math.floor(mins / 60); mins = mins - (change * 60);if (mins < 10) {mins = "0" + mins.toString();}
             hours = parseInt(sFirst[0], 10) + parseInt(sSecond[0], 10) + change;  //Hours
-            if (hours < 10) {
-                hours = "0" + hours.toString();
-            }
-
-            if (cents != '0') {
-                return hours + ":" + mins + ":" + secs + '.' + cents;
-            } else {
-                return hours + ":" + mins + ":" + secs;
-            }
+            if (hours < 10) {hours = "0" + hours.toString();}
+            if (cents != '0') {return hours + ":" + mins + ":" + secs + '.' + cents;} else {return hours + ":" + mins + ":" + secs;}
         }
 
         function TotalTime() {
@@ -448,9 +347,8 @@
         function CollectData(data, parent) {
             var datastring = '';
             for (property in data) {
-                if (typeof data[property] == 'object') {
-                    datastring += CollectData(data[property], parent + '.' + property);
-                } else {
+                if (typeof data[property] == 'object') {datastring += CollectData(data[property], parent + '.' + property);}
+                else {
                     element = parent + '.' + property;
                     expression = new RegExp(CMIIndex, 'g');
                     elementmodel = String(element).replace(expression, '.n.');
@@ -458,12 +356,8 @@
                         if (eval('datamodel["' + elementmodel + '"].mod') != 'r') {
                             elementstring = '&' + underscore(element) + '=' + escape(data[property]);
                             if ((typeof eval('datamodel["' + elementmodel + '"].defaultvalue')) != "undefined") {
-                                if (eval('datamodel["' + elementmodel + '"].defaultvalue') != data[property]) {
-                                    datastring += elementstring;
-                                }
-                            } else {
-                                datastring += elementstring;
-                            }
+                                if (eval('datamodel["' + elementmodel + '"].defaultvalue') != data[property]) {datastring += elementstring;}
+                            } else {datastring += elementstring;}
                         }
                     }
                 }
@@ -471,22 +365,46 @@
             return datastring;
         }
 
+        function LMSCommit(param) {
+            errorCode = "0";
+            if (param == "") {
+                if (cmi.initialized == "true") {
+                    result = StoreData(cmi, false);
+                    return "true";
+                } else {errorCode = "301";}
+            } else {errorCode = "201";}
+            return "false";
+        }
+            
+        function LMSFinish(param) {
+            console.log("--> enter LMSFinish");
+            errorCode = "0";
+            if (param == "") {
+                if (cmi.initialized == "true") {
+                    cmi.initialized = "false";
+                    cmi.terminate = "true";
+                    result = StoreData(cmi, true);
+                    return "true";
+                } else {errorCode = "301";}
+            } else {errorCode = "201";}
+            return "false";
+        }
+        
+        // Use lesson_mode and score to finalize lesson_status
         function FinalizeModeAndStatus() {
-            if (cmi.core.lesson_mode == 'normal') {
-                if (cmi.core.credit == 'credit') {
-                    if (cmi.student_data.mastery_score != '' && cmi.core.score.raw != '') {
-                        if (cmi.core.score.raw >= cmi.student_data.mastery_score) {
-                            cmi.core.lesson_status = 'passed';
-                        } else {
-                            cmi.core.lesson_status = 'failed';
-                        }
-                    }
-                }
-            }
-            if (cmi.core.lesson_mode == 'browse') {
-                if (datamodel['cmi.core.lesson_status'].defaultvalue == '' && cmi.core.lesson_status == 'not attempted') {
-                    cmi.core.lesson_status = 'browsed';
-                }
+            if (cmi.core.lesson_mode == 'normal') {if (cmi.core.credit == 'credit') {if (cmi.student_data.mastery_score != '' && cmi.core.score.raw != '') 
+                {if (cmi.core.score.raw >= cmi.student_data.mastery_score) {cmi.core.lesson_status = 'passed';} else {cmi.core.lesson_status = 'failed';}}}}
+            if (cmi.core.lesson_mode == 'browse') {if (datamodel['cmi.core.lesson_status'].defaultvalue == '' && cmi.core.lesson_status == 'not attempted') 
+                    {cmi.core.lesson_status = 'browsed';}}
+        }
+
+        function IsLessonComplete() {
+            switch (cmi.core.lesson_status) {
+                case 'failed':
+                case 'passed':
+                    return true;
+                default:
+                    return false;
             }
         }
 
@@ -494,12 +412,13 @@
             if (storetotaltime) {
                 FinalizeModeAndStatus();
                 //datastring += TotalTime();
-            } else {
-                //datastring = CollectData(data,'cmi');
             }
+            //else {//datastring = CollectData(data,'cmi');}
 
             // update total_time, regardless of whether the session is finished...
             cmi.core.total_time = TotalTime();
+
+            if (IsLessonComplete()) {cmi.terminate = "true";}
 
             var dto = JSON.stringify(cmi);
 
@@ -507,24 +426,27 @@
         }
 
         function PostData(data, asynch) {
-            $.ajax({
-                type: "POST",
-                url: "AICC_SCORM.asmx/PostCMI",
-                // The key needs to match your method's input parameter (case-sensitive).
-                data: "{'cmi_dto':" + data + "}", //{  JSON.stringify(cmi) }, //json_data:
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                //success: function (data) { alert(data); },
-                error: function(xhr, msg) {
-                    $(".main").append("<div style='position: relative; z-index: 999;background-color: white;'>" + xhr.responseText + "<p>{'cmi_dto':" + data + "}" + "</div>");
-                    // alert(msg + '\n' + xhr.responseText);
-                },
-                failure: function (errMsg) {
-                    alert(errMsg);
-                },
-                async: asynch
-            });
-
+            //console.log("--> enter PostData {" + data + "}");
+            if (cmi.initialized == "true"){
+                $.ajax({
+                    type: "POST",
+                    url: "AICC_SCORM.asmx/PostCMI",
+                    // The key needs to match your method's input parameter (case-sensitive).
+                    data: "{'cmi_dto':" + data + "}", //{  JSON.stringify(cmi) }, //json_data:
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    //success: function (data) { alert(data); },
+                    error: function(xhr, msg) {
+                        $(".main").append("<div style='position: relative; z-index: 999;background-color: white;'>" + 
+                            xhr.responseText + "<p>{'cmi_dto':" + data + "}" + "</div>");
+                        // alert(msg + '\n' + xhr.responseText);
+                    },
+                    failure: function (errMsg) {
+                        alert(errMsg);
+                    },
+                    async: asynch
+                });
+        }
         }
 
         this.LMSInitialize = LMSInitialize;
@@ -536,10 +458,11 @@
         this.LMSGetErrorString = LMSGetErrorString;
         this.LMSGetDiagnostic = LMSGetDiagnostic;
 
-        this.initialized = Initialized;
+        //this.initialized = Initialized;
         this.cmi = cmi;
         this.TotalTime = TotalTime;
         this.finalize = FinalizeModeAndStatus;
+        this.isComplete = IsLessonComplete;
         this.PostData = PostData;
     }
 
@@ -550,18 +473,17 @@
     $(window).unload(function () { handleWindowClose(); });
     
     function handleWindowClose(){
-        if (API.initialized) { //check to see if API is initialized (implies it was used, rather than HACP)
-
+        if (API.cmi.initialized == "true") { //check to see if API is initialized (implies it was used, rather than HACP)
+            API.LMSFinish("");
+            /*
             API.finalize();
-
             // update total_time, regardless of' whether the session is finished...
             API.cmi.core.total_time = API.TotalTime();
-
             var dto = JSON.stringify(API.cmi);
             API.PostData(JSON.stringify(dto), false);
-
             // make sure this is not fired twice (i.e. if onbeforeunload worked and this is called from unload)
             API.initialized = false;
+            */
         }
         window.opener.location.href = window.opener.location.protocol + '//' +
                                 window.opener.location.host + window.opener.location.pathname +

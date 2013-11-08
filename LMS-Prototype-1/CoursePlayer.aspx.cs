@@ -76,6 +76,7 @@ namespace LMS_Prototype_1
                 // temp: for backwards compatibility of test data
                 if (enroll.e_enroll_lesson_status == "incomplete")
                 {
+                    lesson_status = "incomplete";
                     enroll.e_enroll_status_id_fk = status_incomplete;
                     context.SaveChanges();
                 }

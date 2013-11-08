@@ -280,46 +280,52 @@ namespace AICC_CMI
 
                     enroll.e_enroll_completion_date = DateTime.Now;
                     enroll.e_enroll_active_flag = false;
-                    
-                    var tx = t_tb_transcripts.Createt_tb_transcripts(Guid.NewGuid(), 
-                                        t_transcript_user_id_fk: enroll.e_enroll_user_id_fk, 
-                                        t_transcript_course_id_fk: enroll.e_enroll_course_id_fk, 
-                                        t_transcript_delivery_id_fk: enroll.e_enroll_delivery_id_fk, 
-                                        t_transcript_attendance_id_fk: OLT_Player,
-                                        t_transcript_passing_status_id_fk: enroll.e_enroll_lesson_status, 
-                                        t_transcript_completion_date_time: DateTime.Now, 
-                                        t_transcript_completion_type_id_fk: OLT_Player,
-                                        t_transcript_marked_by_user_id_fk: new Guid(),// all zeroes
-                                        t_transcript_actual_date: DateTime.Now
-
-                        );
-                    tx.t_transcript_target_due_date = enroll.e_enroll_target_due_date;
-                    tx.t_transcript_score = enroll.e_enroll_score;
-
-                    //TODO: score min/max must be added to transcripts table ???? maybe not... (not in player logic document)
-                    
-                    tx.t_transcript_credits = enroll.c_tb_deliveries_master.c_delivery_credit_units;
-                    tx.t_transcript_hours = enroll.c_tb_deliveries_master.c_delivery_credit_hours;
-                    tx.t_transcript_time_spent = enroll.e_enroll_time_spent;
 
                     string pass_status_fk;
-                    tx.t_transcript_completion_score = CalcCompletionScore(enroll.e_enroll_score,
+                    Guid tx_status_id_fk;
+                    Guid? tx_grade_id_fk = null;
+                    
+                    var tx_compl_score = CalcCompletionScore(enroll.e_enroll_score,
                         enroll.c_tb_deliveries_master.c_delivery_grading_scheme_id_fk, out pass_status_fk);
-
+                    
                     switch (pass_status_fk)
                     {
                         case "":
-                            tx.t_transcript_status_id_fk = enroll.e_enroll_status_id_fk;
+                            tx_status_id_fk = enroll.e_enroll_status_id_fk;
                             break;
                         default:
-                            tx.t_transcript_status_id_fk = Guid.Parse(pass_status_fk);
-                            tx.t_transcript_grade_id_fk = enroll.c_tb_deliveries_master.c_delivery_grading_scheme_id_fk;
+                            tx_status_id_fk = Guid.Parse(pass_status_fk);
+                            tx_grade_id_fk = enroll.c_tb_deliveries_master.c_delivery_grading_scheme_id_fk;
                             break;
                     }
-                        
-                    tx.t_transcript_active_flag = true;
 
+                    var tx = new t_tb_transcripts
+                    {
+                        t_transcript_id_pk = Guid.NewGuid(),
+                        t_transcript_user_id_fk = enroll.e_enroll_user_id_fk, 
+                        t_transcript_course_id_fk = enroll.e_enroll_course_id_fk, 
+                        t_transcript_delivery_id_fk = enroll.e_enroll_delivery_id_fk, 
+                        t_transcript_attendance_id_fk = OLT_Player,
+                        t_transcript_passing_status_id_fk = enroll.e_enroll_lesson_status, 
+                        t_transcript_completion_date_time = DateTime.Now, 
+                        t_transcript_completion_type_id_fk = OLT_Player,
+                        t_transcript_marked_by_user_id_fk = new Guid(),// all zeroes
+                        t_transcript_actual_date = DateTime.Now,
+                        t_transcript_target_due_date = enroll.e_enroll_target_due_date,
+                        t_transcript_score = enroll.e_enroll_score,
+                        t_transcript_credits = enroll.c_tb_deliveries_master.c_delivery_credit_units,
+                        t_transcript_hours = enroll.c_tb_deliveries_master.c_delivery_credit_hours,
+                        t_transcript_time_spent = enroll.e_enroll_time_spent,
+                        t_transcript_completion_score = tx_compl_score,
+                        t_transcript_status_id_fk = tx_status_id_fk,
+                        t_transcript_active_flag = true,
+                        t_transcript_grade_id_fk = tx_grade_id_fk
+                    };
+                    context.t_tb_transcripts.AddObject(tx);
                     context.SaveChanges();
+
+                    //TODO: score min/max must be added to transcripts table ???? maybe not... (not in player logic document)
+                    
 
                     // A. Insert completion record in audit log
                     insertAuditRecord(enroll.u_tb_users_master.u_user_id_pk, "Marked Completion / Type (OLT Player)", 
@@ -1209,10 +1215,17 @@ namespace AICC_CMI
             json_values.TryGetValue("cmi.core.lesson_status", out lesson_status);
             lesson_status = m_map_lesson_status[lesson_status.Substring(0,1)];
 
-            string lesson_mode = GetLessonMode(json_values);
+            /*string lesson_mode = GetLessonMode(json_values);
             bool? credit = GetCredit(json_values);
             double? mastery_score = GetMasteryScore(json_values);
             double? score_raw = GetScoreRaw(json_values);
+            */
+            ret = lesson_status;
+/*          
+ * According to the AICC standard version 4.0 (pg 22), the Lesson Status must be
+ * reported by the AU (i.e. the course) in the HACP binding, whereas the API binding 
+ * does not require the value. However, the API/JavaScript calculates the proper 
+ * lesson status. So, this code is redundant.
 
             if (lesson_status != null)
             {
@@ -1241,7 +1254,7 @@ namespace AICC_CMI
                     if (lesson_status == "not attempted")
                         ret = "browsed";
                 }
-            }
+            }*/
 
             return ret;
         }
