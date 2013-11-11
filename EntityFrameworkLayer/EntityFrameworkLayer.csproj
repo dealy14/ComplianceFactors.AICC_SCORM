@@ -51,7 +51,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="ComplianceFactors_Entities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ComplianceFactors_Entities.Designer.cs</LastGenOutput>

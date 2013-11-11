@@ -15,6 +15,7 @@ namespace AICC_CMI
         private Dictionary<string, FieldDelegate> m_delegates = new Dictionary<string, FieldDelegate>();
         private Dictionary<string, string> m_dbmap = new Dictionary<string,string>();
         protected Dictionary<string, string> m_map_lesson_status = new Dictionary<string,string>();
+        protected Dictionary<string, string> m_map_completion_status = new Dictionary<string, string>();
         protected List<string> m_lesson_statuses_completed = new List<string>();
 
         private const string OLT_Player = "cd8a0438-0631-4996-8bc0-5b9609e70cb6"; // GUID for OLT Player as 'actor'
@@ -24,6 +25,7 @@ namespace AICC_CMI
             InitDelegates();
             InitLessonStatusMap();
             InitLessonStatusesCompleted();
+            InitCompletionStatusMap();
         }
 
         public BaseLogic(Dictionary<string, string> json_values)
@@ -178,6 +180,15 @@ namespace AICC_CMI
             m_lesson_statuses_completed.Add("failed");
             m_lesson_statuses_completed.Add("browsed");
         }
+
+        protected void InitCompletionStatusMap()
+        {
+            m_map_completion_status.Add("c", "app_ddl_completed_text");
+            m_map_completion_status.Add("p", "app_ddl_passed_text");
+            m_map_completion_status.Add("f", "app_ddl_failed_text");
+            m_map_completion_status.Add("b", "app_ddl_browsed_text");
+        }
+
         #endregion
 
         public void ConsumeJSObj(Dictionary<string, string> json_values)
@@ -287,7 +298,7 @@ namespace AICC_CMI
                     
                     var tx_compl_score = CalcCompletionScore(enroll.e_enroll_score,
                         enroll.c_tb_deliveries_master.c_delivery_grading_scheme_id_fk, out pass_status_fk);
-                    
+
                     switch (pass_status_fk)
                     {
                         case "":
@@ -306,7 +317,7 @@ namespace AICC_CMI
                         t_transcript_course_id_fk = enroll.e_enroll_course_id_fk, 
                         t_transcript_delivery_id_fk = enroll.e_enroll_delivery_id_fk, 
                         t_transcript_attendance_id_fk = OLT_Player,
-                        t_transcript_passing_status_id_fk = enroll.e_enroll_lesson_status, 
+                        t_transcript_passing_status_id_fk = GetCompletionStatusFK(enroll.e_enroll_lesson_status.Substring(0,1)), 
                         t_transcript_completion_date_time = DateTime.Now, 
                         t_transcript_completion_type_id_fk = OLT_Player,
                         t_transcript_marked_by_user_id_fk = new Guid(),// all zeroes
@@ -1655,6 +1666,18 @@ namespace AICC_CMI
         private bool LessonCompleted(string status)
         {
             return m_lesson_statuses_completed.Contains(status);
+        }
+
+        private string GetCompletionStatusFK(string status)
+        {
+            string ret = "";
+
+            if (m_map_completion_status.ContainsKey(status))
+            {
+                ret = m_map_completion_status[status];  
+            }
+
+            return ret;
         }
 
         #endregion
