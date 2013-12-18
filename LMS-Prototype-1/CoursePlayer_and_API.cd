@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LMS_Prototype_1.AICC_SCORM">
+    <Position X="7.75" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>AICC_SCORM.asmx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LMS_Prototype_1.DynamicJsonObject">
+    <Position X="7.75" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAASAAABAAAAAAAQAAAAAA=</HashCode>
+      <FileName>AICC_SCORM.asmx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LMS_Prototype_1.DynamicJsonConverter">
+    <Position X="7.75" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAACBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AICC_SCORM.asmx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LMS_Prototype_1._CoursePlayer">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAgIIAABAEAAAgAAAIASMAAQgBAAEQAAQQAAIAAAE=</HashCode>
+      <FileName>CoursePlayer.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LMS_Prototype_1.HACP_Handler">
+    <Position X="5.25" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAAgIIAAAAEABIgAAAIASEAAQgAIAEQAASQAAIAAAE=</HashCode>
+      <FileName>HACP_Handler.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cmi">
+    <Position X="2.5" Y="0.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Cmi.Core">
+        <NestedTypes>
+          <Class Name="Cmi.Core.Score" Collapsed="true">
+            <TypeIdentifier>
+              <NewMemberFileName>Common\Cmi.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Class>
+        </NestedTypes>
+        <TypeIdentifier>
+          <NewMemberFileName>Common\Cmi.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Cmi.Student_Data" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Common\Cmi.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Cmi.Objectives" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Common\Cmi.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Cmi.Evaluation" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Common\Cmi.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Cmi.Interactions" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Common\Cmi.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Cmi.Student_Preference" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Common\Cmi.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Cmi.RootObject">
+        <TypeIdentifier>
+          <NewMemberFileName>Common\Cmi.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Cmi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AICC_CMI.BaseLogic">
+    <Position X="1.25" Y="0.5" Width="3.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="AICC_CMI.BaseLogic.FieldDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>BaseLogic.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>YWpsWG2gvIEOATKogfZCWePAF1SJuhFAwk7C8VCikZM=</HashCode>
+      <FileName>BaseLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AICC_CMI.HACP_Logic" Collapsed="true">
+    <Position X="5.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HACP_Logic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AICC_CMI.JS_API_Logic" Collapsed="true">
+    <Position X="5.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JS_API_Logic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

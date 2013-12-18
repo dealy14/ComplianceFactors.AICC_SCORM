@@ -258,6 +258,7 @@
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CoursePlayer_and_API.cd" />
     <None Include="Courses\RuntimeBasicCalls_SCORM12\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
     </None>
