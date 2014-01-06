@@ -80,7 +80,7 @@ namespace LMS_Prototype_1
                 if (pair.Value is Dictionary<string, object>)
                     WalkDict(parent_key + "." + pair.Key, (Dictionary<string, object>) pair.Value, output);
                 else
-                    output[parent_key + "." + pair.Key] = (string)pair.Value;
+                    output[parent_key + "." + pair.Key] = (pair.Value).ToString();
             }
         }
         
