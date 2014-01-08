@@ -19,6 +19,8 @@ namespace AICC_CMI
         protected List<string> m_lesson_statuses_completed = new List<string>();
 
         private const string OLT_Player = "cd8a0438-0631-4996-8bc0-5b9609e70cb6"; // GUID for OLT Player as 'actor'
+        private const string enroll_status_completed = "4f180939-ca63-4f5d-89d3-486ab96e76cb";
+        private const string enroll_status_incomplete = "655f1d57-1a6e-498f-b341-33c8c04ab430";
 
         public BaseLogic()
         {
@@ -229,7 +231,11 @@ namespace AICC_CMI
                         case "cmi.core.lesson_status":
                             enroll.e_enroll_lesson_status = (string)pair.Value;
                             if ((string)pair.Value == "incomplete"){
-                                enroll.e_enroll_status_id_fk = Guid.Parse("655f1d57-1a6e-498f-b341-33c8c04ab430"); // Incomplete
+                                enroll.e_enroll_status_id_fk = Guid.Parse(enroll_status_incomplete); // Incomplete
+                            }
+                            else if ((string) pair.Value == "completed")
+                            {
+                                enroll.e_enroll_status_id_fk = Guid.Parse(enroll_status_completed); // Completed
                             }
                             break;
                         case "cmi.core.credit":
@@ -305,7 +311,7 @@ namespace AICC_CMI
                             tx_status_id_fk = enroll.e_enroll_status_id_fk;
                             break;
                         default:
-                            tx_status_id_fk = Guid.Parse(pass_status_fk);
+                            tx_status_id_fk = enroll.e_enroll_status_id_fk;
                             tx_grade_id_fk = enroll.c_tb_deliveries_master.c_delivery_grading_scheme_id_fk;
                             break;
                     }

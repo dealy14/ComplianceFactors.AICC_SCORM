@@ -20,7 +20,7 @@ namespace LMS_Prototype_1
     /// <summary>
     /// AICC_SCORM Web Service
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
+    [WebService(Namespace = "http://compliancefactors.com")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     [System.Web.Script.Services.ScriptService]
